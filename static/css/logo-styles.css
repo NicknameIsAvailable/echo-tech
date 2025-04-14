@@ -1,0 +1,38 @@
+/* Стили для логотипа */
+.logo-image {
+    height: 75px;
+    width: auto;
+    transition: all 0.3s ease;
+    margin: 5px 0;
+}
+
+.navbar-brand {
+    padding: 0 10px 0 0;
+}
+
+.navbar.scrolled .logo-image {
+    height: 55px;
+}
+
+/* Добавляем свечение при наведении */
+.navbar-brand:hover .logo-image {
+    filter: drop-shadow(0 0 3px rgba(var(--primary-rgb), 0.5));
+    transform: scale(1.02);
+}
+
+/* Центрирование логотипа */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+/* Отзывчивость логотипа */
+@media (max-width: 767.98px) {
+    .logo-image {
+        height: 50px;
+    }
+
+    .navbar.scrolled .logo-image {
+        height: 45px;
+    }
+}

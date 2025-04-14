@@ -1,0 +1,457 @@
+[data-theme="dark"] {
+    --primary-color: #6d8cff;
+    --primary-dark: #5a76ff;
+    --primary-light: #8ca4ff;
+    --primary-rgb: 109, 140, 255;
+
+    /* Text Colors */
+    --text-primary: #e2e8f0;
+    --text-secondary: #a0aec0;
+    --text-light: #718096;
+    --text-primary-rgb: 226, 232, 240;
+    --text-secondary-rgb: 160, 174, 192;
+
+    /* Background Colors */
+    --background-primary: #1a202c;
+    --background-secondary: #2d3748;
+    --background-tertiary: #4a5568;
+    --background-primary-rgb: 26, 32, 44;
+    --background-secondary-rgb: 45, 55, 72;
+    --background-tertiary-rgb: 74, 85, 104;
+
+    /* Accent Colors */
+    --accent-color: #38b2e0;
+    --accent-dark: #0096c7;
+    --accent-light: #48cae4;
+
+    /* Status Colors - slightly brighter for dark theme */
+    --success-color: #34d399;
+    --success-rgb: 52, 211, 153;
+    --warning-color: #fbbf24;
+    --danger-color: #f87171;
+    --danger-rgb: 248, 113, 113;
+
+    /* Border Colors */
+    --border-color: #4a5568;
+
+    /* Shadow adjustments for dark theme */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark Theme Specific Overrides */
+[data-theme="dark"] .site-header {
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+[data-theme="dark"] .card {
+    background-color: var(--background-secondary);
+}
+
+[data-theme="dark"] .bg-light {
+    background-color: var(--background-secondary) !important;
+}
+
+[data-theme="dark"] .contact-form-container {
+    background-color: var(--background-secondary);
+}
+
+[data-theme="dark"] .accordion-button {
+    background-color: var(--background-secondary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .accordion-button:not(.collapsed) {
+    background-color: var(--background-tertiary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .accordion-body {
+    background-color: var(--background-secondary);
+}
+
+[data-theme="dark"] .accordion-item {
+    background-color: var(--background-secondary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .form-control {
+    background-color: var(--background-primary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .form-control:focus {
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .tech-badge {
+    background-color: var(--background-tertiary);
+}
+
+[data-theme="dark"] .social-icon {
+    background-color: var(--background-tertiary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .social-icon:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+[data-theme="dark"] .site-footer {
+    background-color: var(--background-secondary);
+}
+
+[data-theme="dark"] .copyright {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .theme-switch .slider {
+    background-color: var(--background-tertiary);
+}
+
+[data-theme="dark"] .tech-visualization text,
+[data-theme="dark"] .service-visual text,
+[data-theme="dark"] #tech-visualization text {
+    fill: var(--text-primary);
+}
+
+/* Fix for icons in dark mode */
+[data-theme="dark"] .fas,
+[data-theme="dark"] .far,
+[data-theme="dark"] .fab,
+[data-theme="dark"] .fa {
+    color: inherit;
+}
+
+/* Ensure proper contrast for icons with specific colors */
+[data-theme="dark"] .text-primary .fas,
+[data-theme="dark"] .text-primary .far,
+[data-theme="dark"] .text-primary .fab,
+[data-theme="dark"] .text-primary .fa,
+[data-theme="dark"] .fas.text-primary,
+[data-theme="dark"] .far.text-primary,
+[data-theme="dark"] .fab.text-primary,
+[data-theme="dark"] .fa.text-primary {
+    color: var(--primary-color);
+}
+
+/* SVG elements in dark mode */
+[data-theme="dark"] svg path,
+[data-theme="dark"] svg rect,
+[data-theme="dark"] svg circle,
+[data-theme="dark"] svg line {
+    stroke: var(--text-primary);
+}
+
+[data-theme="dark"] svg text {
+    fill: var(--text-primary);
+}
+
+/* Ensure proper contrast for SVG icons */
+[data-theme="dark"] .service-icon svg,
+[data-theme="dark"] .advantage-icon svg,
+[data-theme="dark"] .solution-icon svg {
+    filter: brightness(1.2);
+}
+
+[data-theme="dark"] .project-image-placeholder {
+    background-color: var(--background-tertiary);
+}
+
+/* Fix for specific icon styles in dark mode */
+[data-theme="dark"] .value-icon i,
+[data-theme="dark"] .service-icon i,
+[data-theme="dark"] .advantage-icon i,
+[data-theme="dark"] .solution-icon i {
+    color: var(--primary-color);
+}
+
+[data-theme="dark"] .advantage-item:hover {
+    background-color: var(--background-secondary);
+}
+
+[data-theme="dark"] .service-card:hover,
+[data-theme="dark"] .project-card:hover,
+[data-theme="dark"] .advantage-item:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Enhanced transitions in dark theme */
+[data-theme="dark"].theme-transitioning * {
+    transition-duration: calc(var(--transition-slow) * 1.2);
+}
+
+/* Enhance hover effects in dark theme */
+[data-theme="dark"] .hover-transition:hover {
+    box-shadow: 0 10px 25px rgba(var(--primary-rgb), 0.15);
+}
+
+/* Enhance ripple effect in dark theme */
+[data-theme="dark"] .theme-transition-ripple {
+    background-color: rgba(var(--primary-rgb), 0.2);
+    box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.4);
+}
+
+/* Smoother theme switch transition in dark mode */
+[data-theme="dark"] .theme-switch.toggling .slider {
+    animation: dark-pulse-glow 0.8s ease-in-out;
+}
+
+@keyframes dark-pulse-glow {
+    0% { box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.3); }
+    50% { box-shadow: 0 0 0 12px rgba(var(--primary-rgb), 0); }
+    100% { box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0); }
+}
+
+/* Tech Stack Cards - Dark Theme */
+[data-theme="dark"] .tech-card {
+    background: rgba(var(--background-secondary-rgb), 0.3);
+    border: 1px solid rgba(var(--primary-rgb), 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+[data-theme="dark"] .tech-card::before {
+    background: radial-gradient(
+        circle at center,
+        rgba(var(--primary-rgb), 0.08) 0%,
+        rgba(var(--primary-rgb), 0) 70%
+    );
+}
+
+[data-theme="dark"] .tech-card:hover {
+    background-color: rgba(var(--background-secondary-rgb), 0.5);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(var(--primary-rgb), 0.1);
+    border-color: rgba(var(--primary-rgb), 0.4);
+}
+
+[data-theme="dark"] .tech-card-title {
+    border-bottom-color: rgba(var(--primary-rgb), 0.3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .language-sticker {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .language-sticker:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), 0 0 8px rgba(255, 255, 255, 0.1);
+    transform: scale(1.12) translateY(-3px);
+}
+
+/* Более красивые эффекты на темной теме */
+[data-theme="dark"] .tech-card::after {
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(255, 255, 255, 0.15) 100%
+    );
+}
+
+/* Неоновое свечение для карточек в темной теме */
+[data-theme="dark"] .tech-card {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(var(--primary-rgb), 0.1);
+}
+
+[data-theme="dark"] .tech-card:hover {
+    box-shadow:
+        0 12px 25px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(var(--primary-rgb), 0.4),
+        0 0 20px rgba(var(--primary-rgb), 0.15);
+}
+
+/* Tech Category Panel - Dark Theme */
+[data-theme="dark"] .tech-category-panel {
+    background-color: rgba(var(--background-secondary-rgb), 0.5);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
+    border-color: rgba(var(--primary-rgb), 0.1);
+    perspective: 1000px;
+}
+
+[data-theme="dark"] .tech-item {
+    background-color: rgba(var(--background-secondary-rgb), 0.7);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(var(--primary-rgb), 0.1);
+    text-align: center;
+}
+
+[data-theme="dark"] .tech-item:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 0 15px rgba(var(--primary-rgb), 0.2);
+    border-color: rgba(var(--primary-rgb), 0.3);
+    transform: translateY(-8px) scale(1.05);
+    background-color: rgba(var(--background-secondary-rgb), 0.8);
+}
+
+[data-theme="dark"] .tech-item::before {
+    background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+[data-theme="dark"] .tech-item::after {
+    display: none;
+}
+
+[data-theme="dark"] .tech-item:hover::after {
+    display: none;
+}
+
+[data-theme="dark"] .tech-item:hover .tech-icon-circle {
+    animation: pulseEffect 1.5s infinite ease-in-out;
+}
+
+/* Обновленные стили для tech-item в темной теме */
+[data-theme="dark"] .tech-icon-circle {
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    width: 42px;
+    height: 42px;
+}
+
+[data-theme="dark"] .tech-icon-circle i {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.3);
+    font-size: 24px;
+}
+
+[data-theme="dark"] .tech-item:hover .tech-icon-circle i {
+    color: var(--primary-light);
+    text-shadow: 0 0 15px rgba(var(--primary-rgb), 0.5);
+    transform: scale(1.1) rotate(5deg);
+}
+
+[data-theme="dark"] .tech-label {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .tech-item:hover .tech-label {
+    color: var(--primary-light);
+}
+
+/* Dark theme for Tech Stack Grid */
+[data-theme="dark"] .tech-stack-card {
+    background-color: var(--card-bg);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .tech-stack-card-header {
+    background-color: rgba(var(--primary-rgb), 0.15);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .tech-stack-card-header h3 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .tech-stack-card-content .tech-item {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Service Cards in Dark Theme */
+[data-theme="dark"] .service-card {
+    background-color: var(--background-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .service-card:hover {
+    background-color: var(--background-tertiary);
+    border-color: rgba(var(--primary-rgb), 0.3);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+    transform: translateY(-5px);
+}
+
+[data-theme="dark"] .service-card .service-card-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .service-card .service-card-description {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .service-card .service-benefit {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .service-card .service-benefit i {
+    color: var(--success-color);
+}
+
+[data-theme="dark"] .service-card .service-card-icon i {
+    color: var(--primary-color);
+}
+
+[data-theme="dark"] .service-card .service-results h4 {
+    color: var(--text-primary);
+    border-bottom: 1px solid rgba(var(--primary-rgb), 0.2);
+    padding-bottom: 0.5rem;
+}
+
+[data-theme="dark"] .service-card .service-results p {
+    color: var(--text-secondary);
+}
+
+/* Service detail page specific elements */
+[data-theme="dark"] .service-detail-header h1 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .service-detail-header .lead {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .advantages-section .section-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .advantages-description p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .advantage-box-detailed {
+    background-color: var(--background-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .advantage-box-detailed:hover {
+    background-color: var(--background-tertiary);
+    border-color: rgba(var(--primary-rgb), 0.3);
+}
+
+[data-theme="dark"] .advantage-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .advantage-content p {
+    color: var(--text-secondary);
+}
+
+/* Добавим явные стили для кнопок в темной теме, чтобы предотвратить изменение формы в Chrome */
+[data-theme="dark"] .btn {
+    border-radius: 8px !important;
+}
+
+[data-theme="dark"] .btn-primary:hover,
+[data-theme="dark"] .btn-primary:focus,
+[data-theme="dark"] .btn-primary:active {
+    border-radius: 8px !important;
+}
+
+[data-theme="dark"] .btn-outline-primary:hover,
+[data-theme="dark"] .btn-outline-primary:focus,
+[data-theme="dark"] .btn-outline-primary:active {
+    border-radius: 8px !important;
+}
+
+

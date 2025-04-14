@@ -1,0 +1,59 @@
+{% macro organization() %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "EchoTech",
+  "url": "{{ request.url_root }}",
+  "logo": "{{ url_for('static', filename='images/echotech-logo.png', _external=True) }}",
+  "sameAs": [],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "",
+    "email": "info@echotech.ru",
+    "contactType": "customer service",
+    "availableLanguage": "Russian"
+  },
+  "description": "EchoTech — лидер ИТ-консалтинга, создающий революционные технологические решения для бизнеса с 2010 года.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "RU"
+  }
+}
+</script>
+{% endmacro %}
+
+{% macro website() %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "EchoTech",
+  "url": "{{ request.url_root }}",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ request.url_root }}search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{% endmacro %}
+
+{% macro breadcrumb(items) %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {% for item in items %}
+    {
+      "@type": "ListItem",
+      "position": {{ loop.index }},
+      "name": "{{ item.name }}",
+      "item": "{{ item.url }}"
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endmacro %} 

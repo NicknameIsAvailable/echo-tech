@@ -1,0 +1,1472 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ _('Услуги') }} - {{ _('EchoTech') }}{% endblock %}
+
+{% block meta_description %}Комплексные ИТ-услуги от EchoTech: разработка веб-сайтов, мобильных приложений, высоконагруженных систем. Индивидуальные решения для частных лиц и бизнеса любого масштаба.{% endblock %}
+
+{% block meta_keywords %}ИТ-услуги, разработка сайтов, мобильные приложения, Python разработка, C++ разработка, CRM системы, автоматизация бизнеса, Россия{% endblock %}
+
+{% block og_title %}Услуги EchoTech — Полный спектр ИТ-решений | Ведущая компания России{% endblock %}
+
+{% block og_description %}Комплексные ИТ-услуги от EchoTech: от разработки сайтов и мобильных приложений до внедрения корпоративных систем. Индивидуальный подход к каждому проекту.{% endblock %}
+
+{% block structured_data %}
+{% from 'structured_data.html' import breadcrumb %}
+{{ breadcrumb([
+    {'name': 'Главная', 'url': url_for('home.index', _external=True)},
+    {'name': 'Услуги', 'url': url_for('services.index', _external=True)}
+]) }}
+{% endblock %}
+
+{% block head_content %}
+<style>
+    .services-hero-section {
+        padding: 30px 0 20px;
+        position: relative;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .services-hero-section::before {
+        content: '';
+        position: absolute;
+        top: -150px;
+        right: -80px;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: rgba(var(--primary-rgb), 0.06);
+        z-index: -1;
+    }
+
+    .services-hero-section::after {
+        content: '';
+        position: absolute;
+        bottom: -100px;
+        left: -80px;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        background: rgba(var(--accent-color), 0.05);
+        z-index: -1;
+    }
+
+    .services-hero-title {
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        margin-bottom: 5px;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        display: inline-block;
+        line-height: 1.2;
+        font-weight: 800;
+    }
+
+    /* Override dark theme variables for hero title */
+    [data-theme="dark"] .services-hero-title,
+    [data-theme="light"] .services-hero-title {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+    }
+
+    .services-hero-description {
+        max-width: 700px;
+        margin: 0 auto 0;
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+    }
+
+    .service-categories h3 {
+        padding: 0 25px;
+        margin-bottom: 25px;
+        color: var(--text-primary);
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+
+    .categories-list li {
+        position: relative;
+        margin-bottom: 5px;
+        padding: 0 2px;
+    }
+
+    .categories-list a {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px 12px 20px;
+        text-decoration: none;
+        color: var(--text-secondary);
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+        white-space: normal;
+        border-radius: 0 30px 30px 0;
+        margin-right: 8px;
+        font-weight: 500;
+        position: relative;
+        overflow: hidden;
+        font-size: 0.95rem;
+        word-wrap: break-word;
+        word-break: break-word;
+        min-height: 45px;
+    }
+
+    .categories-list a:hover {
+        background-color: rgba(var(--primary-rgb), 0.1);
+        color: var(--primary-color);
+        transform: translateX(3px);
+    }
+
+    .categories-list a i {
+        margin-right: 10px;
+        font-size: 1.1rem;
+        width: 22px;
+        text-align: center;
+        opacity: 0.85;
+        transition: all 0.3s ease;
+    }
+
+    .categories-list a:hover i {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    /* Общие стили для карточек с результатами */
+    .result-card {
+        border-left: none !important;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.1), rgba(var(--primary-rgb), 0.05));
+        border-radius: 10px;
+        padding: 12px 15px;
+        display: flex;
+        align-items: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: 10px;
+    }
+
+    .result-card:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Иконка результата */
+    .result-icon {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        background: var(--primary-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+    }
+
+    .result-icon i {
+        color: white;
+        font-size: 16px;
+    }
+
+    /* Текст результата */
+    .result-text {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.4;
+    }
+
+    /* Улучшение контраста для светлой темы */
+    body:not(.dark-theme) .result-text {
+        color: #333 !important;
+        font-weight: 500;
+    }
+
+    /* Принудительно изменяем цвет текста в светлой теме */
+    body:not(.dark-theme) h5 {
+        color: #333 !important;
+    }
+
+    body:not(.dark-theme) .short-section p,
+    body:not(.dark-theme) .service-description {
+        color: #333 !important;
+    }
+
+    /* Статистика */
+    .result-stat {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-right: 15px;
+        white-space: nowrap;
+        min-width: 70px;
+        text-align: center;
+    }
+
+    .result-stat span {
+        color: var(--primary-color);
+    }
+
+    /* Стиль для линий заголовков секций */
+    .section-title {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .section-title::after {
+        display: none; /* Убираем подчеркивающую линию */
+    }
+
+    .short-section:hover .section-title::after {
+        display: none; /* Отключаем линию при наведении */
+    }
+
+    /* Стиль для заголовков секций внутри карточек услуг */
+    .service-section .section-title {
+        border-bottom: none;
+        padding-bottom: 8px;
+        position: relative;
+    }
+
+    /* Замена синей линии на другой стиль */
+    .service-section .section-title::after {
+        display: none; /* Убираем подчеркивающую линию */
+    }
+
+    .service-section:hover .section-title::after {
+        display: none; /* Отключаем линию при наведении */
+    }
+
+    /* Стиль для заголовка раздела */
+    .result-title, .advantages-title {
+        position: relative;
+        display: inline-block;
+        padding-bottom: 8px;
+    }
+
+    .result-title::after, .advantages-title::after {
+        display: none; /* Убираем подчеркивающую линию */
+    }
+
+    .result-title:hover::after, .advantages-title:hover::after,
+    .short-section:hover .result-title::after, .short-section:hover .advantages-title::after {
+        display: none; /* Отключаем линию при наведении */
+    }
+
+    /* Улучшенные стили для элементов */
+    .result-item, .advantage-item {
+        position: relative;
+        overflow: hidden;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 10px 12px 10px 18px;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border-left: none !important;
+        transform-style: preserve-3d;
+        perspective: 800px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .result-item::before, .advantage-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 0;
+        background: linear-gradient(to bottom, var(--primary-color), rgba(var(--primary-rgb), 0.4));
+        transition: height 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        border-radius: 0 4px 4px 0;
+        z-index: 2;
+    }
+
+    .result-item::after, .advantage-item::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, rgba(var(--primary-rgb), 0.1), transparent);
+        transform: translateX(-100%);
+        transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 0;
+    }
+
+    .result-item:hover::before, .advantage-item:hover::before {
+        height: 100%;
+    }
+
+    .result-item:hover::after, .advantage-item:hover::after {
+        transform: translateX(0);
+    }
+
+    .result-item:hover, .advantage-item:hover {
+        transform: translateX(5px) translateY(-4px) rotateX(2deg);
+        background-color: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Эффект свечения при наведении */
+    .result-item:hover {
+        box-shadow: 
+            0 6px 12px rgba(0, 0, 0, 0.15),
+            0 2px 4px rgba(0, 0, 0, 0.1),
+            0 0 0 1px rgba(var(--primary-rgb), 0.05),
+            0 0 15px rgba(var(--primary-rgb), 0.15);
+    }
+
+    /* Применяем стили для светлой темы */
+    body:not(.dark-theme) .advantage-item,
+    body:not(.dark-theme) .result-item {
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        color: #333 !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    body:not(.dark-theme) .advantage-item::after,
+    body:not(.dark-theme) .result-item::after {
+        background: linear-gradient(90deg, rgba(var(--primary-rgb), 0.1), transparent);
+    }
+
+    body:not(.dark-theme) .advantage-item:hover,
+    body:not(.dark-theme) .result-item:hover {
+        background-color: rgba(var(--primary-rgb), 0.08);
+        box-shadow: 
+            0 6px 12px rgba(var(--primary-rgb), 0.08),
+            0 2px 4px rgba(var(--primary-rgb), 0.05);
+    }
+
+    .advantage-item i,
+    .result-item i {
+        margin-right: 10px;
+        flex-shrink: 0;
+        font-size: 0.85rem;
+        position: relative;
+        z-index: 1;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        padding: 6px;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .advantage-item:hover i,
+    .result-item:hover i {
+        transform: scale(1.3) rotate(15deg);
+        background-color: rgba(var(--primary-rgb), 0.2);
+        box-shadow: 
+            0 4px 8px rgba(var(--primary-rgb), 0.2),
+            0 0 0 2px rgba(var(--primary-rgb), 0.1);
+        color: var(--primary-color);
+    }
+
+    .advantages-title {
+        color: var(--warning-color, #ffc107);
+    }
+
+    .result-title {
+        color: var(--primary-color, #5271e8);
+    }
+
+    /* Исправление цвета текста для темной темы */
+    .dark-card,
+    body.dark-theme {
+        --text-secondary: rgba(255, 255, 255, 0.8);
+        --text-primary: rgba(255, 255, 255, 0.95);
+    }
+
+    /* Явное указание цвета текста для результатов в темной теме */
+    .dark-card .result-text,
+    body.dark-theme .result-text {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Установка светлого цвета для статистики в темной теме */
+    .dark-card .result-stat,
+    body.dark-theme .result-stat {
+        color: #2196f3 !important; /* Более яркий синий цвет для лучшей видимости */
+    }
+
+    .dark-card .result-stat span,
+    body.dark-theme .result-stat span {
+        color: #2196f3 !important; /* Такой же яркий синий цвет для всех span внутри статистики */
+    }
+
+    /* Добавляем новые правила для синего цвета процентов, мин и x в светлой теме */
+    body:not(.dark-theme) .result-stat,
+    body:not(.dark-theme) .result-stat span {
+        color: #0d6efd !important; /* Синий цвет для светлой темы */
+    }
+
+    /* Усиление контраста для заголовков секций */
+    .dark-card .section-title,
+    body.dark-theme .section-title {
+        color: rgba(255, 255, 255, 0.95);
+    }
+
+    /* Установка светлого цвета для преимуществ */
+    .dark-card .advantage-item,
+    body.dark-theme .advantage-item,
+    .dark-card .result-item,
+    body.dark-theme .result-item {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* Стили для заголовков в темной теме */
+    .dark-card h5,
+    body.dark-theme h5 {
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Стили для всех иконок в темной теме */
+    .dark-card i:not(.fa-star):not(.fa-chart-line):not(.fa-file-alt):not(.fa-arrow-right):not(.fa-check-circle),
+    body.dark-theme i:not(.fa-star):not(.fa-chart-line):not(.fa-file-alt):not(.fa-arrow-right):not(.fa-check-circle) {
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Правила удалены, так как мы теперь используем стиль из .result-stat span */
+
+    /* Media Queries */
+    @media (max-width: 991px) {
+        .result-stat {
+            font-size: 1.2rem;
+        }
+
+        .result-icon {
+            width: 35px;
+            height: 35px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .service-type-section {
+            padding: 15px 0;
+        }
+
+        .services-cta h2 {
+            font-size: 2rem;
+        }
+
+        .services-cta {
+            padding: 30px 0;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            font-size: 1.1rem;
+        }
+
+        .result-text {
+            font-size: 0.85rem;
+        }
+    }
+
+    @keyframes modal-slide-in {
+        from {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes highlight-pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.3);
+        }
+        70% {
+            box-shadow: 0 0 0 15px rgba(var(--primary-rgb), 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0);
+        }
+    }
+
+    /* Декоративные круги */
+    .decorator-circle {
+        position: absolute;
+        border-radius: 50%;
+        z-index: -1;
+    }
+
+    .decorator-circle-1 {
+        width: 350px;
+        height: 350px;
+        background-color: rgba(var(--primary-rgb), 0.03);
+        right: 5%;
+        top: 65%;
+    }
+
+    .decorator-circle-2 {
+        width: 250px;
+        height: 250px;
+        background-color: rgba(var(--primary-rgb), 0.02);
+        left: 10%;
+        bottom: -100px;
+    }
+
+    @media (max-width: 768px) {
+        .decorator-circle-1 {
+            width: 250px;
+            height: 250px;
+            right: -50px;
+        }
+
+        .decorator-circle-2 {
+            width: 200px;
+            height: 200px;
+            left: -50px;
+        }
+    }
+
+    /* Статистика - при любой теме и при любых обстоятельствах синего цвета */
+    .result-stat,
+    .result-stat span,
+    body .result-stat,
+    body .result-stat span,
+    html .result-stat,
+    html .result-stat span,
+    body.dark-theme .result-stat,
+    body.dark-theme .result-stat span,
+    body:not(.dark-theme) .result-stat,
+    body:not(.dark-theme) .result-stat span,
+    .dark-card .result-stat,
+    .dark-card .result-stat span {
+        color: #2196f3 !important;
+        transition: none !important;
+    }
+
+    /* Отключаем любые переходы для цвета при смене темы */
+    .result-stat,
+    .result-stat span {
+        transition-property: transform, box-shadow !important;
+        transition-duration: 0.3s !important;
+        -webkit-transition-property: transform, box-shadow !important;
+        -webkit-transition-duration: 0.3s !important;
+    }
+
+    /* Улучшенный стиль для ссылок на услуги */
+    .other-service-link {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-radius: 12px;
+        background: linear-gradient(145deg,
+            rgba(var(--background-tertiary-rgb), 0.3),
+            rgba(var(--background-tertiary-rgb), 0.1));
+        margin-bottom: 15px;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(var(--primary-rgb), 0.08);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .other-service-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg,
+            rgba(var(--primary-rgb), 0.05),
+            transparent);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .other-service-link:hover {
+        transform: translateX(8px);
+        background: linear-gradient(145deg,
+            rgba(var(--primary-rgb), 0.15),
+            rgba(var(--primary-rgb), 0.05));
+        color: var(--primary-color);
+        border-color: rgba(var(--primary-rgb), 0.2);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .other-service-link:hover::before {
+        opacity: 1;
+    }
+
+    .other-service-link i {
+        margin-right: 15px;
+        font-size: 1.2rem;
+        color: var(--primary-color);
+        height: 40px;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: rgba(var(--primary-rgb), 0.1);
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+    }
+
+    .other-service-link:hover i {
+        transform: scale(1.1) rotate(5deg);
+        background-color: rgba(var(--primary-rgb), 0.2);
+    }
+
+    .other-service-link span {
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    /* Определяем переменные цвета для светлой темы */
+    body:not(.dark-theme) {
+        --text-primary: rgba(33, 37, 41, 0.95);
+        --text-secondary: rgba(33, 37, 41, 0.8);
+    }
+
+    /* Принудительно переопределяем цвета светлой темы */
+    body:not(.dark-theme) .service-segment-card {
+        color: #333 !important;
+        background-color: #fff !important;
+    }
+
+    /* Принудительно переопределяем все тексты в светлой теме */
+    body:not(.dark-theme) .service-segment-card h3,
+    body:not(.dark-theme) .service-segment-card p,
+    body:not(.dark-theme) .service-segment-card .service-description,
+    body:not(.dark-theme) .service-segment-card .advantage-item,
+    body:not(.dark-theme) .service-segment-card .result-item,
+    body:not(.dark-theme) .service-segment-card .result-text {
+        color: #333 !important;
+    }
+
+    /* Убираем класс dark-card в светлой теме */
+    body:not(.dark-theme) .dark-card {
+        background-color: #fff !important;
+        color: #333 !important;
+    }
+
+    body:not(.dark-theme) .advantage-item:hover,
+    body:not(.dark-theme) .result-item:hover {
+        background-color: rgba(var(--primary-rgb), 0.08);
+        box-shadow: 
+            0 6px 12px rgba(var(--primary-rgb), 0.08),
+            0 2px 4px rgba(var(--primary-rgb), 0.05);
+    }
+
+    /* Декоративная линия для карточек */
+    .service-segment-card {
+        position: relative;
+        overflow: visible;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border: none;
+        background-color: var(--background-secondary);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-top: 0;
+    }
+
+    .service-segment-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(var(--primary-rgb), 0.1);
+    }
+
+    .service-segment-card::before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: -10px;
+        width: 4px;
+        height: 30%;
+        background: linear-gradient(to bottom, var(--primary-color), transparent);
+        border-radius: 4px;
+        z-index: 1;
+    }
+
+    .service-segment-card::after {
+        content: '';
+        position: absolute;
+        bottom: 20px;
+        right: -10px;
+        width: 4px;
+        height: 30%;
+        background: linear-gradient(to top, var(--primary-color), transparent);
+        border-radius: 4px;
+        z-index: 1;
+    }
+
+    /* Анимация для линий при скролле */
+    @keyframes line-appear {
+        0% { width: 0; opacity: 0; }
+        100% { width: 100%; opacity: 1; }
+    }
+
+    .animated-line {
+        animation: line-appear 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+
+    /* Стили для кнопок */
+    .btn-primary {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .btn-primary::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.5);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: -1;
+    }
+
+    .btn-primary:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+
+    /* Стили для сегментов */
+    .segment-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+        color: white;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.2);
+    }
+
+    .service-segment:hover .segment-icon {
+        transform: rotate(5deg) scale(1.1);
+        box-shadow: 0 8px 20px rgba(var(--primary-rgb), 0.3);
+    }
+
+    /* Основные стили */
+    .service-description {
+        margin-bottom: 20px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        font-size: 1.1rem;
+    }
+
+    /* Декоративные круги для фона страницы */
+    .services-page {
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Большой круг справа внизу */
+    .services-page::before {
+        content: '';
+        position: absolute;
+        bottom: -200px;
+        right: -200px;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: rgba(var(--primary-rgb), 0.03);
+        z-index: -1;
+    }
+
+    /* Большой круг слева вверху */
+    .services-page::after {
+        content: '';
+        position: absolute;
+        top: -150px;
+        left: -150px;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: rgba(var(--primary-rgb), 0.02);
+        z-index: -1;
+    }
+
+    /* Секция CTA */
+    .services-cta {
+        padding: 40px 0;
+        text-align: center;
+        position: relative;
+        background: linear-gradient(to right, rgba(var(--primary-rgb), 0.03), rgba(var(--accent-color), 0.03));
+        border-radius: 20px;
+        margin: 40px 0;
+    }
+
+    .services-cta h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+
+    .services-cta p {
+        max-width: 600px;
+        margin: 0 auto 30px;
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+    }
+
+    .cta-btn {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        border-radius: 30px;
+        box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.25);
+        transition: all 0.3s ease;
+    }
+
+    .cta-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(var(--primary-rgb), 0.4);
+    }
+
+    /* Структура разделов */
+    .advantage-items,
+    .result-items {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    /* Стиль для линий в карточках */
+    .short-section {
+        margin: 30px 0;
+        padding: 20px 0;
+        position: relative;
+    }
+    
+    .service-type-section {
+        padding: 20px 0;
+        position: relative;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Хлебные крошки -->
+<div class="container mt-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('home.index') }}">Главная</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Услуги</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="services-page">
+    <div class="services-hero-section">
+        <div class="container">
+            <h1 class="services-hero-title" data-i18n="Our Services">{{ _('Наши услуги') }}</h1>
+            <p class="services-hero-description" data-i18n="Comprehensive IT solutions tailored to your business needs">
+                {{ _('Комплексные ИТ-решения, адаптированные под ваши потребности') }}
+            </p>
+        </div>
+    </div>
+
+    <div class="container">
+        <section class="service-type-section" id="client-solutions">
+            <div class="row g-4">
+                <!-- Решения для частных лиц - слева -->
+                <div class="col-lg-6">
+                    <div class="card service-segment-card h-100 dark-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="segment-icon me-3">
+                                    <i class="fas {{ individual_services.icon }} fa-2x text-primary"></i>
+                                </div>
+                                <h3 class="h4 mb-0">{{ individual_services.title }}</h3>
+                            </div>
+
+                            <p class="service-description mb-4">{{ individual_services.description }}</p>
+
+                            <div class="short-section mb-4">
+                                <h5 class="mb-2 advantages-title"><i class="fas fa-star text-warning me-2"></i>{{ _('Преимущества') }}</h5>
+                                <div class="advantage-items">
+                                    <div class="advantage-item"><i class="fas fa-check-circle text-primary"></i>{{ _('Персонализированный подход') }}</div>
+                                    <div class="advantage-item"><i class="fas fa-check-circle text-primary"></i>{{ _('Контроль цифровой жизни') }}</div>
+                                    <div class="advantage-item"><i class="fas fa-check-circle text-primary"></i>{{ _('Экономия за счет автоматизации') }}</div>
+                                </div>
+                            </div>
+
+                            <div class="short-section service-section">
+                                <h5 class="section-title mb-2"><i class="fas fa-chart-line text-primary me-2"></i>{{ _('Реальные результаты') }}</h5>
+                                <div class="success-stories">
+                                    <div class="result-card">
+                                        <div class="result-icon"><i class="fas fa-rocket"></i></div>
+                                        <div class="result-text">{{ _('Рост личной продуктивности на 75%% после внедрения наших цифровых инструментов для планирования') }}</div>
+                                    </div>
+                                    <div class="result-card">
+                                        <div class="result-icon"><i class="fas fa-clock"></i></div>
+                                        <div class="result-text">{{ _('Ежедневная экономия времени в 45 минут за счет автоматизации рутинных задач и интеграции сервисов') }}</div>
+                                    </div>
+                                    <div class="result-card">
+                                        <div class="result-icon"><i class="fas fa-smile"></i></div>
+                                        <div class="result-text">{{ _('89%% пользователей отметили повышение эффективности работы с данными и снижение стресса') }}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="short-section mb-4">
+                                <h5 class="mb-2 result-title"><i class="fas fa-chart-line text-primary me-2"></i>{{ _('Что вы получите') }}</h5>
+                                <div class="result-items">
+                                    <div class="result-item"><i class="fas fa-arrow-right text-primary"></i>{{ _('Оптимизация времени и затрат') }}</div>
+                                    <div class="result-item"><i class="fas fa-arrow-right text-primary"></i>{{ _('Повышенная продуктивность') }}</div>
+                                    <div class="result-item"><i class="fas fa-arrow-right text-primary"></i>{{ _('Безопасные решения') }}</div>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-auto">
+                                <a href="{{ url_for('services.individual_details') }}" class="btn btn-primary">
+                                    {{ _('Подробнее') }} <i class="fas fa-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Решения для бизнеса - справа -->
+                <div class="col-lg-6">
+                    <div class="card service-segment-card h-100 dark-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="segment-icon me-3">
+                                    <i class="fas {{ business_services.icon }} fa-2x text-primary"></i>
+                                </div>
+                                <h3 class="h4 mb-0">{{ business_services.title }}</h3>
+                            </div>
+
+                            <p class="service-description mb-4">{{ business_services.description }}</p>
+
+                            <div class="short-section mb-4">
+                                <h5 class="mb-2 advantages-title"><i class="fas fa-star text-warning me-2"></i>{{ _('Преимущества для бизнеса') }}</h5>
+                                <div class="advantage-items">
+                                    <div class="advantage-item"><i class="fas fa-check-circle text-primary"></i>{{ _('Оптимизированные процессы') }}</div>
+                                    <div class="advantage-item"><i class="fas fa-check-circle text-primary"></i>{{ _('Снижение затрат') }}</div>
+                                    <div class="advantage-item"><i class="fas fa-check-circle text-primary"></i>{{ _('Конкурентное преимущество') }}</div>
+                                </div>
+                            </div>
+
+                            <div class="short-section service-section">
+                                <h5 class="section-title mb-2"><i class="fas fa-file-alt text-primary me-2"></i>{{ _('Примеры внедрений') }}</h5>
+                                <div class="business-cases">
+                                    <div class="result-card">
+                                        <div class="result-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                                        <div class="result-text">{{ _('Снижение расходов на IT-поддержку на 40%% для транспортной компании через оптимизацию инфраструктуры') }}</div>
+                                    </div>
+                                    <div class="result-card">
+                                        <div class="result-icon"><i class="fas fa-users"></i></div>
+                                        <div class="result-text">{{ _('Улучшение коммуникаций на 62%% при переходе на корпоративную платформу для команды из 50+ сотрудников') }}</div>
+                                    </div>
+                                    <div class="result-card">
+                                        <div class="result-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                        <div class="result-text">{{ _('Ускорение анализа финансовых данных в 3 раза благодаря внедрению нашей аналитической системы') }}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="short-section mb-4">
+                                <h5 class="mb-2 result-title"><i class="fas fa-chart-line text-primary me-2"></i>{{ _('Влияние на бизнес') }}</h5>
+                                <div class="result-items">
+                                    <div class="result-item"><i class="fas fa-arrow-right text-primary"></i>{{ _('Повышенная эффективность') }}</div>
+                                    <div class="result-item"><i class="fas fa-arrow-right text-primary"></i>{{ _('Улучшенный клиентский опыт') }}</div>
+                                    <div class="result-item"><i class="fas fa-arrow-right text-primary"></i>{{ _('Масштабируемые решения') }}</div>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-auto">
+                                <a href="{{ url_for('services.business_details') }}" class="btn btn-primary">
+                                    {{ _('Подробнее') }} <i class="fas fa-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Декоративный круг в средней части -->
+    <div class="decorator-circle decorator-circle-1"></div>
+
+    <!-- CTA секция -->
+    <div class="container">
+        <div class="services-cta">
+            <h2>{{ _('Готовы начать свой проект?') }}</h2>
+            <p>{{ _('Свяжитесь с нами сегодня, чтобы обсудить, как наши услуги могут помочь вашему бизнесу расти и внедрять инновации.') }}</p>
+            <a href="{{ url_for('contact.index') }}" class="btn btn-primary btn-lg cta-btn">{{ _('Связаться с нами') }}</a>
+        </div>
+    </div>
+
+    <!-- Декоративный круг внизу -->
+    <div class="decorator-circle decorator-circle-2"></div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Функции для полноэкранных модальных окон
+        window.openServiceModal = function(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                // Показываем модальное окно
+                modal.style.display = 'block';
+
+                // Анимация появления
+                setTimeout(() => {
+                    modal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+
+                    // Анимация контента
+                    const content = modal.querySelector('.custom-modal-content');
+                    if (content) {
+                        content.style.opacity = '1';
+                        content.style.transform = 'translateY(0)';
+                    }
+                }, 10);
+            }
+        };
+
+        window.closeServiceModal = function(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                // Анимация закрытия
+                const content = modal.querySelector('.custom-modal-content');
+                if (content) {
+                    content.style.opacity = '0';
+                    content.style.transform = 'translateY(20px)';
+                }
+
+                // Удаляем класс show
+                modal.classList.remove('show');
+
+                // Ждем окончания анимации перед скрытием
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+        };
+
+        // Закрытие модального окна при клике на оверлей
+        const modalOverlays = document.querySelectorAll('.custom-modal-overlay');
+        modalOverlays.forEach(overlay => {
+            overlay.addEventListener('click', function() {
+                const modal = this.closest('.custom-modal');
+                if (modal) {
+                    closeServiceModal(modal.id);
+                }
+            });
+        });
+
+        // Обработчик для клавиши Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const openModals = document.querySelectorAll('.custom-modal.show');
+                openModals.forEach(modal => {
+                    closeServiceModal(modal.id);
+                });
+            }
+        });
+
+        // Инициализация визуализаций
+        /* Начало цикла Jinja */
+        /* {% for service in services %} */
+        try {
+            if (typeof initServiceVisualization === 'function') {
+                initServiceVisualization('{{ service.id }}-visual', '{{ service.id }}');
+            } else {
+                console.log('Функция визуализации еще не загружена');
+                const visualContainer = document.getElementById('{{ service.id }}-visual');
+                if (visualContainer) {
+                    visualContainer.style.display = 'flex';
+                    visualContainer.style.alignItems = 'center';
+                    visualContainer.style.justifyContent = 'center';
+                    visualContainer.innerHTML = '<div style="text-align: center;"><i class="fas {{ service.icon }} fa-3x mb-3" style="color: var(--primary-color);"></i><p>{{ service.name }}</p></div>';
+                }
+            }
+        } catch (error) {
+            console.log('Функция визуализации еще не загружена');
+        }
+        /* {% endfor %} */
+        /* Конец цикла Jinja */
+
+        // Работа с боковой панелью категорий
+        const categoriesToggle = document.querySelector('.categories-toggle');
+        const categoriesPanel = document.querySelector('.service-categories');
+
+        if (categoriesToggle && categoriesPanel) {
+            categoriesToggle.addEventListener('click', function() {
+                categoriesPanel.classList.toggle('expanded');
+
+                // Изменение иконки
+                const icon = this.querySelector('i');
+                if (categoriesPanel.classList.contains('expanded')) {
+                    icon.classList.remove('fa-chevron-left');
+                    icon.classList.add('fa-chevron-right');
+                } else {
+                    icon.classList.remove('fa-chevron-right');
+                    icon.classList.add('fa-chevron-left');
+                }
+            });
+        }
+
+        // Плавная прокрутка и активные ссылки
+        const categoryLinks = document.querySelectorAll('.categories-list a');
+        const sections = document.querySelectorAll('.service-card, #tech-services, #client-solutions');
+
+        // Наблюдатель пересечений для отслеживания видимых секций
+        if ('IntersectionObserver' in window) {
+            const options = {
+                root: null,
+                rootMargin: '-100px 0px -60% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        setActiveLink(id);
+                    }
+                });
+            }, options);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        function setActiveLink(id) {
+            categoryLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === id) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Обработчик клика для плавной прокрутки
+        categoryLinks.forEach(link => {
+            if (link.getAttribute('href').startsWith('#')) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        // Рассчитываем позицию с учетом шапки сайта
+                        const headerOffset = 80;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+                        // Плавно прокручиваем к элементу
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        // Подсвечиваем элемент при прокрутке к нему
+                        targetElement.classList.add('highlight-animation');
+                        setTimeout(() => {
+                            targetElement.classList.remove('highlight-animation');
+                        }, 1000);
+
+                        // Устанавливаем активную ссылку
+                        categoryLinks.forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+
+                        // На мобильных устройствах скрываем панель после выбора
+                        if (window.innerWidth <= 991) {
+                            categoriesPanel.classList.remove('expanded');
+                            const icon = categoriesToggle.querySelector('i');
+                            icon.classList.remove('fa-chevron-right');
+                            icon.classList.add('fa-chevron-left');
+                        }
+                    }
+                });
+            }
+        });
+
+        // Анимации для карточек услуг при скролле
+        const animateOnScroll = function() {
+            const serviceCards = document.querySelectorAll('.service-card, .service-segment, .service-feature-card');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('show-card');
+                        }, 100);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15
+            });
+
+            serviceCards.forEach((card) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        };
+
+        // Инициализируем анимации
+        animateOnScroll();
+
+        // Добавляем анимацию для историй успеха и бизнес-кейсов
+        const storyCards = document.querySelectorAll('.result-card');
+        storyCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateX(-20px)';
+                card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateX(0)';
+                }, 100 * index);
+            }, 500);
+        });
+        
+        // Улучшенная анимация для элементов "Что вы получите" и "Влияние на бизнес"
+        const enhanceResultItems = () => {
+            const resultItems = document.querySelectorAll('.result-items .result-item');
+            
+            // Добавляем начальные стили для анимации появления
+            resultItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(-20px) translateY(10px)';
+                item.style.transition = 'opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+                
+                // Последовательное появление элементов
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateX(0) translateY(0)';
+                }, 180 * index + 400);
+                
+                // Добавляем обработчик событий для улучшенного hover-эффекта
+                item.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.style.transform = 'scale(1.3) rotate(15deg)';
+                        icon.style.backgroundColor = 'rgba(var(--primary-rgb), 0.2)';
+                        icon.style.boxShadow = '0 4px 8px rgba(var(--primary-rgb), 0.2), 0 0 0 2px rgba(var(--primary-rgb), 0.1)';
+                        icon.style.color = 'var(--primary-color)';
+                    }
+                    
+                    // Добавляем блики на элемент
+                    addShine(this);
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.style.transform = '';
+                        icon.style.backgroundColor = '';
+                        icon.style.boxShadow = '';
+                        icon.style.color = '';
+                    }
+                    
+                    // Удаляем блики
+                    removeShine(this);
+                });
+            });
+            
+            // Добавляем эффект пульсации для иконок при прокрутке к разделу
+            const resultSections = document.querySelectorAll('.short-section');
+            
+            const pulseObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const section = entry.target;
+                        
+                        // Добавляем эффект рисования контуров для заголовка
+                        const title = section.querySelector('h5');
+                        if (title) {
+                            title.classList.add('draw-border-effect');
+                            setTimeout(() => {
+                                title.classList.remove('draw-border-effect');
+                            }, 1500);
+                        }
+                        
+                        // Анимация для иконок
+                        const icons = section.querySelectorAll('.result-item i');
+                        icons.forEach((icon, idx) => {
+                            setTimeout(() => {
+                                icon.classList.add('pulse-effect');
+                                icon.style.transform = 'scale(1.3) rotate(15deg)';
+                                icon.style.backgroundColor = 'rgba(var(--primary-rgb), 0.2)';
+                                
+                                setTimeout(() => {
+                                    icon.classList.remove('pulse-effect');
+                                    icon.style.transform = '';
+                                    icon.style.backgroundColor = '';
+                                }, 800);
+                            }, 180 * idx);
+                        });
+                        
+                        // Анимируем появление элементов в разделе
+                        const items = section.querySelectorAll('.result-item');
+                        items.forEach((item, idx) => {
+                            setTimeout(() => {
+                                item.classList.add('highlight-item');
+                                setTimeout(() => {
+                                    item.classList.remove('highlight-item');
+                                }, 800);
+                            }, 180 * idx + 200);
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.7,
+                rootMargin: '0px 0px -10% 0px'
+            });
+            
+            resultSections.forEach(section => {
+                pulseObserver.observe(section);
+            });
+            
+            // Добавляем плавающие частицы на фон для карточек
+            const serviceCards = document.querySelectorAll('.service-segment-card');
+            serviceCards.forEach(card => {
+                addFloatingParticles(card);
+            });
+        };
+        
+        // Функция для добавления блика при наведении
+        const addShine = (element) => {
+            // Создаем эффект блика
+            const shine = document.createElement('div');
+            shine.classList.add('shine-effect');
+            element.appendChild(shine);
+            
+            // Запускаем анимацию через небольшую задержку
+            setTimeout(() => {
+                shine.style.opacity = '1';
+                shine.style.transform = 'translateX(100%) rotate(30deg)';
+            }, 10);
+            
+            // Удаляем блик после завершения анимации
+            setTimeout(() => {
+                if (element.contains(shine)) {
+                    element.removeChild(shine);
+                }
+            }, 600);
+        };
+        
+        // Функция для удаления блика
+        const removeShine = (element) => {
+            const shine = element.querySelector('.shine-effect');
+            if (shine) {
+                element.removeChild(shine);
+            }
+        };
+        
+        // Функция для добавления плавающих частиц
+        const addFloatingParticles = (container) => {
+            // Добавляем контейнер для частиц
+            const particlesContainer = document.createElement('div');
+            particlesContainer.classList.add('particles-container');
+            container.appendChild(particlesContainer);
+            
+            // Количество частиц
+            const particlesCount = 5;
+            
+            // Создаем частицы
+            for (let i = 0; i < particlesCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('floating-particle');
+                
+                // Задаем случайные свойства
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 10 + 10;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        };
+        
+        // Создаем стили для анимации линий
+        const addLineAnimationStyles = () => {
+            const style = document.createElement('style');
+            style.innerHTML = `
+                /* Отключаем анимацию линий */
+                .section-title::after,
+                .result-title::after,
+                .advantages-title::after {
+                    display: none;
+                }
+                
+                /* Сохраняем анимацию боковых линий карточек */
+                .service-segment-card::before,
+                .service-segment-card::after {
+                    height: 0;
+                    transition: height 0s;
+                }
+                
+                .animate-card-borders::before {
+                    animation: border-line-appear 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+                }
+                
+                .animate-card-borders::after {
+                    animation: border-line-appear 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s forwards;
+                }
+                
+                @keyframes border-line-appear {
+                    0% { height: 0; }
+                    100% { height: 30%; }
+                }
+                
+                /* Анимация левой линии для элементов */
+                .result-item:hover::before, 
+                .advantage-item:hover::before {
+                    animation: grow-line 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+                }
+                
+                @keyframes grow-line {
+                    0% { height: 0; }
+                    100% { height: 100%; }
+                }
+            `;
+            document.head.appendChild(style);
+        };
+        
+        // Инициализируем анимацию линий
+        addLineAnimationStyles();
+        enhanceResultItems();
+    });
+</script>
+{% endblock %}

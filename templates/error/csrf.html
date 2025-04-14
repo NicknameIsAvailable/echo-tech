@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Ошибка CSRF - {{ _('EchoTech') }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            <div class="error-container">
+                <div class="mb-4">
+                    <i class="fas fa-shield-alt text-danger" style="font-size: 5rem;"></i>
+                </div>
+                <h1 class="display-5 mb-4">Ошибка безопасности</h1>
+                <p class="lead mb-4">Ваш запрос не может быть обработан по соображениям безопасности. Возможные причины:</p>
+                
+                <div class="alert alert-danger text-start">
+                    <ul class="mb-0">
+                        <li>Срок действия вашей сессии истек</li>
+                        <li>CSRF-токен отсутствует или недействителен</li>
+                        <li>Вы пытались отправить форму с другого сайта</li>
+                        <li>Ваш браузер не поддерживает необходимые механизмы безопасности</li>
+                    </ul>
+                </div>
+                
+                {% if reason %}
+                <div class="alert alert-secondary my-3">
+                    <p class="small mb-0">Техническая информация: {{ reason }}</p>
+                </div>
+                {% endif %}
+                
+                <div class="mt-5">
+                    <a href="{{ url_for('home.index') }}" class="btn btn-primary btn-lg me-3">
+                        <i class="fas fa-home me-2"></i>Вернуться на главную
+                    </a>
+                    <a href="javascript:history.back()" class="btn btn-outline-secondary btn-lg">
+                        <i class="fas fa-arrow-left me-2"></i>Назад
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

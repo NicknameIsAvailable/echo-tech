@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /temp_uploads/
+
+Sitemap: https://echotech.ru/sitemap.xml 

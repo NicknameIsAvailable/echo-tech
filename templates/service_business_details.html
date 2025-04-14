@@ -1,0 +1,2096 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ business_services.title }} - EchoTech IT Consulting{% endblock %}
+
+{% block content %}
+<div class="service-details-page pt-4 theme-transition-target">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12">
+                <nav aria-label="breadcrumb" class="custom-breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{{ url_for('home.index') }}">{{ _('Главная') }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('services.index') }}">{{ _('Услуги') }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ business_services.title }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        
+        <div class="service-detail-header mb-5">
+            <div class="row align-items-center">
+                <div class="col-lg-9">
+                    <h1 class="mb-4">{{ business_services.title }}</h1>
+                    <p class="lead mb-0">{{ business_services.description }}</p>
+                </div>
+                <div class="col-lg-3 text-center text-lg-end">
+                    <div class="service-icon-large">
+                        <i class="fas {{ business_services.icon }}"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8">
+
+                <!-- Преимущества нашего подхода -->
+                <section class="advantages-section mb-5 theme-transition-target">
+                    <div class="section-header mb-4">
+                        <h2 class="section-title">{{ _('Преимущества нашего подхода:') }}</h2>
+                    </div>
+                    
+                    <div class="advantages-intro mb-4">
+                        <p>{{ _('Выбирая нас, вы получаете профессиональный подход к вашим проектам и индивидуальные решения, которые полностью соответствуют вашим потребностям. Мы уделяем особое внимание качеству и эффективности, чтобы предоставить вам максимальную ценность.') }}</p>
+                    </div>
+                    
+                    <div class="advantages-cards">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="advantage-card-new">
+                                    <div class="advantage-card-icon">
+                                        <i class="fas fa-user-check"></i>
+                                    </div>
+                                    <div class="advantage-card-content">
+                                        <h3 class="advantage-card-title">{{ _('Индивидуальный подход') }}</h3>
+                                        <p class="advantage-card-text">{{ _('Мы внимательно слушаем и адаптируем наши решения под ваши конкретные потребности и цели, а не предлагаем типовые шаблоны.') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="advantage-card-new">
+                                    <div class="advantage-card-icon">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </div>
+                                    <div class="advantage-card-content">
+                                        <h3 class="advantage-card-title">{{ _('Доступные цены') }}</h3>
+                                        <p class="advantage-card-text">{{ _('Мы предлагаем профессиональные услуги по разумным ценам для частных лиц, сохраняя высокое качество работы.') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="advantage-card-new">
+                                    <div class="advantage-card-icon">
+                                        <i class="fas fa-calendar-check"></i>
+                                    </div>
+                                    <div class="advantage-card-content">
+                                        <h3 class="advantage-card-title">{{ _('Чёткие сроки') }}</h3>
+                                        <p class="advantage-card-text">{{ _('Мы устанавливаем реалистичные сроки выполнения проекта и строго их придерживаемся, уважая ваше время.') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="advantage-card-new">
+                                    <div class="advantage-card-icon">
+                                        <i class="fas fa-headset"></i>
+                                    </div>
+                                    <div class="advantage-card-content">
+                                        <h3 class="advantage-card-title">{{ _('Постпроектная поддержка') }}</h3>
+                                        <p class="advantage-card-text">{{ _('Мы не исчезаем после завершения проекта, а продолжаем оказывать техническую поддержку и помощь в освоении созданных решений.') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Конкретные услуги -->
+                <section class="specific-services-section mb-5 theme-transition-target">
+                    <div class="section-header mb-4">
+                        <h2 class="section-title">{{ _('Наши специализированные услуги:') }}</h2>
+                    </div>
+                    
+                    <div class="service-cards-grid">
+                        <!-- Разработка на Python -->
+                        <div class="service-card theme-transition-target">
+                            <div class="service-card-icon">
+                                <i class="fab fa-python"></i>
+                            </div>
+                            <div class="service-card-content">
+                                <h3 class="service-card-title">{{ _('Python разработка') }}</h3>
+                                <p class="service-card-description">{{ _('Комплексные Python решения для бизнеса любого размера и сложности') }}</p>
+                                <div class="service-benefits">
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Быстрые циклы разработки') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Масштабируемая архитектура') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Обработка и анализ данных') }}</div>
+                                </div>
+                                <div class="service-results">
+                                    <h4>{{ _('Что вы получаете:') }}</h4>
+                                    <p>{{ _('Быстрые, надежные и экономичные решения, оптимизирующие бизнес-процессы и повышающие производительность') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- SQL и управление данными -->
+                        <div class="service-card theme-transition-target">
+                            <div class="service-card-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="service-card-content">
+                                <h3 class="service-card-title">{{ _('SQL и управление данными') }}</h3>
+                                <p class="service-card-description">{{ _('Управление базами данных, оптимизация и услуги анализа данных') }}</p>
+                                <div class="service-benefits">
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Оптимизированная производительность БД') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Принятие решений на основе данных') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Безопасное управление данными') }}</div>
+                                </div>
+                                <div class="service-results">
+                                    <h4>{{ _('Что вы получаете:') }}</h4>
+                                    <p>{{ _('Улучшенный доступ к данным, надежность и аналитика для принятия лучших стратегических бизнес-решений') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Кроссплатформенные приложения -->
+                        <div class="service-card theme-transition-target">
+                            <div class="service-card-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="service-card-content">
+                                <h3 class="service-card-title">{{ _('Кроссплатформенные приложения') }}</h3>
+                                <p class="service-card-description">{{ _('Создавайте один раз, запускайте везде с нашей экспертизой кроссплатформенной разработки') }}</p>
+                                <div class="service-benefits">
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Единая кодовая база') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Снижение затрат на разработку') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Более быстрый выход на рынок') }}</div>
+                                </div>
+                                <div class="service-results">
+                                    <h4>{{ _('Что вы получаете:') }}</h4>
+                                    <p>{{ _('Согласованный пользовательский опыт на всех устройствах и платформах со сниженными затратами на разработку и поддержку') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Высокопроизводительные системы на C++ -->
+                        <div class="service-card theme-transition-target">
+                            <div class="service-card-icon">
+                                <i class="fab fa-cuttlefish"></i>
+                            </div>
+                            <div class="service-card-content">
+                                <h3 class="service-card-title">{{ _('Высокопроизводительные C++ системы') }}</h3>
+                                <p class="service-card-description">{{ _('Оптимизированные C++ решения для критически важных приложений') }}</p>
+                                <div class="service-benefits">
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Максимальная производительность') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Оптимизация ресурсов') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Низкоуровневый контроль') }}</div>
+                                </div>
+                                <div class="service-results">
+                                    <h4>{{ _('Что вы получаете:') }}</h4>
+                                    <p>{{ _('Высокоэффективные, надежные системы для критических бизнес-приложений с оптимальным использованием оборудования') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Решения в области ИИ -->
+                        <div class="service-card theme-transition-target">
+                            <div class="service-card-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="service-card-content">
+                                <h3 class="service-card-title">{{ _('ИИ-решения') }}</h3>
+                                <p class="service-card-description">{{ _('Внедрение искусственного интеллекта для конкурентного преимущества бизнеса') }}</p>
+                                <div class="service-benefits">
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Автоматизированное принятие решений') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Предиктивная аналитика') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Улучшенный клиентский опыт') }}</div>
+                                </div>
+                                <div class="service-results">
+                                    <h4>{{ _('Что вы получаете:') }}</h4>
+                                    <p>{{ _('Стратегическое преимущество через интеллектуальные системы, автоматизирующие процессы и предоставляющие ценные бизнес-инсайты') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Интеграция CRM -->
+                        <div class="service-card theme-transition-target">
+                            <div class="service-card-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="service-card-content">
+                                <h3 class="service-card-title">{{ _('Интеграция CRM') }}</h3>
+                                <p class="service-card-description">{{ _('Бесшовная интеграция и настройка CRM-систем') }}</p>
+                                <div class="service-benefits">
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Единые данные о клиентах') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Улучшенное отслеживание продаж') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Улучшенное обслуживание клиентов') }}</div>
+                                </div>
+                                <div class="service-results">
+                                    <h4>{{ _('Что вы получаете:') }}</h4>
+                                    <p>{{ _('Оптимизированное управление взаимоотношениями с клиентами с улучшенным прогнозированием продаж и оптимизированными маркетинговыми кампаниями') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Высоконагруженные решения -->
+                        <div class="service-card theme-transition-target">
+                            <div class="service-card-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <div class="service-card-content">
+                                <h3 class="service-card-title">{{ _('Высоконагруженные решения') }}</h3>
+                                <p class="service-card-description">{{ _('Масштабируемая архитектура для систем с высоким трафиком и нагрузкой данных') }}</p>
+                                <div class="service-benefits">
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Горизонтальное масштабирование') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Оптимизация производительности') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Балансировка нагрузки') }}</div>
+                                </div>
+                                <div class="service-results">
+                                    <h4>{{ _('Что вы получаете:') }}</h4>
+                                    <p>{{ _('Надежная инфраструктура, поддерживающая производительность даже при пиковых нагрузках и обеспечивающая непрерывность бизнеса') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Корпоративные веб-системы -->
+                        <div class="service-card theme-transition-target">
+                            <div class="service-card-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="service-card-content">
+                                <h3 class="service-card-title">{{ _('Корпоративные веб-системы') }}</h3>
+                                <p class="service-card-description">{{ _('Веб-приложения корпоративного уровня для бизнес-среды') }}</p>
+                                <div class="service-benefits">
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Безопасное управление пользователями') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Интеграция с существующими ERP') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Нестандартная бизнес-логика') }}</div>
+                                </div>
+                                <div class="service-results">
+                                    <h4>{{ _('Что вы получаете:') }}</h4>
+                                    <p>{{ _('Централизованные веб-системы, интегрирующиеся со всей организацией для повышения эффективности и потока данных') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Облачная инфраструктура -->
+                        <div class="service-card theme-transition-target">
+                            <div class="service-card-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <div class="service-card-content">
+                                <h3 class="service-card-title">{{ _('Облачная инфраструктура') }}</h3>
+                                <p class="service-card-description">{{ _('Безопасные и надежные облачные решения для вашего бизнеса') }}</p>
+                                <div class="service-benefits">
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Оптимизация затрат') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Масштабируемые ресурсы') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('DevOps автоматизация') }}</div>
+                                </div>
+                                <div class="service-results">
+                                    <h4>{{ _('Что вы получаете:') }}</h4>
+                                    <p>{{ _('Современная облачная инфраструктура, снижающая ИТ-затраты при одновременном повышении надежности, безопасности и адаптивности') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Микросервисная архитектура -->
+                        <div class="service-card theme-transition-target">
+                            <div class="service-card-icon">
+                                <i class="fas fa-puzzle-piece"></i>
+                            </div>
+                            <div class="service-card-content">
+                                <h3 class="service-card-title">{{ _('Микросервисная архитектура') }}</h3>
+                                <p class="service-card-description">{{ _('Современная сервисная архитектура для сложных бизнес-приложений') }}</p>
+                                <div class="service-benefits">
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Независимое развертывание') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Технологическое разнообразие') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Изоляция сбоев') }}</div>
+                                </div>
+                                <div class="service-results">
+                                    <h4>{{ _('Что вы получаете:') }}</h4>
+                                    <p>{{ _('Гибкая архитектура, обеспечивающая более быстрые обновления, лучшее масштабирование и повышенную отказоустойчивость сложных приложений') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Защита корпоративных данных -->
+                        <div class="service-card theme-transition-target">
+                            <div class="service-card-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="service-card-content">
+                                <h3 class="service-card-title">{{ _('Защита корпоративных данных') }}</h3>
+                                <p class="service-card-description">{{ _('Комплексные решения безопасности для данных вашего бизнеса') }}</p>
+                                <div class="service-benefits">
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Системы контроля доступа') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Решения шифрования') }}</div>
+                                    <div class="service-benefit"><i class="fas fa-check-circle"></i> {{ _('Аудиты безопасности') }}</div>
+                                </div>
+                                <div class="service-results">
+                                    <h4>{{ _('Что вы получаете:') }}</h4>
+                                    <p>{{ _('Защищенные бизнес-активы и соответствие нормам защиты данных при сохранении операционной эффективности') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Технологический стек -->
+                <section class="tech-section mb-5 theme-transition-target">
+                    <div class="section-header mb-4">
+                        <h2 class="section-title">{{ _('Технологический стек:') }}</h2>
+                    </div>
+                    
+                    <div class="tech-stack-container">
+                        <!-- Бэкенд и веб-разработка -->
+                        <div class="tech-stack-category">
+                            <div class="tech-stack-category-header">
+                                <div class="tech-stack-category-icon">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <h3 class="tech-stack-category-title">{{ _('Бэкенд и веб-разработка') }}</h3>
+                            </div>
+                            <div class="tech-stack-items">
+                                <div class="row">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fab fa-python"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">Python/Django/Flask</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fab fa-js"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">JavaScript/TypeScript</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fab fa-node-js"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">Node.js</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Корпоративная и прикладная разработка -->
+                        <div class="tech-stack-category">
+                            <div class="tech-stack-category-header">
+                                <div class="tech-stack-category-icon">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                                <h3 class="tech-stack-category-title">{{ _('Корпоративная и прикладная разработка') }}</h3>
+                            </div>
+                            <div class="tech-stack-items">
+                                <div class="row">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fab fa-cuttlefish"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">C++/C#/.NET</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fab fa-java"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">Java/Kotlin/Spring</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fas fa-tachometer-alt"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">Go</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Базы данных и управление данными -->
+                        <div class="tech-stack-category">
+                            <div class="tech-stack-category-header">
+                                <div class="tech-stack-category-icon">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <h3 class="tech-stack-category-title">{{ _('Базы данных и управление данными') }}</h3>
+                            </div>
+                            <div class="tech-stack-items">
+                                <div class="row">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fas fa-database"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">SQL/NoSQL</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fas fa-server"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">PostgreSQL, MySQL, MongoDB</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fas fa-bolt"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">Redis</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- DevOps и инфраструктура -->
+                        <div class="tech-stack-category">
+                            <div class="tech-stack-category-header">
+                                <div class="tech-stack-category-icon">
+                                    <i class="fas fa-cloud"></i>
+                                </div>
+                                <h3 class="tech-stack-category-title">{{ _('DevOps и инфраструктура') }}</h3>
+                            </div>
+                            <div class="tech-stack-items">
+                                <div class="row">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fab fa-docker"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">Docker, Kubernetes</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fab fa-aws"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">AWS, GCP, Azure</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fas fa-code-branch"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">CI/CD, IaC</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Большие данные и аналитика -->
+                        <div class="tech-stack-category">
+                            <div class="tech-stack-category-header">
+                                <div class="tech-stack-category-icon">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <h3 class="tech-stack-category-title">{{ _('Большие данные и аналитика') }}</h3>
+                            </div>
+                            <div class="tech-stack-items">
+                                <div class="row">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fas fa-chart-bar"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">Hadoop, Spark</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">Big Data архитектуры</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Интеграция и API -->
+                        <div class="tech-stack-category">
+                            <div class="tech-stack-category-header">
+                                <div class="tech-stack-category-icon">
+                                    <i class="fas fa-network-wired"></i>
+                                </div>
+                                <h3 class="tech-stack-category-title">{{ _('Интеграция и API') }}</h3>
+                            </div>
+                            <div class="tech-stack-items">
+                                <div class="row">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fas fa-plug"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">RESTful API разработка</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fas fa-exchange-alt"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">Системные интеграции</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="tech-stack-item">
+                                            <div class="tech-stack-item-icon">
+                                                <i class="fas fa-project-diagram"></i>
+                                            </div>
+                                            <div class="tech-stack-item-name">Микросервисы</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Результаты внедрения -->
+                <section class="results-section mb-5 theme-transition-target">
+                    <div class="section-header mb-4">
+                        <h2 class="section-title">{{ _('Результаты внедрения:') }}</h2>
+                    </div>
+                    <div class="results-list">
+                        {% for result in business_services.results %}
+                        <div class="result-box">
+                            <i class="fas fa-arrow-right text-primary"></i>
+                            <span>{{ result }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
+                
+                <!-- Дополнительная информация -->
+                <section class="additional-info-section mb-5 theme-transition-target">
+                    <div class="section-header mb-4">
+                        <h2 class="section-title">{{ _('Дополнительная информация') }}</h2>
+                    </div>
+                    <div class="info-content">
+                        <p>{{ business_services.details }}</p>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="sticky-sidebar">
+                    <!-- Консультация -->
+                    <div class="contact-card dark-card mb-4">
+                        <div class="contact-card-body">
+                            <h3 class="contact-card-title">{{ _('Обсудить ваш бизнес-проект') }}</h3>
+                            <p class="contact-card-text">{{ _('Хотите узнать больше о наших услугах для бизнеса? Свяжитесь с нами сегодня, чтобы запланировать консультацию.') }}</p>
+                            <a href="{{ url_for('contact.index') }}" class="btn btn-primary btn-lg btn-contact">{{ _('Связаться с нами') }}</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Другие услуги -->
+                    <div class="other-services-card dark-card">
+                        <div class="other-services-card-body">
+                            <h3 class="other-services-title">{{ _('Другие услуги') }}</h3>
+                            <div class="other-services-links">
+                                <a href="{{ url_for('services.individual_details') }}" class="other-service-link">
+                                    <i class="fas fa-user-check"></i>
+                                    <span>{{ _('Индивидуальные решения') }}</span>
+                                </a>
+                            </div>
+                            <a href="{{ url_for('services.index') }}" class="btn btn-outline-primary btn-all-services">{{ _('Все услуги') }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block head_content %}
+<style>
+    .service-details-page {
+        padding-bottom: 60px;
+        position: relative;
+        background-color: var(--background-primary);
+        color: var(--text-primary);
+        min-height: 100vh;
+    }
+    
+    /* Новые стили для секции преимуществ */
+    .advantages-intro {
+        background: var(--background-secondary);
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        border-left: 4px solid var(--primary-color);
+    }
+    
+    .advantages-intro p {
+        margin-bottom: 0;
+        font-size: 1.05rem;
+        line-height: 1.7;
+    }
+    
+    .advantage-card-new {
+        display: flex;
+        background: var(--background-secondary);
+        border-radius: 15px;
+        padding: 20px;
+        height: 100%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        border-left: 4px solid var(--primary-color);
+    }
+    
+    .advantage-card-new:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .advantage-card-icon {
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(var(--primary-rgb), 0.1);
+        border-radius: 50%;
+        margin-right: 15px;
+        color: var(--primary-color);
+        font-size: 1.2rem;
+    }
+    
+    .advantage-card-content {
+        flex: 1;
+    }
+    
+    .advantage-card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--text-primary);
+    }
+    
+    .advantage-card-text {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 0;
+    }
+    
+    /* Стили для технологического стека - новый дизайн */
+    .tech-stack-container {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .tech-stack-category {
+        background-color: var(--background-secondary);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .tech-stack-category:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .tech-stack-category-header {
+        background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.15), rgba(var(--primary-rgb), 0.05));
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .tech-stack-category-icon {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(var(--primary-rgb), 0.2);
+        border-radius: 50%;
+        color: var(--primary-color);
+        font-size: 1.4rem;
+        flex-shrink: 0;
+    }
+    
+    .tech-stack-category-title {
+        color: var(--text-primary);
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0;
+    }
+    
+    .tech-stack-items {
+        padding: 20px;
+    }
+    
+    .tech-stack-item {
+        background-color: var(--background-primary);
+        border-radius: 12px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .tech-stack-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .tech-stack-item-icon {
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(var(--primary-rgb), 0.1);
+        border-radius: 50%;
+        color: var(--primary-color);
+        font-size: 2rem;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .tech-stack-item:hover .tech-stack-item-icon {
+        background-color: rgba(var(--primary-rgb), 0.2);
+        transform: scale(1.1) rotate(5deg);
+        animation: pulse 1.5s infinite;
+    }
+    
+    .tech-stack-item-name {
+        color: var(--text-primary);
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+    
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.5);
+        }
+        70% {
+            box-shadow: 0 0 0 10px rgba(var(--primary-rgb), 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0);
+        }
+    }
+    
+    /* Светлая тема для техстека */
+    [data-theme="light"] .tech-stack-category {
+        background-color: #f8f9fa;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    [data-theme="light"] .tech-stack-category-header {
+        background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.1), rgba(var(--primary-rgb), 0.03));
+    }
+    
+    [data-theme="light"] .tech-stack-item {
+        background-color: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Темная тема для техстека */
+    [data-theme="dark"] .tech-stack-category {
+        background-color: rgba(45, 55, 72, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    [data-theme="dark"] .tech-stack-category-header {
+        background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.2), rgba(var(--primary-rgb), 0.1));
+    }
+    
+    [data-theme="dark"] .tech-stack-item {
+        background-color: rgba(26, 32, 44, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    /* Анимация появления технологий */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .tech-stack-category {
+        animation: fadeInUp 0.6s ease-out forwards;
+        opacity: 0;
+    }
+    
+    .tech-stack-category:nth-child(1) { animation-delay: 0.1s; }
+    .tech-stack-category:nth-child(2) { animation-delay: 0.2s; }
+    .tech-stack-category:nth-child(3) { animation-delay: 0.3s; }
+    .tech-stack-category:nth-child(4) { animation-delay: 0.4s; }
+    .tech-stack-category:nth-child(5) { animation-delay: 0.5s; }
+    .tech-stack-category:nth-child(6) { animation-delay: 0.6s; }
+    
+    .tech-stack-item {
+        animation: fadeInUp 0.5s ease-out forwards;
+        opacity: 0;
+        animation-delay: calc(0.1s * var(--animation-order, 0));
+    }
+    
+    /* Исправленные стили для тултипов */
+    .tech-item-card {
+        position: relative;
+        cursor: pointer;
+    }
+    
+    .tech-item-card.has-tooltip {
+        cursor: help;
+    }
+    
+    .tech-item-card::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 120%;
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 250px;
+        max-width: 300px;
+        background: rgba(var(--primary-rgb), 0.95);
+        color: #fff;
+        padding: 12px 15px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        z-index: 100;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        pointer-events: none;
+    }
+    
+    /* Стиль для элементов без тултипа */
+    .tech-item-card:not([data-tooltip])::after {
+        display: none;
+    }
+    
+    .tech-item-card::before {
+        content: '';
+        position: absolute;
+        bottom: 110%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 8px;
+        border-style: solid;
+        border-color: transparent transparent rgba(var(--primary-rgb), 0.95) transparent;
+        z-index: 101;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        pointer-events: none;
+    }
+    
+    /* Скрываем стрелку для элементов без тултипа */
+    .tech-item-card:not([data-tooltip])::before {
+        display: none;
+    }
+    
+    .tech-item-card:hover::after,
+    .tech-item-card:hover::before {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .tech-item-card:hover::after {
+        bottom: 120%;
+    }
+    
+    .tech-item-card:hover::before {
+        bottom: 112%;
+    }
+    
+    /* Адаптивность для тултипов */
+    @media (max-width: 768px) {
+        .tech-item-card::after {
+            min-width: 200px;
+            font-size: 0.8rem;
+            padding: 10px;
+            bottom: 130%;
+            left: 0;
+            transform: translateX(0);
+        }
+        
+        .tech-item-card::before {
+            left: 20px;
+            transform: translateX(0);
+            bottom: 122%;
+        }
+        
+        .tech-item-card:hover::after {
+            bottom: 120%;
+        }
+        
+        .tech-item-card:hover::before {
+            bottom: 112%;
+        }
+    }
+    
+    /* Анимация появления элементов без мерцания */
+    @keyframes smoothFadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Базовые стили для всех анимированных элементов */
+    .animate-element {
+        /* Начальные стили для всех блоков */
+        opacity: 0;
+        transform: translateY(20px);
+        will-change: transform, opacity;
+        backface-visibility: hidden;
+        -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Класс для активации анимации */
+    .animate-element.animated {
+        animation: smoothFadeInUp 0.35s ease-out forwards;
+    }
+    
+    /* Класс для элементов выше линии видимости */
+    .initial-visible {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        animation: none !important;
+    }
+    
+    /* Улучшенные хлебные крошки */
+    .custom-breadcrumb {
+        margin-bottom: 20px;
+        background-color: rgba(var(--background-secondary-rgb), 0.5);
+        padding: 10px 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    .breadcrumb-item a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .breadcrumb-item a:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+    }
+    
+    .breadcrumb-item.active {
+        color: var(--text-secondary);
+        font-weight: 500;
+    }
+    
+    /* Улучшенный заголовок */
+    .service-detail-header {
+        padding-bottom: 30px;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 40px;
+    }
+    
+    .service-detail-header h1 {
+        color: var(--text-primary);
+        font-size: 2.5rem;
+        font-weight: 700;
+        position: relative;
+        display: inline-block;
+        margin-bottom: 1.2rem;
+    }
+    
+    .service-detail-header h1::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), transparent);
+        border-radius: 2px;
+    }
+    
+    .service-detail-header .lead {
+        color: var(--text-secondary);
+        font-size: 1.2rem;
+        line-height: 1.6;
+        max-width: 900px;
+    }
+    
+    .service-icon-large {
+        width: 100px;
+        height: 100px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.2), rgba(var(--primary-rgb), 0.1));
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        margin: 0 auto;
+        box-shadow: 0 10px 25px rgba(var(--primary-rgb), 0.15);
+        transition: all 0.5s ease;
+        transform-style: preserve-3d;
+    }
+    
+    .service-icon-large:hover {
+        transform: translateY(-8px) rotateY(10deg);
+        box-shadow: 0 15px 35px rgba(var(--primary-rgb), 0.25);
+    }
+    
+    /* Улучшенные разделы */
+    .section-header {
+        position: relative;
+        margin-bottom: 2rem;
+    }
+    
+    .section-title {
+        color: var(--text-primary);
+        font-size: 1.75rem;
+        font-weight: 600;
+        display: inline-block;
+        position: relative;
+        margin-bottom: 0.5rem;
+        padding-bottom: 10px;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), transparent);
+        border-radius: 2px;
+        transition: width 0.3s ease;
+    }
+    
+    .section-title:hover::after {
+        width: 100%;
+    }
+    
+    /* Улучшенные карточки услуг */
+    .service-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 30px;
+    }
+    
+    .service-card {
+        position: relative;
+        border-radius: 18px;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.4s ease;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+        height: 100%;
+    }
+    
+    .service-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.05) 0%, transparent 100%);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .service-card:hover::before {
+        opacity: 1;
+    }
+    
+    .service-card-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.3), rgba(var(--primary-rgb), 0.1));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin: 30px auto 20px;
+        box-shadow: 0 8px 20px rgba(var(--primary-rgb), 0.15);
+        transition: all 0.4s ease;
+    }
+    
+    .service-card:hover .service-card-icon {
+        transform: scale(1.1) rotate(10deg);
+        box-shadow: 0 12px 25px rgba(var(--primary-rgb), 0.25);
+    }
+    
+    .service-card-content {
+        padding: 0 30px 30px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .service-card-title {
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        text-align: center;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .service-card-description {
+        color: var(--text-secondary);
+        margin-bottom: 25px;
+        text-align: center;
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+    
+    .service-benefits {
+        margin-bottom: 25px;
+        flex: 1;
+    }
+    
+    .service-benefit {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+        font-size: 1rem;
+        color: var(--text-primary);
+        line-height: 1.5;
+        transition: all 0.3s ease;
+        transform: translateX(0);
+    }
+    
+    .service-card:hover .service-benefit {
+        transform: translateX(5px);
+    }
+    
+    .service-benefit i {
+        color: var(--success-color);
+        margin-right: 12px;
+        font-size: 1rem;
+        margin-top: 3px;
+        flex-shrink: 0;
+    }
+    
+    .service-results {
+        background-color: rgba(var(--primary-rgb), 0.1);
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: auto;
+        transition: all 0.3s ease;
+    }
+    
+    .service-card:hover .service-results {
+        background-color: rgba(var(--primary-rgb), 0.15);
+        transform: translateY(-5px);
+    }
+    
+    .service-results h4 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: var(--primary-color);
+        position: relative;
+        display: inline-block;
+    }
+    
+    .service-results h4::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background-color: var(--primary-color);
+        border-radius: 1px;
+    }
+    
+    /* Результаты внедрения */
+    .results-section {
+        position: relative;
+        margin-bottom: 40px;
+    }
+    
+    /* Удаляем синюю вертикальную линию слева */
+    .results-section::before {
+        display: none;
+    }
+    
+    .results-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .result-box {
+        background-color: var(--background-secondary);
+        border-radius: 16px;
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .result-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.08) 0%, transparent 80%);
+        z-index: 0;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    
+    .result-box:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    }
+    
+    .result-box:hover::before {
+        opacity: 1;
+    }
+    
+    .result-box i {
+        margin-right: 18px;
+        font-size: 1.1rem;
+        color: var(--primary-color);
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+        background-color: rgba(var(--primary-rgb), 0.1);
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+    
+    .result-box:hover i {
+        background-color: rgba(var(--primary-rgb), 0.2);
+        transform: scale(1.1) rotate(10deg);
+    }
+    
+    .result-box span {
+        font-size: 1.1rem;
+        color: var(--text-primary);
+        line-height: 1.6;
+        position: relative;
+        z-index: 1;
+        font-weight: 500;
+    }
+    
+    /* Дополнительная информация */
+    .additional-info-section {
+        position: relative;
+        margin-bottom: 40px;
+    }
+    
+    /* Удаляем синюю вертикальную линию слева */
+    .additional-info-section::before {
+        display: none;
+    }
+    
+    .info-content {
+        background-color: var(--background-secondary);
+        border-radius: 15px;
+        padding: 25px;
+        line-height: 1.7;
+        font-size: 1.05rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        border: none;
+    }
+    
+    .info-content:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px);
+    }
+    
+    /* Изменение окантовки в Преимуществах на синий */
+    .advantage-card-new {
+        display: flex;
+        background: var(--background-secondary);
+        border-radius: 15px;
+        padding: 20px;
+        height: 100%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        border-left: 4px solid var(--primary-color);
+    }
+    
+    .advantages-intro {
+        background: var(--background-secondary);
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        border-left: 4px solid var(--primary-color);
+    }
+    
+    /* Боковая панель */
+    .sticky-sidebar {
+        position: sticky;
+        top: 120px;
+    }
+    
+    .dark-card {
+        background-color: var(--background-secondary, rgba(255, 255, 255, 0.06));
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+        transition: all 0.3s ease;
+    }
+    
+    .dark-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Улучшенные карточки в боковой панели */
+    .contact-card,
+    .other-services-card {
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(var(--primary-rgb), 0.1);
+        transition: all 0.4s ease;
+        position: relative;
+        z-index: 1;
+        background: linear-gradient(145deg, 
+            rgba(var(--background-secondary-rgb), 0.7), 
+            rgba(var(--background-tertiary-rgb), 0.5));
+    }
+    
+    .contact-card::before,
+    .other-services-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, 
+            rgba(var(--primary-rgb), 0.08) 0%, 
+            transparent 80%);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    
+    .contact-card:hover,
+    .other-services-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), 0 0 15px rgba(var(--primary-rgb), 0.1);
+        border-color: rgba(var(--primary-rgb), 0.2);
+    }
+    
+    .contact-card:hover::before,
+    .other-services-card:hover::before {
+        opacity: 1;
+    }
+    
+    /* Контактная карточка */
+    .contact-card-body {
+        padding: 30px;
+        position: relative;
+    }
+    
+    .contact-card-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: var(--text-primary);
+        position: relative;
+        display: inline-block;
+    }
+    
+    .contact-card-title::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary-color), transparent);
+        border-radius: 3px;
+        transition: width 0.3s ease;
+    }
+    
+    .contact-card:hover .contact-card-title::after {
+        width: 100%;
+    }
+    
+    .contact-card-text {
+        color: var(--text-secondary);
+        font-size: 1.05rem;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+    
+    /* Стили для кнопки Contact */
+    .btn-contact {
+        width: 100%;
+        padding: 12px 15px;
+        font-weight: 600;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        border: none;
+        position: relative;
+        overflow: hidden !important;
+        transition: all 0.3s ease;
+        transform: translateY(0);
+        z-index: 1;
+    }
+    
+    .btn-contact::after {
+        content: '';
+        position: absolute;
+        width: 150%;
+        height: 100%;
+        top: 0;
+        left: -200%;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(255, 255, 255, 0.2), 
+            transparent);
+        transform: skewX(-25deg);
+        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0.9;
+        mix-blend-mode: overlay;
+    }
+    
+    /* Специальные стили для темной темы */
+    [data-theme="dark"] .btn-contact {
+        overflow: hidden !important;
+        isolation: isolate;
+    }
+    
+    [data-theme="dark"] .btn-contact::after {
+        mix-blend-mode: overlay;
+        max-width: 150%;
+        width: 150%;
+    }
+    
+    /* Общие стили эффекта наведения */
+    .btn-contact:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.4);
+    }
+    
+    .btn-contact:hover::after {
+        left: 120%;
+        opacity: 1;
+    }
+    
+    /* Светлая тема */
+    [data-theme="light"] .btn-contact {
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        color: #fff;
+    }
+    
+    /* Темная тема */
+    [data-theme="dark"] .btn-contact {
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        color: #fff;
+    }
+    
+    .btn-all-services {
+        width: 100%;
+        padding: 12px 15px;
+        font-weight: 600;
+        border-radius: 10px;
+        background-color: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        z-index: 1;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .btn-all-services:hover {
+        color: #fff;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.2);
+        background-color: var(--primary-color);
+    }
+    
+    .btn-all-services::before {
+        display: none;
+    }
+    
+    /* Стили для секции преимуществ */
+    .advantages-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+        margin-bottom: 20px;
+    }
+    
+    .advantage-card {
+        background: linear-gradient(145deg, 
+            rgba(var(--background-secondary-rgb, 30, 40, 50), 0.7), 
+            rgba(var(--background-tertiary-rgb, 40, 50, 70), 0.5));
+        border-radius: 16px;
+        padding: 25px;
+        display: flex;
+        align-items: flex-start;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(var(--primary-rgb), 0.1);
+        transition: all 0.35s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .advantage-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.08) 0%, transparent 100%);
+        z-index: 0;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    
+    .advantage-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        border-color: rgba(var(--primary-rgb), 0.2);
+    }
+    
+    .advantage-card:hover::before {
+        opacity: 1;
+    }
+    
+    .advantage-icon {
+        min-width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.2), rgba(var(--primary-rgb), 0.1));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        margin-right: 20px;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 8px 15px rgba(var(--primary-rgb), 0.15);
+        transition: all 0.35s ease;
+    }
+    
+    .advantage-card:hover .advantage-icon {
+        transform: scale(1.1) rotate(10deg);
+        background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.3), rgba(var(--primary-rgb), 0.15));
+        box-shadow: 0 10px 20px rgba(var(--primary-rgb), 0.25);
+    }
+    
+    .advantage-content {
+        position: relative;
+        z-index: 1;
+        flex: 1;
+    }
+    
+    .advantage-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--text-primary);
+        position: relative;
+    }
+    
+    .advantage-description {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 0;
+    }
+    
+    /* Стили для новой секции Другие услуги */
+    .other-services-card-body {
+        padding: 30px;
+    }
+    
+    .other-services-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: var(--text-primary);
+        position: relative;
+        display: inline-block;
+    }
+    
+    .other-services-title::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary-color), transparent);
+        border-radius: 3px;
+        transition: width 0.3s ease;
+    }
+    
+    .other-services-card:hover .other-services-title::after {
+        width: 100%;
+    }
+    
+    .other-services-links {
+        margin-bottom: 25px;
+    }
+    
+    .other-service-link {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-radius: 12px;
+        background: linear-gradient(145deg,
+            rgba(var(--background-tertiary-rgb), 0.3),
+            rgba(var(--background-tertiary-rgb), 0.1));
+        margin-bottom: 15px;
+        text-decoration: none;
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(var(--primary-rgb), 0.08);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .other-service-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg,
+            rgba(var(--primary-rgb), 0.05),
+            transparent);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .other-service-link:hover {
+        transform: translateX(8px);
+        background: linear-gradient(145deg,
+            rgba(var(--primary-rgb), 0.15),
+            rgba(var(--primary-rgb), 0.05));
+        color: var(--primary-color);
+        border-color: rgba(var(--primary-rgb), 0.2);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .other-service-link:hover::before {
+        opacity: 1;
+    }
+    
+    .other-service-link i {
+        width: 40px;
+        height: 40px;
+        background: rgba(var(--primary-rgb), 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        color: var(--primary-color);
+        font-size: 1.1rem;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+    }
+    
+    .other-service-link:hover i {
+        background: rgba(var(--primary-rgb), 0.3);
+        transform: scale(1.1) rotate(10deg);
+    }
+    
+    .other-service-link span {
+        font-weight: 500;
+        font-size: 1.05rem;
+        transition: all 0.2s ease;
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 992px) {
+        .advantages-grid {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        }
+        .service-cards-grid {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+        .tech-stack-container {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .advantages-grid {
+            grid-template-columns: 1fr;
+        }
+        .tech-stack-container {
+            grid-template-columns: 1fr;
+        }
+        .service-detail-header h1 {
+            font-size: 2rem;
+        }
+        .section-title {
+            font-size: 1.3rem;
+        }
+        .service-icon-large {
+            margin-top: 20px;
+        }
+        .tech-stack-item-name {
+            font-size: 0.9rem;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .tech-stack-category-title {
+            font-size: 1rem;
+        }
+        .tech-stack-item-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Apply theme-specific classes on load
+        applyThemeClasses();
+        
+        // Подготавливаем все элементы для анимации
+        prepareElementsForAnimation();
+        
+        // Запускаем анимацию для видимых элементов сразу
+        showInitialElements();
+        
+        // Запускаем наблюдение за прокруткой
+        setupScrollAnimation();
+        
+        // Listen for theme changes
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'data-theme') {
+                    applyThemeClasses();
+                }
+            });
+        });
+        
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+        });
+        
+        // Анимация элементов технологического стека
+        setupTechStackAnimation();
+        
+        // Функция для применения стилей темы
+        function applyThemeClasses() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const serviceCards = document.querySelectorAll('.service-card');
+            const darkCards = document.querySelectorAll('.dark-card');
+            const serviceDetailPage = document.querySelector('.service-details-page');
+            
+            // Применяем нужные цвета ко всей странице
+            if (serviceDetailPage) {
+                if (currentTheme === 'dark') {
+                    serviceDetailPage.style.backgroundColor = 'var(--background-primary)';
+                    serviceDetailPage.style.color = 'var(--text-primary)';
+                } else {
+                    serviceDetailPage.style.backgroundColor = 'var(--background-primary)';
+                    serviceDetailPage.style.color = 'var(--text-primary)';
+                }
+            }
+            
+            // Для карточек услуг
+            serviceCards.forEach(card => {
+                if (currentTheme === 'dark') {
+                    card.classList.add('dark-card');
+                } else {
+                    card.classList.remove('dark-card');
+                }
+            });
+            
+            // Для фиксированных dark-card элементов (боковая панель)
+            darkCards.forEach(card => {
+                if (!card.classList.contains('service-card')) {
+                    if (currentTheme === 'dark') {
+                        card.style.backgroundColor = 'rgba(45, 55, 72, 0.6)';
+                        card.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                    } else {
+                        card.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                        card.style.borderColor = 'rgba(0, 0, 0, 0.08)';
+                        card.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.08)';
+                    }
+                }
+            });
+            
+            // Обновление стилей для заголовков
+            const titles = document.querySelectorAll('h1, h2, h3, h4, h5, h6, .section-title');
+            titles.forEach(title => {
+                title.style.color = currentTheme === 'dark' ? 'var(--text-primary)' : 'var(--heading-color)';
+            });
+            
+            // Обновление стилей для тех-боксов
+            const techBoxes = document.querySelectorAll('.tech-box');
+            techBoxes.forEach(box => {
+                if (currentTheme === 'dark') {
+                    box.style.background = 'linear-gradient(to right, rgba(var(--primary-rgb), 0.1), rgba(var(--primary-rgb), 0.05))';
+                } else {
+                    box.style.background = 'linear-gradient(to right, rgba(var(--primary-rgb), 0.08), rgba(var(--primary-rgb), 0.03))';
+                }
+            });
+            
+            // Обновление стилей для текстовых элементов
+            const paragraphs = document.querySelectorAll('p, .lead, .service-benefit, .result-box span');
+            paragraphs.forEach(p => {
+                p.style.color = currentTheme === 'dark' ? 'var(--text-primary)' : 'var(--text-primary)';
+            });
+        }
+        
+        // Функция для анимации технологического стека
+        function setupTechStackAnimation() {
+            // Установим переменную для порядка анимации технических элементов
+            const techItems = document.querySelectorAll('.tech-stack-item');
+            techItems.forEach((item, index) => {
+                // Установка задержки анимации основываясь на позиции
+                item.style.setProperty('--animation-order', index % 3 + 1);
+            });
+            
+            // Анимация при наведении на элементы технологического стека
+            const techStackItems = document.querySelectorAll('.tech-stack-item');
+            techStackItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('.tech-stack-item-icon');
+                    icon.style.transform = 'scale(1.2) rotate(10deg)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('.tech-stack-item-icon');
+                    icon.style.transform = 'scale(1) rotate(0deg)';
+                });
+            });
+            
+            // Создаем анимацию случайного появления пульсации для иконок
+            setInterval(() => {
+                const randomIndex = Math.floor(Math.random() * techStackItems.length);
+                const randomIcon = techStackItems[randomIndex]?.querySelector('.tech-stack-item-icon');
+                if (randomIcon) {
+                    randomIcon.classList.add('pulse-random');
+                    setTimeout(() => {
+                        randomIcon.classList.remove('pulse-random');
+                    }, 1500);
+                }
+            }, 3000);
+            
+            // Добавим стиль для случайной пульсации
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes pulseRandom {
+                    0% {
+                        box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.6);
+                    }
+                    50% {
+                        box-shadow: 0 0 0 15px rgba(var(--primary-rgb), 0);
+                    }
+                    100% {
+                        box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0);
+                    }
+                }
+                
+                .pulse-random {
+                    animation: pulseRandom 1.5s ease-out;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Функция для подготовки элементов к анимации
+        function prepareElementsForAnimation() {
+            // Добавляем класс animate-element ко всем элементам, которые нужно анимировать
+            const elementsToAnimate = document.querySelectorAll(
+                '.service-card, .result-box, .info-content, .dark-card:not(.service-card), .section-header'
+            );
+            
+            elementsToAnimate.forEach(el => {
+                el.classList.add('animate-element');
+            });
+        }
+        
+        // Функция для показа элементов первого экрана без задержки
+        function showInitialElements() {
+            // Элементы, которые должны быть видны сразу
+            const initialVisibleElements = document.querySelectorAll(
+                '.service-detail-header, .breadcrumb, .section-header:first-of-type'
+            );
+            
+            initialVisibleElements.forEach(el => {
+                el.classList.add('initial-visible');
+            });
+        }
+        
+        // Функция для настройки анимации при прокрутке
+        function setupScrollAnimation() {
+            // Используем IntersectionObserver для отслеживания видимости элементов
+            const animationObserver = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach(entry => {
+                        // Если элемент виден и еще не анимирован
+                        if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                            // Добавляем класс для запуска анимации
+                            entry.target.classList.add('animated');
+                            // Прекращаем наблюдение за этим элементом
+                            animationObserver.unobserve(entry.target);
+                        }
+                    });
+                },
+                {
+                    // Настройки для более раннего срабатывания
+                    threshold: 0.05,
+                    rootMargin: '0px 0px -20px 0px'
+                }
+            );
+            
+            // Начинаем отслеживать все подготовленные элементы
+            document.querySelectorAll('.animate-element:not(.initial-visible)').forEach(el => {
+                animationObserver.observe(el);
+            });
+        }
+        
+        // Функция для добавления анимаций при наведении
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const benefits = this.querySelectorAll('.service-benefit');
+                benefits.forEach((benefit, idx) => {
+                    benefit.style.transitionDelay = `${idx * 0.03}s`;
+                    benefit.style.transform = 'translateX(5px)';
+                });
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const benefits = this.querySelectorAll('.service-benefit');
+                benefits.forEach(benefit => {
+                    benefit.style.transitionDelay = '0s';
+                    benefit.style.transform = 'translateX(0)';
+                });
+            });
+            
+            // Добавляем курсор pointer для карточек
+            card.style.cursor = 'pointer';
+        });
+        
+        // Добавляем пульсирующую анимацию для иконок
+        const serviceIconLarge = document.querySelector('.service-icon-large');
+        if (serviceIconLarge) {
+            setInterval(() => {
+                serviceIconLarge.classList.add('pulse-animation');
+                setTimeout(() => {
+                    serviceIconLarge.classList.remove('pulse-animation');
+                }, 1000);
+            }, 3000);
+        }
+        
+        // Проверяем, все ли тексты помещаются в контейнеры
+        fixTextOverflow();
+        
+        // Функция для исправления проблем с переполнением текста
+        function fixTextOverflow() {
+            const elements = document.querySelectorAll('.service-benefit, .service-results p, .tech-box span, .result-box span');
+            
+            elements.forEach(el => {
+                el.style.whiteSpace = 'normal';
+                el.style.overflow = 'visible';
+                el.style.textOverflow = 'clip';
+                el.style.wordWrap = 'break-word';
+                el.style.lineHeight = '1.6';
+            });
+        }
+        
+        // Добавляем стиль анимации пульсации
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes pulse-animation {
+                0% {
+                    box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.4);
+                    transform: scale(1);
+                }
+                50% {
+                    box-shadow: 0 0 0 15px rgba(var(--primary-rgb), 0);
+                    transform: scale(1.05);
+                }
+                100% {
+                    box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0);
+                    transform: scale(1);
+                }
+            }
+            
+            .pulse-animation {
+                animation: pulse-animation 1s cubic-bezier(0.4, 0, 0.6, 1);
+            }
+        `;
+        document.head.appendChild(style);
+    });
+</script>
+{% endblock %}

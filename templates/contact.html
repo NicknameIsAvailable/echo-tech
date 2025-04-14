@@ -1,0 +1,1903 @@
+{% extends 'base.html' %}
+
+{% block title %}Контакты - EchoTech IT Consulting{% endblock %}
+
+{% block head_content %}
+<style>
+    /* Современная стилизация страницы контактов с поддержкой темной темы */
+    :root {
+        --contact-header-bg-light: linear-gradient(135deg, rgba(var(--primary-rgb), 0.05) 0%, rgba(var(--primary-rgb), 0.1) 100%);
+        --contact-header-bg-dark: linear-gradient(135deg, rgba(var(--primary-rgb), 0.1) 0%, rgba(var(--primary-rgb), 0.2) 100%);
+        --card-border-light: rgba(var(--primary-rgb), 0.1);
+        --card-border-dark: rgba(var(--primary-rgb), 0.3);
+        --form-bg-light: var(--background-primary);
+        --form-bg-dark: rgba(var(--background-secondary-rgb), 0.5);
+        --form-border-light: rgba(var(--text-secondary-rgb), 0.1);
+        --form-border-dark: rgba(var(--text-secondary-rgb), 0.3);
+        --input-bg-light: rgba(var(--background-secondary-rgb), 0.5);
+        --input-bg-dark: rgba(0, 0, 0, 0.2);
+        --icon-size: 60px;
+        --standard-shadow-light: 0 10px 30px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(var(--primary-rgb), 0.05);
+        --standard-shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(var(--primary-rgb), 0.1);
+        --standard-shadow-hover-light: 0 15px 35px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(var(--primary-rgb), 0.08);
+        --standard-shadow-hover-dark: 0 15px 35px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(var(--primary-rgb), 0.15);
+        --success-rgb: 25, 135, 84; /* Добавляем RGB значение для зеленого цвета */
+    }
+    
+    /* Общие стили с учетом темной темы */
+    .contact-header {
+        padding: 5rem 0 4rem;
+        margin-bottom: 0;
+        position: relative;
+        background: var(--contact-header-bg-light);
+        overflow: hidden;
+        z-index: 1; /* Убедимся, что шапка имеет правильный z-index */
+    }
+    
+    .dark-theme {
+        --form-bg-light: rgba(30, 35, 50, 0.8);
+        --form-bg-dark: rgba(30, 35, 50, 0.6);
+    }
+    
+    .dark-theme .contact-header {
+        background: var(--contact-header-bg-dark);
+    }
+    
+    .contact-header::before {
+        content: '';
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(var(--primary-rgb), 0.2) 0%, rgba(var(--primary-rgb), 0) 70%);
+        top: -100px;
+        right: -100px;
+        z-index: 0; /* Помещаем эффекты фона за контентом */
+        animation: pulse 15s ease-in-out infinite alternate;
+    }
+    
+    .contact-header::after {
+        content: '';
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(var(--primary-rgb), 0.15) 0%, rgba(var(--primary-rgb), 0) 70%);
+        bottom: -50px;
+        left: 10%;
+        z-index: 0; /* Помещаем эффекты фона за контентом */
+        animation: pulse 10s ease-in-out infinite alternate-reverse;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 0.7; }
+        50% { transform: scale(1.3); opacity: 0.5; }
+        100% { transform: scale(1); opacity: 0.7; }
+    }
+    
+    .contact-header h1 {
+        position: relative;
+        z-index: 1;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .contact-header p {
+        position: relative;
+        z-index: 1;
+        font-size: 1.25rem;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    .contact-content {
+        margin-top: 2rem;
+        padding-bottom: 5rem;
+        position: relative;
+        z-index: 20; /* Увеличиваем z-index для содержимого контактов */
+    }
+    
+    /* Стилизация контейнеров с учетом темной темы */
+    .contact-form-container, .contact-info {
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: var(--standard-shadow-light);
+        background-color: var(--form-bg-light);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        transform: translateY(0);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        z-index: 10; /* Более высокий z-index */
+        border: 1px solid rgba(var(--primary-rgb), 0.1); /* Добавляем тонкую рамку */
+    }
+    
+    .dark-theme .contact-form-container, .dark-theme .contact-info {
+        background-color: var(--form-bg-dark);
+        box-shadow: var(--standard-shadow-dark);
+        border: 1px solid rgba(var(--primary-rgb), 0.2); /* Рамка для темной темы */
+    }
+    
+    .contact-form-container:hover, .contact-info:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--standard-shadow-hover-light);
+    }
+    
+    .dark-theme .contact-form-container:hover, .dark-theme .contact-info:hover {
+        box-shadow: var(--standard-shadow-hover-dark);
+    }
+    
+    .contact-form-container::before, .contact-info::before {
+        content: '';
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at right top, rgba(var(--primary-rgb), 0.05) 0%, rgba(var(--primary-rgb), 0) 70%);
+        top: -50%;
+        right: -50%;
+        z-index: 0; /* Убеждаемся что фон находится позади контента */
+    }
+    
+    .dark-theme .contact-form-container::before, .dark-theme .contact-info::before {
+        background: radial-gradient(circle at right top, rgba(var(--primary-rgb), 0.1) 0%, rgba(var(--primary-rgb), 0) 70%);
+    }
+    
+    .contact-form-container h2, .contact-info h2 {
+        position: relative;
+        font-weight: 700;
+        margin-bottom: 1.75rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--card-border-light);
+    }
+    
+    .dark-theme .contact-form-container h2, .dark-theme .contact-info h2 {
+        border-bottom: 2px solid var(--card-border-dark);
+    }
+    
+    .contact-form-container h2::after, .contact-info h2::after {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 2px;
+        background-color: var(--primary-color);
+        bottom: -2px;
+        left: 0;
+        transition: width 0.3s ease;
+    }
+    
+    .contact-form-container:hover h2::after, .contact-info:hover h2::after {
+        width: 100px;
+    }
+    
+    /* Стилизация элементов контактной информации - стандартизация размеров иконок */
+    .contact-info-item {
+        margin-bottom: 1.75rem;
+        display: flex;
+        align-items: flex-start;
+        position: relative;
+        z-index: 1;
+        transition: all 0.3s ease;
+    }
+    
+    .contact-info-item:hover {
+        transform: translateX(5px);
+    }
+    
+    .contact-info-icon {
+        width: var(--icon-size);
+        height: var(--icon-size);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(var(--primary-rgb), 0.15);
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        margin-right: 1.25rem;
+        box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.15);
+    }
+    
+    .dark-theme .contact-info-icon {
+        background-color: rgba(var(--primary-rgb), 0.2);
+        box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.2);
+    }
+    
+    .contact-info-icon i {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+    }
+    
+    .contact-info-item:hover .contact-info-icon {
+        transform: scale(1.1);
+        background-color: var(--primary-color);
+        box-shadow: 0 8px 20px rgba(var(--primary-rgb), 0.25);
+    }
+    
+    .contact-info-item:hover .contact-info-icon i {
+        color: white;
+    }
+    
+    .contact-info-item h3 {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        transition: color 0.3s ease;
+    }
+    
+    .contact-info-item:hover h3 {
+        color: var(--primary-color);
+    }
+    
+    .contact-social {
+        display: flex;
+        gap: 1.25rem;
+        margin-top: 2.5rem;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .social-link {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--background-secondary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-primary);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .dark-theme .social-link {
+        background-color: rgba(var(--background-tertiary-rgb), 0.5);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .social-link::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+    }
+    
+    .social-link:hover {
+        color: white;
+        transform: translateY(-8px) rotate(8deg);
+        box-shadow: 0 10px 20px rgba(var(--primary-rgb), 0.2);
+    }
+    
+    .social-link:hover::before {
+        opacity: 1;
+    }
+    
+    .social-link i {
+        position: relative;
+        z-index: 1;
+        transition: transform 0.3s ease;
+        font-size: 1.25rem;
+    }
+    
+    .social-link:hover i {
+        transform: scale(1.2);
+    }
+    
+    /* Стилизация рабочих часов с адаптацией для темной темы */
+    .business-hours {
+        margin-top: 2.5rem;
+        position: relative;
+        z-index: 1;
+        background-color: rgba(var(--background-tertiary-rgb), 0.5);
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .dark-theme .business-hours {
+        background-color: rgba(var(--background-tertiary-rgb), 0.3);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .business-hours:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        transform: translateY(-5px);
+    }
+    
+    .dark-theme .business-hours:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .business-hours h3 {
+        font-weight: 600;
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid var(--card-border-light);
+        position: relative;
+    }
+    
+    .dark-theme .business-hours h3 {
+        border-bottom: 2px solid var(--card-border-dark);
+    }
+    
+    .business-hours h3::after {
+        content: '';
+        position: absolute;
+        width: 40px;
+        height: 2px;
+        background-color: var(--primary-color);
+        bottom: -2px;
+        left: 0;
+        transition: width 0.3s ease;
+    }
+    
+    .business-hours:hover h3::after {
+        width: 80px;
+    }
+    
+    .hours-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.75rem 0;
+        transition: all 0.3s ease;
+        border-bottom: 1px solid rgba(var(--text-secondary-rgb), 0.1);
+    }
+    
+    .dark-theme .hours-item {
+        border-bottom: 1px solid rgba(var(--text-secondary-rgb), 0.2);
+    }
+    
+    .hours-item:hover {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        background-color: rgba(var(--primary-rgb), 0.05);
+        border-radius: 6px;
+    }
+    
+    .dark-theme .hours-item:hover {
+        background-color: rgba(var(--primary-rgb), 0.1);
+    }
+    
+    .hours-item:last-child {
+        border-bottom: none;
+    }
+    
+    .hours-item .days {
+        font-weight: 500;
+    }
+    
+    .hours-item .time {
+        color: var(--text-secondary);
+    }
+    
+    .hours-item:hover .time {
+        color: var(--primary-color);
+    }
+    
+    /* Улучшенная стилизация формы с адаптацией для темной темы */
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+        transition: color 0.3s ease;
+        display: flex;
+        align-items: center;
+    }
+    
+    .form-label i {
+        margin-right: 0.5rem;
+        color: var(--primary-color);
+        font-size: 1.1rem;
+    }
+    
+    .form-control {
+        border: 2px solid var(--form-border-light);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        transition: all 0.3s ease;
+        background-color: var(--input-bg-light);
+        height: auto;
+        font-size: 1rem;
+    }
+    
+    .dark-theme .form-control {
+        border: 2px solid var(--form-border-dark);
+        background-color: var(--input-bg-dark);
+        color: var(--text-primary);
+    }
+    
+    .form-control:focus {
+        box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.1);
+        border-color: var(--primary-color);
+        background-color: var(--background-primary);
+    }
+    
+    .dark-theme .form-control:focus {
+        box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.2);
+        background-color: rgba(var(--background-secondary-rgb), 0.5);
+    }
+    
+    .form-control:hover {
+        border-color: rgba(var(--primary-rgb), 0.3);
+    }
+    
+    textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+    }
+    
+    /* Фиксированные стили для обеих тем */
+    .btn-primary, .file-upload::-webkit-file-upload-button {
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color)) !important;
+        color: white !important;
+        border: none;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        box-shadow: 0 4px 10px rgba(var(--primary-rgb), 0.2) !important;
+    }
+    
+    .btn-primary i {
+        font-size: 1.2rem;
+        color: white !important;
+    }
+    
+    .btn-primary::before, .file-upload::-webkit-file-upload-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.7s ease;
+        z-index: -1;
+    }
+    
+    .btn-primary:hover, .file-upload::-webkit-file-upload-button:hover {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 6px 15px rgba(var(--primary-rgb), 0.3) !important;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color)) !important;
+    }
+    
+    .btn-primary:hover::before, .file-upload::-webkit-file-upload-button:hover::before {
+        left: 100%;
+    }
+    
+    .btn-primary {
+        padding: 1rem 2.5rem;
+        font-weight: 600;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        animation: none !important;
+    }
+    
+    .file-upload::-webkit-file-upload-button {
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-right: 10px;
+        font-weight: 500;
+    }
+    
+    /* Стилизация сообщений флэш */
+    .flash-message {
+        padding: 1.25rem;
+        margin-bottom: 1.5rem;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+        animation: flashIn 0.4s ease-out;
+    }
+    
+    @keyframes flashIn {
+        0% { opacity: 0; transform: translateY(-10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    .flash-message.success {
+        background-color: rgba(var(--success-rgb), 0.1);
+        border-left: 4px solid var(--success-color);
+        color: var(--success-color);
+    }
+    
+    .flash-message.error {
+        background-color: rgba(var(--danger-rgb), 0.1);
+        border-left: 4px solid var(--danger-color);
+        color: var(--danger-color);
+    }
+    
+    /* Стилизация ссылок в контактах */
+    .email-link, .phone-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        position: relative;
+        display: inline-block;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+    
+    .email-link::after, .phone-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -2px;
+        left: 0;
+        background-color: var(--primary-color);
+        transition: width 0.3s ease;
+    }
+    
+    .email-link:hover, .phone-link:hover {
+        color: var(--primary-dark);
+    }
+    
+    .email-link:hover::after, .phone-link:hover::after {
+        width: 100%;
+    }
+    
+    /* Стилизация быстрых действий */
+    .quick-action-card {
+        background-color: rgba(var(--background-tertiary-rgb), 0.5);
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .dark-theme .quick-action-card {
+        background-color: rgba(var(--background-tertiary-rgb), 0.3);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .quick-action-card::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at right bottom, rgba(var(--primary-rgb), 0.05) 0%, rgba(var(--primary-rgb), 0) 70%);
+        top: 0;
+        left: 0;
+    }
+    
+    .dark-theme .quick-action-card::before {
+        background: radial-gradient(circle at right bottom, rgba(var(--primary-rgb), 0.1) 0%, rgba(var(--primary-rgb), 0) 70%);
+    }
+    
+    .quick-action-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+    
+    .dark-theme .quick-action-card:hover {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .quick-action-card h4 {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+    }
+    
+    .btn-outline-primary {
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
+        background-color: transparent;
+        transition: all 0.3s ease;
+        padding: 0.75rem 1.25rem;
+        font-weight: 500;
+        border-radius: 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.2);
+    }
+    
+    /* Улучшенная стилизация FAQ секции с адаптацией для темной темы */
+    .faq-section {
+        padding: 5rem 0;
+        background: linear-gradient(135deg, rgba(var(--background-tertiary-rgb), 0.5) 0%, rgba(var(--background-primary-rgb), 0.8) 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .dark-theme .faq-section {
+        background: linear-gradient(135deg, rgba(var(--background-tertiary-rgb), 0.3) 0%, rgba(var(--background-primary-rgb), 0.5) 100%);
+    }
+    
+    .faq-section::before {
+        content: '';
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(var(--primary-rgb), 0.1) 0%, rgba(var(--primary-rgb), 0) 70%);
+        top: -100px;
+        left: -100px;
+        z-index: 0;
+    }
+    
+    .faq-section::after {
+        content: '';
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(var(--primary-rgb), 0.08) 0%, rgba(var(--primary-rgb), 0) 70%);
+        bottom: -50px;
+        right: 10%;
+        z-index: 0;
+    }
+    
+    .faq-section h2 {
+        position: relative;
+        z-index: 1;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .faq-section p {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .accordion-item {
+        border: none;
+        background-color: transparent;
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .accordion-button {
+        background-color: var(--background-primary);
+        border-radius: 10px !important;
+        box-shadow: var(--standard-shadow-light);
+        font-weight: 600;
+        color: var(--text-primary);
+        padding: 1.25rem 1.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .dark-theme .accordion-button {
+        background-color: rgba(var(--background-secondary-rgb), 0.5);
+        box-shadow: var(--standard-shadow-dark);
+    }
+    
+    .accordion-button:not(.collapsed) {
+        color: var(--primary-color);
+        background-color: var(--background-primary);
+        box-shadow: var(--standard-shadow-hover-light);
+    }
+    
+    .dark-theme .accordion-button:not(.collapsed) {
+        background-color: rgba(var(--background-secondary-rgb), 0.7);
+        box-shadow: var(--standard-shadow-hover-dark);
+    }
+    
+    .accordion-button:focus {
+        box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.1);
+        border-color: rgba(var(--primary-rgb), 0.5);
+    }
+    
+    .dark-theme .accordion-button:focus {
+        box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.2);
+    }
+    
+    .accordion-button::after {
+        /* Styles are now defined in style.css */
+    }
+    
+    .dark-theme .accordion-button::after {
+        /* Styles are now defined in style.css */
+    }
+    
+    .accordion-button:not(.collapsed)::after {
+        /* Styles are now defined in style.css */
+    }
+    
+    .accordion-body {
+        padding: 1.5rem;
+        background-color: rgba(var(--background-secondary-rgb), 0.5);
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        color: var(--text-primary);
+    }
+    
+    .dark-theme .accordion-body {
+        background-color: rgba(var(--background-tertiary-rgb), 0.3);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        color: var(--text-primary);
+    }
+    
+    /* Медиа-запросы для адаптивности */
+    @media (max-width: 992px) {
+        :root {
+            --icon-size: 50px;
+        }
+        
+        .contact-header {
+            padding: 4rem 0 5rem;
+        }
+        
+        .contact-form-container, .contact-info {
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-info {
+            margin-top: 0;
+        }
+        
+        .accordion-button {
+            padding: 1rem 1.25rem;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        :root {
+            --icon-size: 45px;
+        }
+        
+        .contact-header h1 {
+            font-size: 2.5rem;
+        }
+        
+        .contact-header p {
+            font-size: 1.1rem;
+        }
+        
+        .contact-social {
+            justify-content: center;
+        }
+        
+        .contact-content {
+            margin-top: 1.5rem;
+        }
+        
+        .row.g-5 {
+            margin-top: 0;
+        }
+        
+        .contact-form-container, .contact-info {
+            background-color: rgba(var(--background-primary-rgb), 0.95);
+        }
+        
+        .dark-theme .contact-form-container, .dark-theme .contact-info {
+            background-color: rgba(var(--background-secondary-rgb), 0.95);
+        }
+    }
+    
+    @media (max-width: 576px) {
+        :root {
+            --icon-size: 40px;
+        }
+        
+        .contact-header h1 {
+            font-size: 2rem;
+        }
+        
+        .contact-header {
+            padding: 3rem 0 4rem;
+        }
+        
+        .contact-form-container, .contact-info {
+            padding: 1.5rem;
+            border-radius: 15px;
+        }
+        
+        .business-hours, .quick-action-card {
+            padding: 1.25rem;
+        }
+        
+        .form-control {
+            padding: 0.8rem 1rem;
+        }
+        
+        .btn-primary {
+            padding: 0.8rem 1.5rem;
+        }
+    }
+    
+    /* Улучшенные анимации для взаимодействия */
+    .form-group {
+        transition: transform 0.3s ease;
+    }
+    
+    .form-group:focus-within {
+        transform: translateY(-5px);
+    }
+    
+    .form-control::placeholder {
+        color: rgba(var(--text-secondary-rgb), 0.6);
+        font-weight: 400;
+    }
+    
+    /* Стили для загрузки файлов */
+    .file-upload {
+        opacity: 0;
+        width: 0.1px;
+        height: 0.1px;
+        position: absolute; 
+        z-index: -1;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+    
+    .file-upload::-webkit-file-upload-button,
+    .file-upload::file-selector-button {
+        display: none;
+    }
+    
+    .file-upload-wrapper {
+        position: relative;
+    }
+    
+    .drag-active .file-upload-btn {
+        transform: scale(0.97);
+        box-shadow: 0 2px 6px rgba(var(--primary-rgb), 0.15);
+        background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+    }
+    
+    /* Индикатор для перетаскивания файлов */
+    .file-drop-message {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(var(--primary-rgb), 0.05);
+        border: 2px dashed var(--primary-color);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-color);
+        font-weight: 500;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 5;
+    }
+    
+    .drag-active .file-drop-message {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .file-upload-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 0;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        background: none;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .file-upload-btn {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        color: white !important; /* Гарантированно белый текст с высшим приоритетом */
+        padding: 0.8rem 1rem;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(var(--primary-rgb), 0.2);
+        white-space: nowrap;
+        font-weight: 600;
+        text-align: center;
+        font-size: 1rem;
+    }
+    
+    .file-upload-btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        z-index: -1;
+        transition: left 0.7s ease;
+    }
+    
+    .file-upload-label:hover .file-upload-btn {
+        transform: translateY(-3px) scale(1.03);
+        box-shadow: 0 10px 25px rgba(var(--primary-rgb), 0.5);
+        background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+        letter-spacing: 0.5px;
+    }
+    
+    .file-upload-label:hover .file-upload-btn::after {
+        left: 100%;
+    }
+    
+    .file-upload-text {
+        display: none;
+    }
+    
+    @media (max-width: 768px) {
+        .file-upload-text {
+            display: none;
+        }
+    }
+    
+    /* Эффект пульсации для кнопки */
+    @keyframes buttonPulse {
+        0% { box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.2); }
+        50% { box-shadow: 0 0 0 8px rgba(var(--primary-rgb), 0); }
+        100% { box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0); }
+    }
+    
+    /* Отключаем анимацию, которая добавляется JavaScript */
+    .btn-primary {
+        animation: none !important;
+    }
+    
+    .btn-primary i {
+        font-size: 1.2rem;
+    }
+    
+    .btn-primary:active, .file-upload::-webkit-file-upload-button:active {
+        transform: translateY(0);
+        box-shadow: 0 3px 10px rgba(var(--primary-rgb), 0.2);
+    }
+    
+    /* Общий стиль свечения для интерактивных элементов */
+    .btn-primary, .file-upload::-webkit-file-upload-button {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Добавляем подсветку при наведении */
+    .btn-primary::after, .file-upload::-webkit-file-upload-button::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0);
+        border-radius: inherit;
+        transition: background 0.3s ease;
+        pointer-events: none;
+    }
+    
+    /* Стили для отображения выбранных файлов */
+    .selected-files-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .file-preview {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        margin-bottom: 10px;
+        border: 1px solid rgba(var(--primary-rgb), 0.1);
+        transition: all 0.3s ease;
+        animation: fadeIn 0.5s;
+        position: relative;
+    }
+    
+    .file-preview:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(var(--primary-rgb), 0.15);
+        border-color: rgba(var(--primary-rgb), 0.2);
+    }
+    
+    .file-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        border-radius: 8px;
+        background-color: rgba(var(--primary-rgb), 0.1);
+        color: var(--primary-color);
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+    
+    .file-info {
+        flex: 1;
+        min-width: 0; /* Необходимо для правильной работы text-overflow */
+    }
+    
+    .file-name {
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 3px;
+        color: var(--text-primary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .file-size {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+    }
+    
+    .file-remove {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background-color: rgba(var(--danger-rgb), 0.08);
+        color: var(--danger-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-left: 15px;
+        flex-shrink: 0;
+    }
+    
+    .file-remove:hover {
+        background-color: var(--danger-color);
+        color: white;
+        transform: scale(1.1);
+    }
+    
+    .dark-theme .file-preview {
+        background-color: rgba(var(--background-secondary-rgb), 0.6);
+        border-color: rgba(var(--primary-rgb), 0.2);
+    }
+    
+    .dark-theme .file-name {
+        color: rgba(255,255,255,0.9);
+    }
+    
+    .dark-theme .file-size {
+        color: rgba(255,255,255,0.6);
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    .selected-files-count {
+        font-weight: 500;
+        color: var(--success-color);
+        animation: pulse 2s infinite;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Contact Hero Section -->
+<section class="contact-header">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 mb-4">Контакты</h1>
+                <p class="lead">Остались вопросы или хотите начать проект? Свяжитесь с нашей командой, и давайте вместе создадим что-то удивительное.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Content -->
+<section class="contact-content py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-7">
+                <div class="contact-form-container">
+                    <h2 class="h3 mb-4">
+                        <i class="fas fa-paper-plane me-2 text-primary"></i>
+                        Отправить сообщение
+                    </h2>
+                    
+                    <!-- Flash Messages -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="flash-message {{ category }}">
+                                    {% if category == 'success' %}
+                                        <i class="fas fa-check-circle me-2"></i>
+                                    {% else %}
+                                        <i class="fas fa-exclamation-triangle me-2"></i>
+                                    {% endif %}
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <form method="POST" action="{{ url_for('contact.index') }}" class="contact-form" enctype="multipart/form-data">
+                        <div class="row g-4">
+                            <div class="col-md-6 form-group">
+                                <label for="name" class="form-label">
+                                    <i class="fas fa-user text-primary"></i>
+                                    Ваше имя *
+                                </label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Введите ваше имя" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="email" class="form-label">
+                                    <i class="fas fa-envelope text-primary"></i>
+                                    Email адрес *
+                                </label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Введите ваш email" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="subject" class="form-label">
+                                    <i class="fas fa-tag text-primary"></i>
+                                    Тема *
+                                </label>
+                                <input type="text" class="form-control" id="subject" name="subject" placeholder="О чем ваше сообщение?" required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="telegram" class="form-label">
+                                    <i class="fab fa-telegram text-primary"></i>
+                                    Telegram
+                                </label>
+                                <input type="text" class="form-control" id="telegram" name="telegram" placeholder="Ваш username в Telegram (по желанию)">
+                            </div>
+                            <div class="col-12 form-group">
+                                <label for="message" class="form-label">
+                                    <i class="fas fa-comment text-primary"></i>
+                                    Ваше сообщение *
+                                </label>
+                                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Расскажите нам о вашем проекте или вопросе" required></textarea>
+                            </div>
+                            <div class="col-12 form-group">
+                                <label for="attachments" class="form-label">
+                                    <i class="fas fa-paperclip text-primary"></i>
+                                    Прикрепить файлы
+                                </label>
+                                <div class="file-upload-wrapper">
+                                    <input type="file" class="file-upload" id="attachments" name="attachments[]" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
+                                    <label for="attachments" class="file-upload-label">
+                                        <span class="file-upload-btn">Выбрать файлы</span>
+                                    </label>
+                                    <div class="file-drop-message">
+                                        <i class="fas fa-cloud-upload-alt me-2"></i> Перетащите файлы сюда
+                                    </div>
+                                    <div class="file-upload-info mt-2 small text-muted">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Допустимые форматы: PDF, Word, Excel, PowerPoint (макс. размер 10MB)
+                                    </div>
+                                    <div id="selected-files" class="mt-3 selected-files-container"></div>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-4 text-center">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane"></i>
+                                    Отправить сообщение
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="contact-info d-flex flex-column h-100">
+                    <h2 class="h3 mb-4">
+                        <i class="fas fa-info-circle me-2 text-primary"></i>
+                        Наши контакты
+                    </h2>
+                    
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3 class="h6 mb-1">Email</h3>
+                            <p class="mb-0">
+                                <a href="mailto:{{ contact_info.email }}" class="email-link">{{ contact_info.email }}</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <div>
+                            <h3 class="h6 mb-1">Telegram</h3>
+                            <p class="mb-0">
+                                <a href="https://t.me/AlexeyEchoDev" class="email-link" target="_blank">@AlexeyEchoDev</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="business-hours">
+                        <h3 class="h6 mb-3">
+                            <i class="fas fa-clock me-2 text-primary"></i>
+                            Время работы
+                        </h3>
+                        {% for hours in contact_info.business_hours %}
+                        <div class="hours-item">
+                            <span class="days">
+                                <i class="fas fa-calendar-day me-2"></i>
+                                {{ hours.days }}
+                            </span>
+                            <span class="time">
+                                <i class="fas fa-clock me-1"></i>
+                                {{ hours.hours }}
+                            </span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h2 class="h1 mb-4">Часто задаваемые вопросы</h2>
+                <p>Найдите быстрые ответы на распространенные вопросы о наших услугах и процессах.</p>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqHeading1">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                                С какими типами бизнеса вы работаете?
+                            </button>
+                        </h3>
+                        <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Мы работаем с бизнесом любого размера, от стартапов до крупных организаций, в различных отраслях. Среди наших клиентов финансовые учреждения, медицинские организации, интернет-магазины, производственные компании и многие другие.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqHeading2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                                Сколько времени занимает реализация проекта?
+                            </button>
+                        </h3>
+                        <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Сроки проекта зависят от масштаба, сложности и требований. Небольшие проекты могут занимать несколько недель, в то время как более крупные и сложные внедрения могут занять несколько месяцев. Во время нашей первоначальной консультации мы предоставим детальный график на основе ваших конкретных потребностей.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqHeading3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                                Как организован процесс разработки?
+                            </button>
+                        </h3>
+                        <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Мы следуем гибкой методологии разработки Agile, которая подчеркивает сотрудничество, гибкость и итеративный прогресс. Наш процесс обычно включает анализ и планирование, дизайн, разработку, тестирование, внедрение и последующую поддержку. Мы держим клиентов в курсе на протяжении всего процесса с регулярными обновлениями и сессиями обратной связи.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faqHeading4">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                                Предоставляете ли вы поддержку после завершения проекта?
+                            </button>
+                        </h3>
+                        <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Да, мы предлагаем различные планы поддержки и обслуживания, чтобы ваши системы продолжали работать бесперебойно после запуска. Они могут включать регулярные обновления, мониторинг производительности, исправления безопасности и техническую поддержку. Мы работаем с вами, чтобы определить наиболее подходящий план поддержки для ваших потребностей.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Валидация формы
+        const contactForm = document.querySelector('.contact-form');
+        if (contactForm) {
+            // Анимация появления полей формы
+            const formGroups = contactForm.querySelectorAll('.form-group');
+            formGroups.forEach((group, index) => {
+                group.style.opacity = '0';
+                group.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    group.style.transition = 'all 0.5s ease';
+                    group.style.opacity = '1';
+                    group.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+            });
+            
+            // Улучшенная анимация для загрузки файлов
+            const fileUpload = document.querySelector('.file-upload');
+            if (fileUpload) {
+                // Инициализируем хранилище файлов
+                fileUpload._selectedFiles = null;
+                
+                const fileUploadWrapper = document.querySelector('.file-upload-wrapper');
+                const fileUploadLabel = document.querySelector('.file-upload-label');
+                
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    fileUploadLabel.addEventListener(eventName, preventDefaults, false);
+                });
+                
+                function preventDefaults(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    fileUploadLabel.addEventListener(eventName, highlight, false);
+                });
+                
+                ['dragleave', 'drop'].forEach(eventName => {
+                    fileUploadLabel.addEventListener(eventName, unhighlight, false);
+                });
+                
+                function highlight() {
+                    fileUploadWrapper.classList.add('drag-active');
+                }
+                
+                function unhighlight() {
+                    fileUploadWrapper.classList.remove('drag-active');
+                }
+                
+                fileUploadLabel.addEventListener('drop', handleDrop, false);
+                
+                function handleDrop(e) {
+                    const dt = e.dataTransfer;
+                    const files = dt.files;
+                    handleFiles(files);
+                }
+                
+                function handleFiles(files) {
+                    // Имитируем изменение input
+                    const dataTransfer = new DataTransfer();
+                    Array.from(files).forEach(file => dataTransfer.items.add(file));
+                    fileUpload.files = dataTransfer.files;
+                    
+                    // Вызываем обработчик изменения
+                    const changeEvent = new Event('change');
+                    fileUpload.dispatchEvent(changeEvent);
+                }
+                
+                // Анимация при наведении
+                fileUpload.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    
+                    // Добавляем пульсацию границы
+                    let counter = 0;
+                    const borderPulse = setInterval(() => {
+                        if (counter >= 2 || !this.matches(':hover')) {
+                            clearInterval(borderPulse);
+                            this.style.borderColor = '';
+                            return;
+                        }
+                        
+                        this.style.borderColor = 'var(--primary-color)';
+                        setTimeout(() => {
+                            if (this.matches(':hover')) {
+                                this.style.borderColor = 'rgba(var(--primary-rgb), 0.3)';
+                            }
+                        }, 300);
+                        
+                        counter++;
+                    }, 600);
+                });
+                
+                // Анимация при покидании элемента
+                fileUpload.addEventListener('mouseleave', function() {
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                // При изменении (выборе файла)
+                fileUpload.addEventListener('change', function() {
+                    if (this.files.length > 0) {
+                        const fileCount = this.files.length;
+                        const fileInfo = this.parentNode.querySelector('.file-upload-info');
+                        
+                        if (fileInfo) {
+                            // Оригинальный текст с информацией
+                            const originalText = fileInfo.innerText;
+                            
+                            // Собираем все существующие файлы
+                            const selectedFiles = new DataTransfer();
+                            
+                            // Если есть уже выбранные файлы (при повторном выборе), добавляем их
+                            if (this._selectedFiles) {
+                                Array.from(this._selectedFiles.files).forEach(file => {
+                                    selectedFiles.items.add(file);
+                                });
+                            }
+                            
+                            // Добавляем новые файлы
+                            Array.from(this.files).forEach(file => {
+                                selectedFiles.items.add(file);
+                            });
+                            
+                            // Сохраняем выбранные файлы
+                            this._selectedFiles = selectedFiles;
+                            
+                            // Изменяем стиль загрузчика для индикации успешного выбора
+                            fileUploadLabel.style.borderColor = 'var(--success-color)';
+                            fileUploadLabel.style.backgroundColor = 'rgba(var(--success-rgb), 0.05)';
+                            
+                            // Отображаем превью выбранных файлов
+                            const selectedFilesContainer = document.getElementById('selected-files');
+                            selectedFilesContainer.innerHTML = '';
+                            
+                            // Для каждого файла создаем элемент превью
+                            Array.from(selectedFiles.files).forEach(file => {
+                                // Определяем иконку в зависимости от типа файла
+                                let iconClass = 'fa-file';
+                                const fileExt = file.name.split('.').pop().toLowerCase();
+                                
+                                if (['pdf'].includes(fileExt)) {
+                                    iconClass = 'fa-file-pdf';
+                                } else if (['doc', 'docx'].includes(fileExt)) {
+                                    iconClass = 'fa-file-word';
+                                } else if (['xls', 'xlsx'].includes(fileExt)) {
+                                    iconClass = 'fa-file-excel';
+                                } else if (['ppt', 'pptx'].includes(fileExt)) {
+                                    iconClass = 'fa-file-powerpoint';
+                                }
+                                
+                                // Форматируем размер файла
+                                const fileSize = file.size < 1024 * 1024 
+                                    ? `${(file.size / 1024).toFixed(1)} KB` 
+                                    : `${(file.size / (1024 * 1024)).toFixed(1)} MB`;
+                                
+                                // Создаем элемент превью файла
+                                const filePreview = document.createElement('div');
+                                filePreview.className = 'file-preview';
+                                filePreview.innerHTML = `
+                                    <div class="file-icon">
+                                        <i class="fas ${iconClass}"></i>
+                                    </div>
+                                    <div class="file-info">
+                                        <div class="file-name">${file.name}</div>
+                                        <div class="file-size">${fileSize}</div>
+                                    </div>
+                                    <div class="file-remove" data-filename="${file.name}">
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                `;
+                                
+                                selectedFilesContainer.appendChild(filePreview);
+                            });
+                            
+                            // Обновляем информационную строку
+                            const fileCountText = selectedFiles.files.length === 1 
+                                ? '1 файл выбран' 
+                                : `<span class="selected-files-count">${selectedFiles.files.length}</span> файлов выбрано`;
+                                
+                            fileInfo.innerHTML = `
+                                <i class="fas fa-check-circle text-success me-1"></i>
+                                ${fileCountText} 
+                                <span class="ms-1 text-muted">(${originalText.split('(')[1] || 'макс. размер 10MB)'})</span>
+                            `;
+                            
+                            // Обновляем файлы в input
+                            this.files = selectedFiles.files;
+                            
+                            // Добавляем обработчики для кнопок удаления файлов
+                            document.querySelectorAll('.file-remove').forEach(button => {
+                                button.addEventListener('click', function(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    
+                                    // Находим имя файла, который нужно удалить
+                                    const filename = this.getAttribute('data-filename');
+                                    
+                                    // Удаляем файл из списка
+                                    const newFiles = new DataTransfer();
+                                    
+                                    Array.from(fileUpload._selectedFiles.files).forEach(file => {
+                                        if (file.name !== filename) {
+                                            newFiles.items.add(file);
+                                        }
+                                    });
+                                    
+                                    // Обновляем выбранные файлы
+                                    fileUpload._selectedFiles = newFiles;
+                                    fileUpload.files = newFiles.files;
+                                    
+                                    // Удаляем элемент превью с анимацией
+                                    const preview = this.closest('.file-preview');
+                                    preview.style.opacity = '0';
+                                    preview.style.transform = 'translateX(20px)';
+                                    
+                                    setTimeout(() => {
+                                        preview.remove();
+                                        
+                                        // Проверяем, сколько файлов осталось
+                                        const remainingPreviews = document.querySelectorAll('.file-preview').length;
+                                        
+                                        // Если не осталось файлов, возвращаем оригинальный текст и стиль
+                                        if (remainingPreviews === 0) {
+                                            fileInfo.innerHTML = `<i class="fas fa-info-circle me-1"></i>
+                                            Допустимые форматы: PDF, Word, Excel, PowerPoint (макс. размер 10MB)`;
+                                            fileUploadLabel.style.borderColor = '';
+                                            fileUploadLabel.style.backgroundColor = '';
+                                            
+                                            // Очищаем input
+                                            fileUpload.value = '';
+                                            fileUpload._selectedFiles = null;
+                                        } else {
+                                            // Обновляем текст с количеством оставшихся файлов
+                                            const fileCountText = remainingPreviews === 1 
+                                                ? '1 файл выбран' 
+                                                : `<span class="selected-files-count">${remainingPreviews}</span> файлов выбрано`;
+                                                
+                                            fileInfo.innerHTML = `
+                                                <i class="fas fa-check-circle text-success me-1"></i>
+                                                ${fileCountText} 
+                                                <span class="ms-1 text-muted">(макс. размер 10MB)</span>
+                                            `;
+                                        }
+                                    }, 300);
+                                });
+                            });
+                        }
+                    }
+                });
+            }
+            
+            contactForm.addEventListener('submit', function(event) {
+                // Проверка email
+                const email = document.getElementById('email').value;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                // Проверка телефона (если поле существует)
+                const phone = document.getElementById('phone');
+                let hasPhoneError = false;
+                
+                if (phone && phone.value) {
+                const phoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
+                    hasPhoneError = !phoneRegex.test(phone.value);
+                }
+                
+                let hasError = false;
+                
+                // Проверка email
+                if (!emailRegex.test(email)) {
+                    event.preventDefault();
+                    hasError = true;
+                    
+                    // Создаем сообщение об ошибке для email
+                    const existingEmailError = document.querySelector('.email-error');
+                    if (!existingEmailError) {
+                        showFieldError('email', 'Пожалуйста, введите корректный email-адрес');
+                    }
+                }
+                
+                // Проверка телефона (если поле существует)
+                if (phone && hasPhoneError) {
+                    event.preventDefault();
+                    hasError = true;
+                    
+                    // Создаем сообщение об ошибке для телефона
+                    const existingPhoneError = document.querySelector('.phone-error');
+                    if (!existingPhoneError) {
+                        showFieldError('phone', 'Пожалуйста, введите корректный номер телефона');
+                    }
+                }
+                
+                // Если есть ошибки, прокручиваем к первой ошибке
+                if (hasError) {
+                    const firstError = document.querySelector('.is-invalid');
+                    if (firstError) {
+                        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                } else {
+                    // Анимация отправки формы
+                    const submitBtn = contactForm.querySelector('button[type="submit"]');
+                    if (submitBtn) {
+                        submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Отправка...';
+                        submitBtn.disabled = true;
+                    }
+                }
+            });
+            
+            // Очистка сообщений об ошибках при вводе
+            const inputs = contactForm.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    this.classList.remove('is-invalid');
+                    const errorDiv = this.parentNode.querySelector('.flash-message.error');
+                    if (errorDiv) {
+                        errorDiv.remove();
+                    }
+                });
+                
+                // Эффект фокуса
+                input.addEventListener('focus', function() {
+                    const label = this.parentNode.querySelector('.form-label');
+                    if (label) {
+                        label.style.color = 'var(--primary-color)';
+                    }
+                });
+                
+                input.addEventListener('blur', function() {
+                    const label = this.parentNode.querySelector('.form-label');
+                    if (label) {
+                        label.style.color = '';
+                    }
+                });
+            });
+        }
+    
+    // Функция для отображения ошибки поля
+    function showFieldError(fieldId, errorMessage) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = `flash-message error mt-2 ${fieldId}-error`;
+        errorDiv.innerHTML = `<i class="fas fa-exclamation-triangle me-2"></i> ${errorMessage}`;
+        
+        const field = document.getElementById(fieldId).parentNode;
+        field.appendChild(errorDiv);
+        
+        // Анимация встряхивания поля с ошибкой
+        const input = document.getElementById(fieldId);
+        input.classList.add('is-invalid');
+        input.style.animation = 'shake 0.5s';
+        
+        setTimeout(() => {
+            input.style.animation = '';
+        }, 500);
+    }
+    
+    // Анимации и стили
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = `
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        .is-invalid {
+            border-color: var(--danger-color) !important;
+        }
+        
+        /* Улучшенные эффекты для формы */
+        .contact-form .form-control {
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form .form-control:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.15);
+        }
+        
+        /* Улучшенная анимация для файлового инпута */
+        .file-upload {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .file-upload::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.4) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-25deg);
+            transition: all 0.7s ease;
+            opacity: 0;
+            z-index: 0;
+        }
+        
+        /* Стили для отображения выбранных файлов */
+        .selected-files-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .file-preview {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            margin-bottom: 10px;
+            border: 1px solid rgba(var(--primary-rgb), 0.1);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s;
+            position: relative;
+        }
+        
+        .file-preview:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(var(--primary-rgb), 0.15);
+            border-color: rgba(var(--primary-rgb), 0.2);
+        }
+        
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            border-radius: 8px;
+            background-color: rgba(var(--primary-rgb), 0.1);
+            color: var(--primary-color);
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .file-info {
+            flex: 1;
+            min-width: 0; /* Необходимо для правильной работы text-overflow */
+        }
+        
+        .file-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 3px;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .file-size {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        
+        .file-remove {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background-color: rgba(var(--danger-rgb), 0.08);
+            color: var(--danger-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-left: 15px;
+            flex-shrink: 0;
+        }
+        
+        .file-remove:hover {
+            background-color: var(--danger-color);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .dark-theme .file-preview {
+            background-color: rgba(var(--background-secondary-rgb), 0.6);
+            border-color: rgba(var(--primary-rgb), 0.2);
+        }
+        
+        .dark-theme .file-name {
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .dark-theme .file-size {
+            color: rgba(255,255,255,0.6);
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .selected-files-count {
+            font-weight: 500;
+            color: var(--success-color);
+            animation: pulse 2s infinite;
+        }
+    `;
+    document.head.appendChild(styleSheet);
+    
+    // Обработка прокрутки для анимации появления элементов
+    window.addEventListener('scroll', function() {
+        const fadeElements = document.querySelectorAll('.fade-in');
+        fadeElements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+            if (elementPosition < windowHeight - 100) {
+                element.classList.add('active');
+            }
+            });
+        });
+        
+        // Добавляем анимацию к контактной информации
+        const contactInfoItems = document.querySelectorAll('.contact-info-item');
+        contactInfoItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(-20px)';
+            setTimeout(() => {
+                item.style.transition = 'all 0.5s ease';
+                item.style.opacity = '1';
+                item.style.transform = 'translateX(0)';
+            }, 300 + (index * 150));
+        });
+    });
+</script>
+{% endblock %}

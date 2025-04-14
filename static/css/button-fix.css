@@ -1,0 +1,127 @@
+/* Специальные стили для кнопок на главной странице */
+.hero-section .btn {
+    font-size: 1.1rem;
+    padding: 0.85rem 2rem;
+    min-width: 180px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    overflow: visible;
+}
+
+.hero-section .btn-lg {
+    font-size: 1.2rem;
+    padding: 1rem 2.5rem;
+    min-width: 200px;
+}
+
+/* Стили для кнопок "Связаться с нами" */
+.btn-contact, .cta-btn {
+    padding: 0.85rem 2rem;
+    font-size: 1.1rem;
+    min-width: 200px;
+    white-space: nowrap;
+    text-overflow: clip;
+    overflow: visible;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Перезаписываем стили для всех кнопок с классами "наши услуги" и "связаться с нами" */
+a.btn, button.btn {
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: ellipsis !important;
+    word-break: normal !important;
+    min-height: 44px !important;
+}
+
+/* Исправление стилей для обрезанных кнопок */
+.services-page .btn, .contact-page .btn, .btn-primary, .btn-outline-primary {
+    padding: 0.75rem 1.5rem !important;
+    min-width: 160px !important;
+    font-size: 1rem !important;
+    line-height: 1.2 !important;
+    height: auto !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* Safari-специфичные кнопки - ПОЛНОСТЬЮ НОВОЕ РЕШЕНИЕ 3.0 */
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) {
+        /* Кнопки на главной странице */
+        .hero-section .btn {
+            width: 220px !important;
+            min-width: 220px !important;
+            max-width: none !important;
+            display: inline-flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            text-align: center !important;
+            white-space: nowrap !important;
+            overflow: visible !important;
+            -webkit-appearance: none;
+            -webkit-text-size-adjust: 100%;
+            transform: translateZ(0);
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Специально для первой кнопки "Наши услуги" */
+        .hero-section .btn.btn-primary {
+            width: 220px !important;
+            min-width: 220px !important;
+            display: inline-flex !important;
+            justify-content: center !important;
+            white-space: nowrap !important;
+        }
+        
+        /* Специально для второй кнопки "Связаться с нами" */
+        .hero-section .btn.btn-outline-primary {
+            width: 260px !important;
+            min-width: 260px !important;
+            display: inline-flex !important;
+            justify-content: center !important;
+            white-space: nowrap !important;
+        }
+        
+        /* Специальный фикс для Safari на главной странице */
+        .hero-section .btn, 
+        .hero-section .btn-primary, 
+        .hero-section .btn-outline-primary {
+            letter-spacing: normal !important;
+            word-spacing: normal !important;
+            text-rendering: optimizeLegibility !important;
+            -webkit-font-smoothing: antialiased !important;
+        }
+        
+        /* Установим все кнопки на сайте как inline-flex с нормальной шириной */
+        .btn {
+            display: inline-flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            white-space: nowrap !important; 
+            min-width: 160px !important;
+            width: auto !important;
+        }
+        
+        /* Кнопки на странице контактов - полная ширина */
+        .contact-page .btn {
+            width: 100% !important;
+            max-width: 100% !important;
+            display: inline-flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+    }
+}

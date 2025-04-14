@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru" {% if request.path == "/" %}class="home-page"{% elif request.path == "/services" %}class="services-page"{% elif request.path == "/contact" %}class="contact-page"{% elif request.path == "/terms" %}class="terms-page"{% elif "/service/" in request.path %}class="service-details-page"{% else %}class="inner-page"{% endif %}>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>{% block title %}EchoTech - ИТ консалтинговая компания{% endblock %}</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="{% block meta_description %}EchoTech — лидер ИТ-консалтинга, создающий революционные технологические решения для бизнеса с 2010 года. Разработка веб-приложений, программного обеспечения, систем учета.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}ИТ-консалтинг, разработка ПО, веб-разработка, Python, C++, CRM, бизнес-решения, Россия{% endblock %}">
+    <meta name="author" content="EchoTech">
+    <meta property="og:title" content="{% block og_title %}EchoTech - Превращаем идеи в цифровую реальность{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}EchoTech — лидер ИТ-консалтинга, создающий революционные технологические решения для бизнеса с 2010 года{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:image" content="{{ url_for('static', filename='images/echotech-logo.png', _external=True) }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="{{ request.url }}">
+    
+    <!-- Security Meta Tags -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+
+    <!-- Предварительное скрытие логотипов для предотвращения мерцания -->
+    <style>
+        .logo-image {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Показываем только нужный логотип после определения темы */
+        html[data-theme="light"] .light-theme-logo,
+        html[data-theme="dark"] .dark-theme-logo {
+            opacity: 1;
+        }
+    </style>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dark-theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/light-theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/logo-styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/button-fix.css') }}">
+
+    <!-- Additional head content -->
+    {% block head_content %}{% endblock %}
+
+    <!-- Theme detection script -->
+    <script nonce="{{ csp_nonce() if csp_nonce is defined }}">
+        // Проверяем сохраненную тему или используем предпочтения браузера
+        const getTheme = () => {
+            const storedTheme = localStorage.getItem('theme') ||
+                               (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', storedTheme);
+            return storedTheme;
+        };
+
+        // Немедленно установить тему при загрузке, до отрисовки DOM
+        getTheme();
+
+        // Установка темы при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentTheme = getTheme();
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.checked = currentTheme === 'dark';
+            }
+        });
+    </script>
+</head>
+<body {% if request.path == "/" %}class="home-page"{% elif request.path == "/services" %}class="services-page"{% elif request.path == "/contact" %}class="contact-page"{% elif request.path == "/terms" %}class="terms-page"{% elif "/service/" in request.path %}class="service-details-page"{% else %}class="inner-page"{% endif %}>
+    <!-- Шапка -->
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url_for('home.index') }}">
+                    <img src="{{ url_for('static', filename='images/echotech-logo.png') }}" alt="EchoTech - ИТ-консалтинговая компания" width="150" height="50" class="logo-image light-theme-logo" loading="eager">
+                    <img src="{{ url_for('static', filename='images/echotech-logo-dark.png') }}" alt="EchoTech - ИТ-консалтинговая компания" width="150" height="50" class="logo-image dark-theme-logo" loading="eager">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключение навигации">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'home.index' %}active{% endif %}" href="{{ url_for('home.index') }}" data-i18n="Home">{{ _('Главная') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'services.index' %}active{% endif %}" href="{{ url_for('services.index') }}" data-i18n="Services">{{ _('Услуги') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.endpoint == 'contact.index' %}active{% endif %}" href="{{ url_for('contact.index') }}" data-i18n="Contact">{{ _('Контакты') }}</a>
+                        </li>
+                        <li class="nav-item ms-2 d-flex align-items-center">
+                            <div class="theme-switch-wrapper">
+                                <label class="theme-switch" for="theme-toggle">
+                                    <input type="checkbox" id="theme-toggle" />
+                                    <div class="slider round">
+                                        <i class="fas fa-sun"></i>
+                                        <i class="fas fa-moon"></i>
+                                    </div>
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- CSRF токен для всех форм -->
+    {% if csrf_token is defined %}
+    <form id="csrf-form" style="display:none">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    </form>
+    {% endif %}
+
+    <!-- Основное содержимое -->
+    <main class="site-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Мобильные переключатели - только переключатель темы -->
+    <div class="mobile-switchers">
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="mobile-theme-toggle">
+                <input type="checkbox" id="mobile-theme-toggle" />
+                <div class="slider round">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <!-- Подвал -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">{{ _('Echo') }}<span class="tech-blue">Tech</span></h5>
+                    <p data-i18n="Your trusted partner for comprehensive IT consulting solutions. We bring your digital ideas to life with cutting-edge technology and expert innovation.">{{ _('Ваш надежный партнер в сфере комплексных ИТ-консалтинговых решений. Мы воплощаем ваши цифровые идеи в жизнь с помощью передовых технологий и экспертных инноваций.') }}</p>
+                </div>
+
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase" data-i18n="Links">{{ _('Ссылки') }}</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li><a href="{{ url_for('home.index') }}" class="footer-link" data-i18n="Home">{{ _('Главная') }}</a></li>
+                        <li><a href="{{ url_for('services.index') }}" class="footer-link" data-i18n="Services">{{ _('Услуги') }}</a></li>
+                        <li><a href="{{ url_for('contact.index') }}" class="footer-link" data-i18n="Contact">{{ _('Контакты') }}</a></li>
+                        <li><a href="{{ url_for('terms.index') }}" class="footer-link" data-i18n="Terms">{{ _('Пользовательское соглашение') }}</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase" data-i18n="Services">{{ _('Услуги') }}</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li><a href="{{ url_for('services.index') }}#individual-solutions" class="footer-link">{{ _('Решения для частных лиц') }}</a></li>
+                        <li><a href="{{ url_for('services.index') }}#business-solutions" class="footer-link">{{ _('Решения для бизнеса') }}</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase" data-i18n="Contact">{{ _('Контакты') }}</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> info@echotech.ru</li>
+                        <li class="mb-2"><i class="fab fa-telegram me-2"></i> @AlexeyEchoDev</li>
+                        <li class="mb-3 mt-3"><strong>Время работы:</strong></li>
+                        <li class="mb-2"><i class="fas fa-clock me-2"></i> Пн-Пт: 9:00-18:00 МСК</li>
+                        <li class="mb-2"><i class="fas fa-clock me-2"></i> Сб: 10:00-14:00 МСК</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center p-3 copyright">
+            © {{ get_current_year() }} {{ _('Echo') }}<span class="tech-blue">Tech</span>. <span data-i18n="All rights reserved.">{{ _('Все права защищены.') }}</span>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle с Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" integrity="sha512-334uBDwY0iZ2TklV1OtDtBW9vp7jjP7SWRzT7Ehu1fdtPIjTpCwTSFb8HI/YBau9L1/kRBEOALrS229Kry4yFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- D3.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.2/d3.min.js" integrity="sha512-oKI0pS1ut+mxQZdqnD3w9fqArLyILRsT3Dx0B+8RVEXzEk3aNK3J3pWlaGJ8MtTs1oiwyXDAH6hG6jy1sY0YqA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Пользовательские JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}" nonce="{{ csp_nonce() if csp_nonce is defined }}"></script>
+    <script src="{{ url_for('static', filename='js/animations.js') }}" nonce="{{ csp_nonce() if csp_nonce is defined }}"></script>
+    <script src="{{ url_for('static', filename='js/visualizations.js') }}" nonce="{{ csp_nonce() if csp_nonce is defined }}"></script>
+    <script src="{{ url_for('static', filename='js/theme-switcher.js') }}" nonce="{{ csp_nonce() if csp_nonce is defined }}"></script>
+    <!-- Удален скрипт языкового переключателя -->
+
+    <!-- Дополнительные скрипты -->
+    {% block extra_scripts %}{% endblock %}
+    
+    <!-- Структурированные данные для SEO -->
+    {% from 'structured_data.html' import organization, website %}
+    {{ organization() }}
+    {{ website() }}
+    {% block structured_data %}{% endblock %}
+    
+    <!-- Защита от CSRF для AJAX-запросов -->
+    <script nonce="{{ csp_nonce() if csp_nonce is defined }}">
+        // Добавляем CSRF-токен ко всем AJAX-запросам
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof fetch !== 'undefined') {
+                const originalFetch = window.fetch;
+                window.fetch = function(url, options) {
+                    options = options || {};
+                    options.headers = options.headers || {};
+                    
+                    // Добавляем CSRF-токен для POST, PUT, DELETE и PATCH запросов
+                    if (options.method && ['POST', 'PUT', 'DELETE', 'PATCH'].indexOf(options.method.toUpperCase()) !== -1) {
+                        const csrfToken = document.querySelector('input[name="csrf_token"]');
+                        if (csrfToken) {
+                            options.headers['X-CSRFToken'] = csrfToken.value;
+                        }
+                    }
+                    
+                    return originalFetch(url, options);
+                };
+            }
+            
+            // Добавляем автоматическую валидацию всех форм перед отправкой
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    // Базовая проверка на обязательные поля
+                    const requiredFields = form.querySelectorAll('[required]');
+                    let isValid = true;
+                    
+                    requiredFields.forEach(field => {
+                        if (!field.value.trim()) {
+                            isValid = false;
+                            field.classList.add('is-invalid');
+                        } else {
+                            field.classList.remove('is-invalid');
+                        }
+                    });
+                    
+                    if (!isValid) {
+                        e.preventDefault();
+                        return false;
+                    }
+                    
+                    // Дополнительная защита от автоматического заполнения ботами
+                    // Можно добавить скрытые поля для "ловушки" ботов
+                });
+            });
+        });
+    </script>
+</body>
+</html>

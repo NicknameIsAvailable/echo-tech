@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Доступ запрещен - {{ _('EchoTech') }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            <div class="error-container">
+                <h1 class="display-1 text-danger">403</h1>
+                <h2 class="mb-4">Доступ запрещен</h2>
+                <p class="lead mb-5">К сожалению, у вас нет прав доступа к этой странице или выполнено подозрительное действие, которое было заблокировано системой безопасности.</p>
+                <a href="{{ url_for('home.index') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-home me-2"></i>Вернуться на главную
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

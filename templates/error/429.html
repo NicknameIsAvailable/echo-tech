@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Слишком много запросов - {{ _('EchoTech') }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            <div class="error-container">
+                <h1 class="display-1 text-warning">429</h1>
+                <h2 class="mb-4">Слишком много запросов</h2>
+                <p class="lead mb-5">Вы отправили слишком много запросов за короткий промежуток времени. Пожалуйста, подождите некоторое время и попробуйте снова.</p>
+                <div class="alert alert-info mb-4">
+                    <p>Для защиты нашего сервера от чрезмерной нагрузки мы ограничиваем количество запросов, которые может отправить один пользователь.</p>
+                </div>
+                <a href="{{ url_for('home.index') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-home me-2"></i>Вернуться на главную
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

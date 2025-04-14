@@ -1,0 +1,417 @@
+[data-theme="light"] .dark-card {
+    background-color: rgba(var(--card-bg-rgb), 0.95);
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .dark-card .service-card-title,
+[data-theme="light"] .dark-card .service-results h4 {
+    color: var(--heading-color);
+}
+
+[data-theme="light"] .dark-card .service-card-description,
+[data-theme="light"] .dark-card .service-results p {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .dark-card .service-benefit {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .dark-card .service-card-icon i {
+    color: var(--primary-color);
+}
+
+[data-theme="light"] .dark-card .service-benefit i {
+    color: var(--success-color);
+}
+
+[data-theme="light"] .dark-card:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Light theme styles for tech stack items */
+[data-theme="light"] .tech-item-group {
+    background-color: var(--card-bg);
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .tech-item-header {
+    background-color: rgba(var(--primary-rgb), 0.08);
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .tech-item-header i {
+    color: var(--primary-color);
+}
+
+[data-theme="light"] .tech-item {
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(var(--primary-rgb), 0.06);
+}
+
+[data-theme="light"] .tech-item i {
+    color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    width: 24px;
+    text-align: center;
+}
+
+[data-theme="light"] .tech-item span {
+    color: var(--text-primary);
+}
+
+/* Light theme for horizontal sections dividers */
+[data-theme="light"] .horizontal-service-section {
+    background-color: rgba(var(--card-bg-rgb), 0.5);
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .horizontal-section-content .section-title,
+[data-theme="light"] .horizontal-section-content .section-subtitle {
+    color: var(--heading-color);
+}
+
+[data-theme="light"] .horizontal-section-content .section-description {
+    color: var(--text-primary);
+}
+
+/* Light theme for service benefits */
+[data-theme="light"] .service-benefits-section {
+    background-color: rgba(var(--card-bg-rgb), 0.6);
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .service-benefits-list .benefit-item {
+    background-color: var(--card-bg);
+    border-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Light theme for service segment cards */
+[data-theme="light"] .service-segment-card {
+    background-color: rgba(var(--card-bg-rgb), 0.95);
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .service-segment-card h3,
+[data-theme="light"] .service-segment-card h4,
+[data-theme="light"] .service-segment-card h5 {
+    color: var(--heading-color);
+}
+
+[data-theme="light"] .service-segment-card p {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .service-segment-card .segment-icon i {
+    color: var(--primary-color);
+}
+
+[data-theme="light"] .service-segment-card .advantages-title,
+[data-theme="light"] .service-segment-card .advantages-title i {
+    color: var(--warning-color);
+}
+
+[data-theme="light"] .service-segment-card .result-title,
+[data-theme="light"] .service-segment-card .result-title i {
+    color: var(--success-color);
+}
+
+[data-theme="light"] .service-segment-card .service-benefits li,
+[data-theme="light"] .service-segment-card .service-results li {
+    color: var(--text-primary);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .service-segment-card .service-benefits li::before,
+[data-theme="light"] .service-segment-card .service-results li::before {
+    color: var(--success-color);
+}
+
+[data-theme="light"] .service-segment-card .btn-outline-primary {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+[data-theme="light"] .service-segment-card .btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+[data-theme="light"] .service-benefits-list .benefit-item .benefit-icon {
+    color: var(--primary-color);
+}
+
+[data-theme="light"] .service-benefits-list .benefit-item .benefit-title {
+    color: var(--heading-color);
+}
+
+[data-theme="light"] .service-benefits-list .benefit-item .benefit-description {
+    color: var(--text-primary);
+}
+
+/* Light theme for individual and business service buttons */
+[data-theme="light"] .service-btn {
+    background-color: rgba(var(--primary-rgb), 0.05);
+    color: var(--primary-color);
+    border-color: rgba(var(--primary-rgb), 0.1);
+}
+
+[data-theme="light"] .service-btn:hover {
+    background-color: rgba(var(--primary-rgb), 0.08);
+    color: var(--primary-color);
+    border-color: rgba(var(--primary-rgb), 0.15);
+}
+
+[data-theme="light"] .service-btn.active {
+    background-color: rgba(var(--primary-rgb), 0.15);
+    color: var(--primary-dark);
+    border-color: rgba(var(--primary-rgb), 0.2);
+}
+
+[data-theme="light"] .tech-icon-circle {
+    background-color: transparent;
+    box-shadow: none;
+    border-color: transparent;
+    width: 42px;
+    height: 42px;
+}
+
+[data-theme="light"] .tech-icon-circle i {
+    color: var(--primary-color);
+    font-size: 24px;
+}
+
+[data-theme="light"] .tech-item:hover {
+    box-shadow: 0 10px 25px rgba(var(--primary-rgb), 0.12), 0 5px 15px rgba(0, 0, 0, 0.08);
+    border-color: rgba(var(--primary-rgb), 0.15);
+    transform: translateY(-8px);
+}
+
+[data-theme="light"] .tech-item::before {
+    background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
+[data-theme="light"] .tech-item::after {
+    display: none;
+}
+
+[data-theme="light"] .tech-item:hover .tech-icon-circle i {
+    color: var(--primary-dark);
+}
+
+[data-theme="light"] .tech-label {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .tech-item:hover .tech-label {
+    color: var(--primary-dark);
+}
+
+/* Дополнительные стили для tech-item в светлой теме */
+[data-theme="light"] .tech-item {
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+[data-theme="light"] .tech-category-panel {
+    perspective: 1000px;
+}
+
+[data-theme="light"] .tech-item:hover {
+    color: var(--primary-color);
+    background-color: rgba(var(--primary-rgb), 0.06);
+}
+/* Добавление стилей для подчеркивания в светлой теме */
+[data-theme="light"] .tech-item::after {
+    background-color: var(--primary-color);
+    opacity: 0.5;
+}
+
+[data-theme="light"] .tech-item:hover::after {
+    display: none;
+}
+
+/* Стили для иконок в светлой теме */
+[data-theme="light"] .fas,
+[data-theme="light"] .far,
+[data-theme="light"] .fab,
+[data-theme="light"] .fa {
+    color: var(--primary-color);
+}
+
+/* Обновленные стили для карточек технологий в светлой теме */
+[data-theme="light"] .tech-item {
+    text-align: center;
+    transition: all 0.3s ease;
+    background-color: rgba(var(--primary-rgb), 0.08);
+    border: 1px solid rgba(var(--primary-rgb), 0.08);
+}
+
+[data-theme="light"] .tech-item:hover {
+    color: var(--primary-color);
+    background-color: rgba(var(--primary-rgb), 0.12);
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 12px 20px rgba(var(--primary-rgb), 0.15);
+}
+
+[data-theme="light"] .tech-icon-circle {
+    background-color: transparent;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+[data-theme="light"] .tech-icon-circle i {
+    color: var(--primary-color);
+    font-size: 24px;
+}
+
+[data-theme="light"] .tech-label {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+[data-theme="light"] .tech-item:hover .tech-label {
+    color: var(--primary-dark);
+}
+
+/* Обновленные стили для tech-category-panel в светлой теме */
+[data-theme="light"] .tech-category-panel {
+    background-color: rgba(var(--background-primary-rgb), 0.7);
+    box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.08);
+    border: 1px solid rgba(var(--primary-rgb), 0.05);
+}
+
+[data-theme="light"] .tech-category-panel:hover {
+    box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.12);
+    border-color: rgba(var(--primary-rgb), 0.1);
+}
+
+[data-theme="light"] .tech-category-heading {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+[data-theme="light"] .tech-category-description {
+    color: var(--text-secondary);
+}
+
+/* Стили для бейджей в светлой теме */
+[data-theme="light"] .badge.bg-light.text-primary {
+    background-color: rgba(var(--primary-rgb), 0.05) !important;
+    color: var(--primary-dark) !important;
+    border: 1px solid rgba(var(--primary-rgb), 0.1);
+}
+
+/* Обновленные стили для кнопки "Исследовать решения" */
+[data-theme="light"] .btn-primary {
+    background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.7) 0%, rgba(var(--primary-rgb), 0.8) 100%);
+    border: none;
+    box-shadow: 0 3px 8px rgba(var(--primary-rgb), 0.15);
+}
+
+[data-theme="light"] .btn-primary:hover, 
+[data-theme="light"] .btn-primary:focus {
+    background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.8) 0%, rgba(var(--primary-rgb), 0.9) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.2);
+    border-radius: 8px !important;
+}
+
+[data-theme="light"] .btn-primary:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(var(--primary-rgb), 0.15);
+    border-radius: 8px !important;
+}
+
+/* Service Cards in Light Theme */
+[data-theme="light"] .service-card {
+    background-color: var(--card-bg);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+[data-theme="light"] .service-card:hover {
+    background-color: var(--background-primary);
+    border-color: rgba(var(--primary-rgb), 0.15);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+[data-theme="light"] .service-card .service-card-title {
+    color: var(--heading-color);
+    font-weight: var(--font-semibold);
+}
+
+[data-theme="light"] .service-card .service-card-description {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .service-card .service-benefit {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .service-card .service-benefit i {
+    color: var(--success-color);
+}
+
+[data-theme="light"] .service-card .service-card-icon i {
+    color: var(--primary-color);
+}
+
+[data-theme="light"] .service-card .service-results h4 {
+    color: var(--heading-color);
+    border-bottom: 1px solid rgba(var(--primary-rgb), 0.1);
+    padding-bottom: 0.5rem;
+}
+
+[data-theme="light"] .service-card .service-results p {
+    color: var(--text-primary);
+}
+
+/* Service detail page specific elements */
+[data-theme="light"] .service-detail-header h1 {
+    color: var(--heading-color);
+}
+
+[data-theme="light"] .service-detail-header .lead {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .advantages-section .section-title {
+    color: var(--heading-color);
+}
+
+[data-theme="light"] .advantages-description p {
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .advantage-box-detailed {
+    background-color: var(--background-secondary);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+[data-theme="light"] .advantage-box-detailed:hover {
+    background-color: var(--background-primary);
+    border-color: rgba(var(--primary-rgb), 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transform: translateY(-3px);
+}
+
+[data-theme="light"] .advantage-title {
+    color: var(--heading-color);
+}
+
+[data-theme="light"] .advantage-content p {
+    color: var(--text-primary);
+}
