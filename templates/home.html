@@ -1,901 +1,662 @@
-{% extends 'base.html' %}
-
-{% block title %}{{ _('EchoTech') }} - {{ _('Превращаем идеи в цифровую реальность') }}{% endblock %}
-
-{% block meta_description %}EchoTech — признанный лидер ИТ-консалтинга в России, создающий революционные технологические решения для частных лиц и бизнеса с 2022 года. Разработка веб-сайтов, мобильных приложений, высоконагруженных систем на Python и C++.{% endblock %}
-
-{% block meta_keywords %}ИТ-консалтинг, разработка ПО, веб-разработка, Python, C++, CRM, бизнес-решения, Россия, EchoTech, интеграция систем{% endblock %}
-
-{% block og_title %}EchoTech — Превращаем идеи в цифровую реальность | Ведущая ИТ-компания России{% endblock %}
-
-{% block og_description %}EchoTech — признанный лидер ИТ-консалтинга в России с 2022 года. Мы преобразуем сложные задачи в эффективные цифровые инструменты для вашего успеха.{% endblock %}
-
-{% block head_content %}
-<style>
-    /* Стиль для главного логотипа в шапке */
-    .hero-content .display-4 {
-        font-family: var(--font-primary) !important;
-        font-weight: 800 !important;
-        letter-spacing: normal !important;
-        word-spacing: normal !important;
-        text-rendering: optimizeLegibility !important;
-        -webkit-font-smoothing: antialiased !important;
-    }
-
-    /* Safari-специфичный стиль для главного логотипа */
-    @media not all and (min-resolution:.001dpcm) {
-        @supports (-webkit-appearance:none) {
-            .hero-content .display-4 {
-                font-size: 2.5rem !important;
-                font-family: var(--font-primary) !important;
-                font-weight: 800 !important;
-                letter-spacing: normal !important;
-                word-spacing: normal !important;
-                text-rendering: optimizeLegibility !important;
-                -webkit-font-smoothing: antialiased !important;
-            }
-            
-            .hero-content .display-4 .tech-blue {
-                background: linear-gradient(135deg, var(--accent-color) 0%, var(--primary-color) 100%) !important;
-                -webkit-background-clip: text !important;
-                -webkit-text-fill-color: transparent !important;
-                background-clip: text !important;
-            }
-        }
-    }
-
-    .section-title {
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 1rem;
-        position: relative;
-        display: inline-block;
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%) !important;
-        -webkit-background-clip: text !important;
-        -webkit-text-fill-color: transparent !important;
-        background-clip: text !important;
-    }
-
-    /* Safari-специфичный стиль для заголовков секций */
-    @media not all and (min-resolution:.001dpcm) {
-        @supports (-webkit-appearance:none) {
-            .section-title {
-                font-size: 2.5rem !important;
-                font-weight: 800 !important;
-                font-family: var(--font-primary) !important;
-                letter-spacing: normal !important;
-                word-spacing: normal !important;
-                text-rendering: optimizeLegibility !important;
-                -webkit-font-smoothing: antialiased !important;
-                background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%) !important;
-                -webkit-background-clip: text !important;
-                -webkit-text-fill-color: transparent !important;
-                background-clip: text !important;
-            }
-            
-            .section-title .tech-blue {
-                background: linear-gradient(135deg, var(--accent-color) 0%, var(--primary-color) 100%) !important;
-                -webkit-background-clip: text !important;
-                -webkit-text-fill-color: transparent !important;
-                background-clip: text !important;
-            }
-        }
-    }
-
-    /* Override dark theme variables for section titles */
-    [data-theme="dark"] .section-title,
-    [data-theme="light"] .section-title {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%) !important;
-        -webkit-background-clip: text !important;
-        -webkit-text-fill-color: transparent !important;
-        background-clip: text !important;
-    }
-    
-    /* Общий класс для стилизации градиентного текста */
-    .tech-blue {
-        color: var(--primary-color);
-        background: linear-gradient(135deg, var(--accent-color) 0%, var(--primary-color) 100%) !important;
-        -webkit-background-clip: text !important;
-        -webkit-text-fill-color: transparent !important;
-        background-clip: text !important;
-        font-family: var(--font-primary);
-        font-weight: 800;
-        letter-spacing: normal;
-        word-spacing: normal;
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-    }
-
-    .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 60px;
-        height: 4px;
-        background: linear-gradient(90deg, var(--primary-color), transparent);
-        border-radius: 2px;
-    }
-
-    .text-center .section-title::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .solutions-redirect-section {
-        padding: 60px 0;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .solution-redirect-card {
-        border-radius: 20px;
-        border: 1px solid var(--border-color);
-        background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.03), rgba(var(--accent-color), 0.03));
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        transition: all 0.4s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .solution-redirect-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-    }
-
-    .solution-redirect-card::before {
-        content: '';
-        position: absolute;
-        top: -80px;
-        right: -80px;
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        background: rgba(var(--primary-rgb), 0.03);
-        z-index: 0;
-    }
-
-    .solution-redirect-card::after {
-        content: '';
-        position: absolute;
-        bottom: -80px;
-        left: -80px;
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        background: rgba(var(--accent-color), 0.03);
-        z-index: 0;
-    }
-
-    .solutions-icon-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        z-index: 1;
-    }
-
-    .solution-icon {
-        width: 60px;
-        height: 60px;
-        border-radius: 15px;
-        background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        box-shadow: 0 8px 20px rgba(var(--primary-rgb), 0.2);
-        transition: all 0.3s ease;
-        position: relative;
-    }
-
-    .solution-divider {
-        position: relative;
-        height: 2px;
-        width: 100%;
-        background: linear-gradient(90deg, rgba(var(--primary-rgb), 0.1), rgba(var(--primary-rgb), 0.3), rgba(var(--primary-rgb), 0.1));
-        margin: 25px 0;
-    }
-
-    .solution-divider::before,
-    .solution-divider::after {
-        content: '';
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: rgba(var(--primary-rgb), 0.3);
-        top: -3px;
-    }
-
-    .solution-divider::before {
-        left: 0;
-    }
-
-    .solution-divider::after {
-        right: 0;
-    }
-
-    .solution-redirect-card:hover .solution-icon {
-        transform: translateY(-5px);
-    }
-
-    /* Hero section specific styling - улучшенная версия с плавным размытием */
-    .hero-section {
-        position: relative;
-        min-height: 80vh;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        background: linear-gradient(135deg, rgba(var(--background-primary-rgb), 0.8) 0%, rgba(var(--background-secondary-rgb), 0.9) 100%);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-    }
-
-    .circles-background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: 0;
-    }
-
-    @keyframes float-chaotic {
-        0% { transform: translateY(0) translateX(0); }
-        20% { transform: translateY(-15px) translateX(10px); }
-        40% { transform: translateY(10px) translateX(15px); }
-        60% { transform: translateY(-5px) translateX(-15px); }
-        80% { transform: translateY(15px) translateX(-10px); }
-        100% { transform: translateY(0) translateX(0); }
-    }
-
-    .background-circle {
-        position: absolute;
-        border-radius: 50%;
-        animation: float-chaotic 15s ease-in-out infinite;
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 1;
-        background: radial-gradient(circle at 50% 50%,
-                      rgba(var(--background-primary-rgb), 0) 0%,
-                      rgba(var(--background-primary-rgb), 0.15) 70%,
-                      rgba(var(--background-primary-rgb), 0.25) 100%);
-        padding: 2rem;
-        border-radius: 16px;
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-    }
-
-    .service-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        height: 100%;
-    }
-
-    .service-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .value-icon {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        display: inline-block;
-        color: var(--primary-color);
-    }
-
-    .advantage-item {
-        padding: 2rem;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-    }
-
-    .advantage-item:hover {
-        transform: scale(1.05);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .tech-stack-section {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .tech-visualization {
-        height: 300px;
-        width: 100%;
-    }
-
-    .tech-category-title {
-        position: relative;
-        display: inline-block;
-        padding-bottom: 8px;
-        color: var(--text-primary);
-        font-size: 0.95rem;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-        font-weight: 600;
-        margin-bottom: 25px;
-        opacity: 0.85;
-    }
-
-    .tech-category-title::after {
-        content: '';
-        position: absolute;
-        width: 40px;
-        height: 2px;
-        background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        border-radius: 4px;
-    }
-
-    .tech-category-container {
-        background: rgba(var(--background-primary-rgb), 0.5);
-        border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-        border: 1px solid rgba(var(--border-color), 0.2);
-        padding: 25px 15px;
-        margin-bottom: 30px;
-        backdrop-filter: blur(5px);
-        transition: all 0.3s ease;
-    }
-
-    .tech-category-container:hover {
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-        transform: translateY(-3px);
-    }
-
-    /* Tailored Solutions Section Styles */
-    .solution-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border-radius: 15px;
-        overflow: hidden;
-        border: none;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    }
-
-    .solution-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    }
-
-    .solution-icon {
-        transition: transform 0.3s ease;
-    }
-
-    .solution-card:hover .solution-icon {
-        transform: scale(1.1);
-    }
-
-    /* Анимация для карточки перенаправления */
-    .solution-redirect-card {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease;
-    }
-
-    .solution-redirect-card.fade-in-up {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* Стили для названия компании */
-    .company-name {
-        font-weight: 800;
-        display: inline-block;
-    }
-
-    /* Специфичные стили для Safari */
-    @media not all and (min-resolution:.001dpcm) {
-        @supports (-webkit-appearance:none) {
-            .company-name {
-                font-family: var(--font-primary) !important;
-                letter-spacing: normal !important;
-                word-spacing: normal !important;
-                -webkit-font-smoothing: antialiased !important;
-            }
-            
-            .company-name,
-            .tech-blue {
-                text-rendering: optimizeLegibility !important;
-            }
-        }
-    }
-
-    /* Стиль для оболочки главного логотипа */
-    .main-logo {
-        font-family: var(--font-primary);
-        font-weight: 800;
-        font-size: 2.5rem;
-        display: inline-block;
-        letter-spacing: normal;
-        word-spacing: normal;
-    }
-
-    /* Переопределяем стиль display-4 для единообразия */
-    .display-4.tracking-in-expand {
-        font-size: 2.5rem !important;
-        line-height: 1.3 !important;
-    }
-
-    /* Safari-специфичные стили для логотипа */
-    @media not all and (min-resolution:.001dpcm) {
-        @supports (-webkit-appearance:none) {
-            .main-logo {
-                font-family: var(--font-primary) !important;
-                font-weight: 800 !important;
-                font-size: 2.5rem !important;
-                letter-spacing: normal !important;
-                word-spacing: normal !important;
-                text-rendering: optimizeLegibility !important;
-                -webkit-font-smoothing: antialiased !important;
-            }
-        }
-    }
-
-    /* Стиль для контейнера логотипа */
-    .logo-container .main-logo {
-        width: auto;
-        display: inline-block;
-    }
-
-    /* Увеличиваем специфичность для Safari */
-    @media not all and (min-resolution:.001dpcm) {
-        @supports (-webkit-appearance:none) {
-            .logo-container .main-logo {
-                font-size: 2.5rem !important;
-                width: auto !important;
-                display: inline-block !important;
-            }
-            
-            /* Для темной темы */
-            [data-theme="dark"] .logo-container .main-logo,
-            [data-theme="dark"] .section-title .company-name {
-                color: #fff !important;
-            }
-            
-            /* Убеждаемся, что часть "Tech" всегда имеет правильный градиент */
-            .logo-container .tech-blue,
-            .section-title .tech-blue {
-                background: linear-gradient(135deg, var(--accent-color) 0%, var(--primary-color) 100%) !important;
-                -webkit-background-clip: text !important;
-                -webkit-text-fill-color: transparent !important;
-                background-clip: text !important;
-            }
-        }
-    }
-</style>
-{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block title %}{{ _('EchoTech') }} - {{
+_('Превращаем идеи в цифровую реальность') }}{% endblock %} {% block
+meta_description %}EchoTech — признанный лидер ИТ-консалтинга в России,
+создающий революционные технологические решения для частных лиц и бизнеса с 2022
+года. Разработка веб-сайтов, мобильных приложений, высоконагруженных систем на
+Python и C++.{% endblock %} {% block meta_keywords %}ИТ-консалтинг, разработка
+ПО, веб-разработка, Python, C++, CRM, бизнес-решения, Россия, EchoTech,
+интеграция систем{% endblock %} {% block og_title %}EchoTech — Превращаем идеи в
+цифровую реальность | Ведущая ИТ-компания России{% endblock %} {% block
+og_description %}EchoTech — признанный лидер ИТ-консалтинга в России с 2022
+года. Мы преобразуем сложные задачи в эффективные цифровые инструменты для
+вашего успеха.{% endblock %} {% block head_content %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/templates/home.css') }}"
+></link>
+{% endblock %} {% block content %}
 <!-- Hero Section with Circles Background -->
 <section class="hero-section logo-container">
-    <div class="circles-background">
-        <!-- Circles will be added by JavaScript -->
+  <div class="circles-background">
+    <!-- Circles will be added by JavaScript -->
+  </div>
+  <div class="container hero-content text-center text-lg-start">
+    <h1 class="display-4 mb-4 tracking-in-expand">
+      <span class="main-logo">Echo<span class="tech-blue">Tech</span></span>
+    </h1>
+    <h2 class="mb-4 text-focus-in" data-i18n="Hero.Subtitle">
+      Превращаем идеи в цифровую реальность
+    </h2>
+    <p class="lead mb-5 fade-in-bottom" data-i18n="Hero.Description">
+      EchoTech — ваш надежный партнер в сфере ИТ-консалтинга. С 2022 года мы
+      помогаем компаниям и частным лицам ускорять рост, создавая инновационные
+      технологические решения под любые задачи
+    </p>
+    <div
+      class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3 fade-in-bottom-2"
+    >
+        <a href="{{ url_for('services.index') }}">
+            <button
+                class="btn btn-primary btn-lg px-4 me-md-2 services-btn"
+                data-i18n="Hero.ServicesButton">
+                Наши услуги
+            </button>
+        </a>
+
+        <a href="{{ url_for('contact.index') }}">
+            <button
+                class="btn btn-outline-primary btn-lg px-4 contact-btn"
+                data-i18n="Hero.ContactButton"
+            >
+                Связаться с нами
+            </button>
+        </a>
     </div>
-    <div class="container hero-content text-center text-lg-start">
-        <h1 class="display-4 mb-4 tracking-in-expand">
-            <span class="main-logo">Echo<span class="tech-blue">Tech</span></span>
-        </h1>
-        <h2 class="mb-4 text-focus-in" data-i18n="Hero.Subtitle">
-            Превращаем идеи в цифровую реальность
-        </h2>
-        <p class="lead mb-5 fade-in-bottom" data-i18n="Hero.Description">
-            EchoTech — ваш надежный партнер в сфере ИТ-консалтинга. С 2022 года мы помогаем компаниям и частным лицам ускорять рост, создавая инновационные технологические решения под любые задачи
-        </p>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3 fade-in-bottom-2">
-            <a href="{{ url_for('services.index') }}" class="btn btn-primary btn-lg px-4 me-md-2 services-btn" data-i18n="Hero.ServicesButton">Наши услуги</a>
-            <a href="{{ url_for('contact.index') }}" class="btn btn-outline-primary btn-lg px-4 contact-btn" data-i18n="Hero.ContactButton">Связаться с нами</a>
-        </div>
-    </div>
+  </div>
 </section>
 
 <!-- About Us Section -->
-<section class="py-5 about-section" itemscope itemtype="http://schema.org/Organization">
-    <div class="container">
-        <div class="row justify-content-center mb-5">
-            <div class="col-lg-8 text-center">
-                <h2 class="section-title">
-                    <span data-i18n="About EchoTech">{{ _('О компании') }}</span> <span class="company-name">Echo<span class="tech-blue">Tech</span></span>
-                </h2>
-                <p class="section-subtitle" itemprop="description">{{ company_info.experience }}</p>
-            </div>
-        </div>
-
-        <div class="row g-4">
-            {% for value in company_info.core_values %}
-            <div class="col-md-4">
-                <div class="card value-card h-100 text-center">
-                    <div class="card-body">
-                        <div class="value-icon">
-                            {% if loop.index == 1 %}
-                            <i class="fas fa-lightbulb"></i>
-                            {% elif loop.index == 2 %}
-                            <i class="fas fa-award"></i>
-                            {% elif loop.index == 3 %}
-                            <i class="fas fa-users"></i>
-                            {% endif %}
-                        </div>
-                        <h3 class="h4 mb-3">{{ value.title }}</h3>
-                        <p>{{ value.description }}</p>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+<section
+  class="py-5 about-section"
+  itemscope
+  itemtype="http://schema.org/Organization"
+>
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-8 text-center">
+        <h2 class="section-title">
+          <span data-i18n="About EchoTech">{{ _('О компании') }}</span>
+          <span class="company-name"
+            >Echo<span class="tech-blue">Tech</span></span
+          >
+        </h2>
+        <p class="section-subtitle" itemprop="description">
+          {{ company_info.experience }}
+        </p>
+      </div>
     </div>
+
+    <div class="row g-4">
+      {% for value in company_info.core_values %}
+      <div class="col-md-4">
+        <div class="card value-card h-100 text-center">
+          <div class="card-body">
+            <div class="value-icon">
+              {% if loop.index == 1 %}
+              <i class="fas fa-lightbulb"></i>
+              {% elif loop.index == 2 %}
+              <i class="fas fa-award"></i>
+              {% elif loop.index == 3 %}
+              <i class="fas fa-users"></i>
+              {% endif %}
+            </div>
+            <h3 class="h4 mb-3">{{ value.title }}</h3>
+            <p>{{ value.description }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </section>
 
 <!-- Services Overview Section -->
 <section class="py-5 services-section">
-    <div class="container">
-        <div class="row justify-content-center mb-5">
-            <div class="col-lg-8 text-center">
-                <h2 class="section-title" data-i18n="Our Services">{{ _('Наши услуги') }}</h2>
-                <p class="section-subtitle" data-i18n="text">{{ _('Комплексные ИТ-решения, адаптированные под ваши потребности') }}</p>
-            </div>
-        </div>
-
-        <div class="row g-4">
-            {% for service in services_overview %}
-            <div class="col-lg-4 col-md-6">
-                <div class="card service-card">
-                    <div class="card-body">
-                        <div class="service-icon mb-3">
-                            <i class="fas {{ service.icon }} fa-2x"></i>
-                        </div>
-                        <h3 class="h5 card-title">{{ service.title }}</h3>
-                        <p class="card-text">{{ service.description }}</p>
-                        <a href="{{ url_for('services.index') }}#{{ service.title|lower|replace(' ', '-') }}" class="btn btn-sm btn-outline-primary mt-3" data-i18n="Learn More">{{ _('Узнать больше') }}</a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-8 text-center">
+        <h2 class="section-title" data-i18n="Our Services">
+          {{ _('Наши услуги') }}
+        </h2>
+        <p class="section-subtitle" data-i18n="text">
+          {{ _('Комплексные ИТ-решения, адаптированные под ваши потребности') }}
+        </p>
+      </div>
     </div>
+
+    <div class="row g-4">
+      {% for service in services_overview %}
+      <div class="col-lg-4 col-md-6">
+        <div class="card service-card">
+          <div class="card-body">
+            <div class="service-icon mb-3">
+              <i class="fas {{ service.icon }} fa-2x"></i>
+            </div>
+            <h3 class="h5 card-title">{{ service.title }}</h3>
+            <p class="card-text">{{ service.description }}</p>
+            <a href="{{ url_for('services.index') }}#{{ service.title|lower|replace(' ', '-') }}">
+                <button
+                    class="btn btn-sm btn-outline-primary mt-3"
+                    data-i18n="Learn More"
+                >
+                    {{ _('Узнать больше') }}
+                </button>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </section>
 
 <!-- Advantages Section with D3.js Visualization -->
 <section class="py-5 advantages-section">
-    <div class="container">
-        <div class="row justify-content-center mb-5">
-            <div class="col-lg-8 text-center">
-                <h2 class="section-title" data-i18n="Why Choose Us">{{ _('Почему выбирают нас') }}</h2>
-                <p class="section-subtitle" data-i18n="Delivering excellence through innovation and expertise">{{ _('Достигаем превосходства через инновации и экспертизу') }}</p>
-            </div>
-        </div>
-
-        <div class="row g-4">
-            {% for advantage in company_info.advantages %}
-            <div class="col-lg-6 col-md-6 mb-4">
-                <div class="advantage-item">
-                    <div class="d-flex align-items-center">
-                        <div class="advantage-icon me-3">
-                            <i class="fas {{ advantage.icon }} fa-2x text-primary"></i>
-                        </div>
-                        <div>
-                            <h3 class="h5 mb-2">{{ advantage.title }}</h3>
-                            <p class="mb-0">{{ advantage.description }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-8 text-center">
+        <h2 class="section-title" data-i18n="Why Choose Us">
+          {{ _('Почему выбирают нас') }}
+        </h2>
+        <p
+          class="section-subtitle"
+          data-i18n="Delivering excellence through innovation and expertise"
+        >
+          {{ _('Достигаем превосходства через инновации и экспертизу') }}
+        </p>
+      </div>
     </div>
+
+    <div class="row g-4">
+      {% for advantage in company_info.advantages %}
+      <div class="col-lg-6 col-md-6 mb-4">
+        <div class="advantage-item">
+          <div class="d-flex align-items-center">
+            <div class="advantage-icon me-3">
+              <i class="fas {{ advantage.icon }} fa-2x text-primary"></i>
+            </div>
+            <div>
+              <h3 class="h5 mb-2">{{ advantage.title }}</h3>
+              <p class="mb-0">{{ advantage.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </section>
 
 <!-- Solutions Redirect Section -->
 <section class="py-5 solutions-redirect-section">
-    <div class="container">
-        <div class="row justify-content-center mb-4">
-            <div class="col-lg-8 text-center">
-                <h2 class="section-title" data-i18n="Tailored Solutions">{{ _('Индивидуальные решения') }}</h2>
-                <p class="section-subtitle" data-i18n="We provide customized solutions for individuals and businesses">{{ _('Мы предоставляем индивидуальные решения для частных лиц и бизнеса') }}</p>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="card solution-redirect-card">
-                    <div class="card-body p-4 text-center">
-                        <div class="row align-items-center">
-                            <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
-                                <div class="solutions-icon-wrapper">
-                                    <div class="solution-icon me-2 me-md-0 mb-md-2">
-                                        <i class="fas fa-user fa-2x"></i>
-                                    </div>
-                                    <div class="d-none d-md-block text-center">
-                                        <span class="badge bg-light text-primary fw-normal px-3 py-2 rounded-pill" data-i18n="Individuals">{{ _('Частные лица') }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-4 mb-4 mb-md-0">
-                                <div class="solution-divider d-none d-md-block"></div>
-                                <div class="d-block d-md-none text-center mb-4">
-                                    <div class="d-flex justify-content-center">
-                                        <span class="badge bg-light text-primary fw-normal px-3 py-2 me-2 rounded-pill" data-i18n="Individuals">{{ _('Частные лица') }}</span>
-                                        <span class="badge bg-light text-primary fw-normal px-3 py-2 rounded-pill" data-i18n="Businesses">{{ _('Бизнес') }}</span>
-                                    </div>
-                                </div>
-                                <h3 class="h4 mb-3">{{ _('Выберите подход, который соответствует вашим конкретным потребностям') }}</h3>
-                                <p class="mb-4">{{ _('Независимо от того, нужно ли вам персональное решение или бизнес-ориентированные услуги, у нас есть опыт для предоставления высококачественных результатов, адаптированных к вашим требованиям.') }}</p>
-                                <a href="{{ url_for('services.index') }}#tailored-solutions" class="btn btn-primary px-4">
-                                    {{ _('Найти решения') }} <i class="fas fa-arrow-right ms-2"></i>
-                                </a>
-                            </div>
-                            <div class="col-lg-3 col-md-4">
-                                <div class="solutions-icon-wrapper">
-                                    <div class="solution-icon me-2 me-md-0 mb-md-2">
-                                        <i class="fas fa-briefcase fa-2x"></i>
-                                    </div>
-                                    <div class="d-none d-md-block text-center">
-                                        <span class="badge bg-light text-primary fw-normal px-3 py-2 rounded-pill" data-i18n="Businesses">{{ _('Бизнес') }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row justify-content-center mb-4">
+      <div class="col-lg-8 text-center">
+        <h2 class="section-title" data-i18n="Tailored Solutions">
+          {{ _('Индивидуальные решения') }}
+        </h2>
+        <p
+          class="section-subtitle"
+          data-i18n="We provide customized solutions for individuals and businesses"
+        >
+          {{ _('Мы предоставляем индивидуальные решения для частных лиц и
+          бизнеса') }}
+        </p>
+      </div>
     </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card solution-redirect-card">
+          <div class="card-body p-4 text-center">
+            <div class="row align-items-center">
+              <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
+                <div class="solutions-icon-wrapper">
+                  <div class="solution-icon me-2 me-md-0 mb-md-2">
+                    <i class="fas fa-user fa-2x"></i>
+                  </div>
+                  <div class="d-none d-md-block text-center">
+                    <span
+                      class="badge bg-light text-primary fw-normal px-3 py-2 rounded-pill"
+                      data-i18n="Individuals"
+                      >{{ _('Частные лица') }}</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-4 mb-4 mb-md-0">
+                <div class="solution-divider d-none d-md-block"></div>
+                <div class="d-block d-md-none text-center mb-4">
+                  <div class="d-flex justify-content-center">
+                    <span
+                      class="badge bg-light text-primary fw-normal px-3 py-2 me-2 rounded-pill"
+                      data-i18n="Individuals"
+                      >{{ _('Частные лица') }}</span
+                    >
+                    <span
+                      class="badge bg-light text-primary fw-normal px-3 py-2 rounded-pill"
+                      data-i18n="Businesses"
+                      >{{ _('Бизнес') }}</span
+                    >
+                  </div>
+                </div>
+                <h3 class="h4 mb-3">
+                  {{ _('Выберите подход, который соответствует вашим конкретным
+                  потребностям') }}
+                </h3>
+                <p class="mb-4">
+                  {{ _('Независимо от того, нужно ли вам персональное решение
+                  или бизнес-ориентированные услуги, у нас есть опыт для
+                  предоставления высококачественных результатов, адаптированных
+                  к вашим требованиям.') }}
+                </p>
+                <a href="{{ url_for('services.index') }}#tailored-solutions">
+                    <button
+                        class="btn btn-primary px-4"
+                    >
+                        {{ _('Найти решения') }}
+                    <i class="fas fa-arrow-right ms-2"></i>
+                  </button>
+                </a>
+              </div>
+              <div class="col-lg-3 col-md-4">
+                <div class="solutions-icon-wrapper">
+                  <div class="solution-icon me-2 me-md-0 mb-md-2">
+                    <i class="fas fa-briefcase fa-2x"></i>
+                  </div>
+                  <div class="d-none d-md-block text-center">
+                    <span
+                      class="badge bg-light text-primary fw-normal px-3 py-2 rounded-pill"
+                      data-i18n="Businesses"
+                      >{{ _('Бизнес') }}</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Technology Stack Visualization Section -->
 <section class="py-5 tech-stack-section bg-light">
-    <div class="container">
-        <div class="row justify-content-center mb-5">
-            <div class="col-lg-8 text-center">
-                <h2 class="section-title" data-i18n="Our Technology Stack">{{ _('Наш технологический стек') }}</h2>
-                <p class="section-subtitle" data-i18n="The cutting-edge tools and languages we use to build innovative solutions">{{ _('Передовые инструменты и языки, которые мы используем для создания инновационных решений') }}</p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-6">
-                <!-- Programming Languages Section -->
-                <div class="tech-category-panel mb-4">
-                    <h3 class="tech-category-heading" data-i18n="PROGRAMMING LANGUAGES">{{ _('ЯЗЫКИ ПРОГРАММИРОВАНИЯ') }}</h3>
-                    <p class="tech-category-description" data-i18n="We utilize a diverse set of programming languages to build solutions optimized for each specific use case.">{{ _('Мы используем различные языки программирования для создания решений, оптимизированных для каждого конкретного случая.') }}</p>
-                    <div class="tech-icons-container">
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Data science, AI, machine learning, backend development" title="{{ _('Наука о данных, ИИ, машинное обучение, бэкенд-разработка') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fab fa-python"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="Python">{{ _('Python') }}</span>
-                        </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Enterprise software, microservices, scalable systems" title="{{ _('Корпоративное ПО, микросервисы, масштабируемые системы') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fab fa-java"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="Java">{{ _('Java') }}</span>
-                        </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="High-performance applications, embedded systems" title="{{ _('Производительные приложения, встраиваемые системы') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="C++">{{ _('C++') }}</span>
-                        </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Dynamic web experiences, frontend interfaces" title="{{ _('Динамические веб-интерфейсы, фронтенд-разработка') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fab fa-js-square"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="JavaScript">{{ _('JavaScript') }}</span>
-                        </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Efficient concurrent systems, cloud-native services" title="{{ _('Эффективные параллельные системы, облачные сервисы') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fas fa-project-diagram"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="Go">{{ _('Go') }}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Databases & Storage Section -->
-                <div class="tech-category-panel">
-                    <h3 class="tech-category-heading" data-i18n="DATABASES & STORAGE">{{ _('БАЗЫ ДАННЫХ И ХРАНИЛИЩА') }}</h3>
-                    <p class="tech-category-description" data-i18n="We implement reliable and scalable database solutions tailored to your specific data management needs.">{{ _('Мы внедряем надежные и масштабируемые решения для баз данных, адаптированные к вашим конкретным потребностям управления данными.') }}</p>
-                    <div class="tech-icons-container">
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Relational database language, structured data, ACID compliance" title="{{ _('Язык реляционных баз данных, структурированные данные, соответствие ACID') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fas fa-database"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="SQL">{{ _('SQL') }}</span>
-                        </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Advanced relational database, enterprise features, scalability" title="{{ _('Продвинутая реляционная база данных, корпоративные функции, масштабируемость') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fas fa-database"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="PostgreSQL">{{ _('PostgreSQL') }}</span>
-                        </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="NoSQL document database, flexible schema, high-volume data" title="{{ _('NoSQL документоориентирован-ная база данных, гибкая схема, большие объемы данных') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fas fa-leaf"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="MongoDB">{{ _('MongoDB') }}</span>
-                        </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="In-memory data store, caching, real-time performance" title="{{ _('Хранилище данных в памяти, кэширование, производительность в реальном времени') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fas fa-database"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="Redis">{{ _('Redis') }}</span>
-                        </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Full-text search, analytics, log and metrics collection" title="{{ _('Полнотекстовый поиск, аналитика, сбор логов и метрик') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fas fa-search"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="Elasticsearch">{{ _('Elasticsearch') }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <!-- Frameworks & Libraries Section -->
-                <div class="tech-category-panel mb-4">
-                    <h3 class="tech-category-heading" data-i18n="FRAMEWORKS & LIBRARIES">{{ _('ФРЕЙМВОРКИ И БИБЛИОТЕКИ') }}</h3>
-                    <p class="tech-category-description" data-i18n="Our expert team leverages powerful frameworks and libraries to accelerate development and deliver robust solutions.">{{ _('Наша экспертная команда использует мощные фреймворки и библиотеки для ускорения разработки и создания надежных решений.') }}</p>
-                    <div class="tech-icons-container">
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Lightweight web applications, API services, rapid development" title="{{ _('Легковесные веб-приложения, API-сервисы, быстрая разработка') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fas fa-flask"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="Flask">{{ _('Flask') }}</span>
-                        </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Modern interactive UIs, component-based architecture" title="{{ _('Современные интерактивные интерфейсы, компонентная архитектура') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fab fa-react"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="React">{{ _('React') }}</span>
-                            </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="JavaScript backend, real-time applications, microservices" title="{{ _('JavaScript бэкенд, приложения реального времени, микросервисы') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fab fa-node-js"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="Node.js">{{ _('Node.js') }}</span>
-                        </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Progressive framework, reactive interfaces, easy integration" title="{{ _('Прогрессивный фреймворк, реактивные интерфейсы, легкая интеграция') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fab fa-vuejs"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="Vue.js">{{ _('Vue.js') }}</span>
-                        </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Enterprise-grade applications, comprehensive tooling" title="{{ _('Корпоративные приложения, комплексный инструментарий') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fab fa-angular"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="Angular">{{ _('Angular') }}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DevOps & Cloud Section -->
-                <div class="tech-category-panel">
-                    <h3 class="tech-category-heading" data-i18n="DEVOPS & CLOUD">{{ _('DEVOPS И ОБЛАЧНЫЕ ТЕХНОЛОГИИ') }}</h3>
-                    <p class="tech-category-description" data-i18n="Our DevOps and cloud expertise ensures seamless deployment, optimal performance, and reliable infrastructure.">{{ _('Наша экспертиза в DevOps и облачных технологиях обеспечивает безупречное развертывание, оптимальную производительность и надежную инфраструктуру.') }}</p>
-                    <div class="tech-icons-container">
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Containerization, consistent environments, rapid deployment" title="{{ _('Контейнеризация, консистентные среды, быстрое развертывание') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fab fa-docker"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="Docker">{{ _('Docker') }}</span>
-                        </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Version control, collaboration, code management" title="{{ _('Контроль версий, совместная работа, управление кодом') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fab fa-git-alt"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="Git">{{ _('Git') }}</span>
-                        </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Container orchestration, automated scaling, high availability" title="{{ _('Оркестрация контейнеров, автоматическое масштабирование, высокая доступность') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fas fa-dharmachakra"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="Kubernetes">{{ _('Kubernetes') }}</span>
-                        </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Smart analytics, machine learning, managed services" title="{{ _('Умная аналитика, машинное обучение, управляемые сервисы') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fab fa-google"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="Google Cloud">{{ _('Cloud') }}</span>
-                        </div>
-                        <div class="tech-item" data-bs-toggle="tooltip" data-bs-placement="top" data-i18n-tooltip="Automated testing, continuous integration, rapid releases" title="{{ _('Автоматизированное тестирование, непрерывная интеграция, быстрые релизы') }}">
-                            <div class="tech-icon-circle">
-                                <i class="fas fa-sync-alt"></i>
-                            </div>
-                            <span class="tech-label" data-i18n="CI/CD">{{ _('CI/CD') }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-8 text-center">
+        <h2 class="section-title" data-i18n="Our Technology Stack">
+          {{ _('Наш технологический стек') }}
+        </h2>
+        <p
+          class="section-subtitle"
+          data-i18n="The cutting-edge tools and languages we use to build innovative solutions"
+        >
+          {{ _('Передовые инструменты и языки, которые мы используем для
+          создания инновационных решений') }}
+        </p>
+      </div>
     </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <!-- Programming Languages Section -->
+        <div class="tech-category-panel mb-4">
+          <h3 class="tech-category-heading" data-i18n="PROGRAMMING LANGUAGES">
+            {{ _('ЯЗЫКИ ПРОГРАММИРОВАНИЯ') }}
+          </h3>
+          <p
+            class="tech-category-description"
+            data-i18n="We utilize a diverse set of programming languages to build solutions optimized for each specific use case."
+          >
+            {{ _('Мы используем различные языки программирования для создания
+            решений, оптимизированных для каждого конкретного случая.') }}
+          </p>
+          <div class="tech-icons-container">
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Data science, AI, machine learning, backend development"
+              title="{{ _('Наука о данных, ИИ, машинное обучение, бэкенд-разработка') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fab fa-python"></i>
+              </div>
+              <span class="tech-label" data-i18n="Python"
+                >{{ _('Python') }}</span
+              >
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Enterprise software, microservices, scalable systems"
+              title="{{ _('Корпоративное ПО, микросервисы, масштабируемые системы') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fab fa-java"></i>
+              </div>
+              <span class="tech-label" data-i18n="Java">{{ _('Java') }}</span>
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="High-performance applications, embedded systems"
+              title="{{ _('Производительные приложения, встраиваемые системы') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fas fa-code"></i>
+              </div>
+              <span class="tech-label" data-i18n="C++">{{ _('C++') }}</span>
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Dynamic web experiences, frontend interfaces"
+              title="{{ _('Динамические веб-интерфейсы, фронтенд-разработка') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fab fa-js-square"></i>
+              </div>
+              <span class="tech-label" data-i18n="JavaScript"
+                >{{ _('JavaScript') }}</span
+              >
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Efficient concurrent systems, cloud-native services"
+              title="{{ _('Эффективные параллельные системы, облачные сервисы') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fas fa-project-diagram"></i>
+              </div>
+              <span class="tech-label" data-i18n="Go">{{ _('Go') }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Databases & Storage Section -->
+        <div class="tech-category-panel">
+          <h3 class="tech-category-heading" data-i18n="DATABASES & STORAGE">
+            {{ _('БАЗЫ ДАННЫХ И ХРАНИЛИЩА') }}
+          </h3>
+          <p
+            class="tech-category-description"
+            data-i18n="We implement reliable and scalable database solutions tailored to your specific data management needs."
+          >
+            {{ _('Мы внедряем надежные и масштабируемые решения для баз данных,
+            адаптированные к вашим конкретным потребностям управления данными.')
+            }}
+          </p>
+          <div class="tech-icons-container">
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Relational database language, structured data, ACID compliance"
+              title="{{ _('Язык реляционных баз данных, структурированные данные, соответствие ACID') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fas fa-database"></i>
+              </div>
+              <span class="tech-label" data-i18n="SQL">{{ _('SQL') }}</span>
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Advanced relational database, enterprise features, scalability"
+              title="{{ _('Продвинутая реляционная база данных, корпоративные функции, масштабируемость') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fas fa-database"></i>
+              </div>
+              <span class="tech-label" data-i18n="PostgreSQL"
+                >{{ _('PostgreSQL') }}</span
+              >
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="NoSQL document database, flexible schema, high-volume data"
+              title="{{ _('NoSQL документоориентирован-ная база данных, гибкая схема, большие объемы данных') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fas fa-leaf"></i>
+              </div>
+              <span class="tech-label" data-i18n="MongoDB"
+                >{{ _('MongoDB') }}</span
+              >
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="In-memory data store, caching, real-time performance"
+              title="{{ _('Хранилище данных в памяти, кэширование, производительность в реальном времени') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fas fa-database"></i>
+              </div>
+              <span class="tech-label" data-i18n="Redis">{{ _('Redis') }}</span>
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Full-text search, analytics, log and metrics collection"
+              title="{{ _('Полнотекстовый поиск, аналитика, сбор логов и метрик') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fas fa-search"></i>
+              </div>
+              <span class="tech-label" data-i18n="Elasticsearch"
+                >{{ _('Elasticsearch') }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <!-- Frameworks & Libraries Section -->
+        <div class="tech-category-panel mb-4">
+          <h3 class="tech-category-heading" data-i18n="FRAMEWORKS & LIBRARIES">
+            {{ _('ФРЕЙМВОРКИ И БИБЛИОТЕКИ') }}
+          </h3>
+          <p
+            class="tech-category-description"
+            data-i18n="Our expert team leverages powerful frameworks and libraries to accelerate development and deliver robust solutions."
+          >
+            {{ _('Наша экспертная команда использует мощные фреймворки и
+            библиотеки для ускорения разработки и создания надежных решений.')
+            }}
+          </p>
+          <div class="tech-icons-container">
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Lightweight web applications, API services, rapid development"
+              title="{{ _('Легковесные веб-приложения, API-сервисы, быстрая разработка') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fas fa-flask"></i>
+              </div>
+              <span class="tech-label" data-i18n="Flask">{{ _('Flask') }}</span>
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Modern interactive UIs, component-based architecture"
+              title="{{ _('Современные интерактивные интерфейсы, компонентная архитектура') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fab fa-react"></i>
+              </div>
+              <span class="tech-label" data-i18n="React">{{ _('React') }}</span>
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="JavaScript backend, real-time applications, microservices"
+              title="{{ _('JavaScript бэкенд, приложения реального времени, микросервисы') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fab fa-node-js"></i>
+              </div>
+              <span class="tech-label" data-i18n="Node.js"
+                >{{ _('Node.js') }}</span
+              >
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Progressive framework, reactive interfaces, easy integration"
+              title="{{ _('Прогрессивный фреймворк, реактивные интерфейсы, легкая интеграция') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fab fa-vuejs"></i>
+              </div>
+              <span class="tech-label" data-i18n="Vue.js"
+                >{{ _('Vue.js') }}</span
+              >
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Enterprise-grade applications, comprehensive tooling"
+              title="{{ _('Корпоративные приложения, комплексный инструментарий') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fab fa-angular"></i>
+              </div>
+              <span class="tech-label" data-i18n="Angular"
+                >{{ _('Angular') }}</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- DevOps & Cloud Section -->
+        <div class="tech-category-panel">
+          <h3 class="tech-category-heading" data-i18n="DEVOPS & CLOUD">
+            {{ _('DEVOPS И ОБЛАЧНЫЕ ТЕХНОЛОГИИ') }}
+          </h3>
+          <p
+            class="tech-category-description"
+            data-i18n="Our DevOps and cloud expertise ensures seamless deployment, optimal performance, and reliable infrastructure."
+          >
+            {{ _('Наша экспертиза в DevOps и облачных технологиях обеспечивает
+            безупречное развертывание, оптимальную производительность и надежную
+            инфраструктуру.') }}
+          </p>
+          <div class="tech-icons-container">
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Containerization, consistent environments, rapid deployment"
+              title="{{ _('Контейнеризация, консистентные среды, быстрое развертывание') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fab fa-docker"></i>
+              </div>
+              <span class="tech-label" data-i18n="Docker"
+                >{{ _('Docker') }}</span
+              >
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Version control, collaboration, code management"
+              title="{{ _('Контроль версий, совместная работа, управление кодом') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fab fa-git-alt"></i>
+              </div>
+              <span class="tech-label" data-i18n="Git">{{ _('Git') }}</span>
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Container orchestration, automated scaling, high availability"
+              title="{{ _('Оркестрация контейнеров, автоматическое масштабирование, высокая доступность') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fas fa-dharmachakra"></i>
+              </div>
+              <span class="tech-label" data-i18n="Kubernetes"
+                >{{ _('Kubernetes') }}</span
+              >
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Smart analytics, machine learning, managed services"
+              title="{{ _('Умная аналитика, машинное обучение, управляемые сервисы') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fab fa-google"></i>
+              </div>
+              <span class="tech-label" data-i18n="Google Cloud"
+                >{{ _('Cloud') }}</span
+              >
+            </div>
+            <div
+              class="tech-item"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              data-i18n-tooltip="Automated testing, continuous integration, rapid releases"
+              title="{{ _('Автоматизированное тестирование, непрерывная интеграция, быстрые релизы') }}"
+            >
+              <div class="tech-icon-circle">
+                <i class="fas fa-sync-alt"></i>
+              </div>
+              <span class="tech-label" data-i18n="CI/CD">{{ _('CI/CD') }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Call to Action Section -->
 <section class="py-5 cta-section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10 text-center">
-                <h2 class="display-5 mb-4" data-i18n="Ready to transform your business with technology?">{{ _('Готовы трансформировать ваш бизнес с помощью технологий?') }}</h2>
-                <p class="lead mb-4" data-i18n="Get in touch with our experts to discuss your project requirements and discover how EchoTech can help you achieve your digital goals.">{{ _('Свяжитесь с нашими экспертами для обсуждения требований к вашему проекту и узнайте, как EchoTech может помочь вам достичь ваших цифровых целей.') }}</p>
-                <a href="{{ url_for('contact.index') }}" class="btn btn-primary btn-lg" data-i18n="Contact Us Today">{{ _('Свяжитесь с нами сегодня') }}</a>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 text-center">
+        <h2
+          class="display-5 mb-4"
+          data-i18n="Ready to transform your business with technology?"
+        >
+          {{ _('Готовы трансформировать ваш бизнес с помощью технологий?') }}
+        </h2>
+        <p
+          class="lead mb-4"
+          data-i18n="Get in touch with our experts to discuss your project requirements and discover how EchoTech can help you achieve your digital goals."
+        >
+          {{ _('Свяжитесь с нашими экспертами для обсуждения требований к вашему
+          проекту и узнайте, как EchoTech может помочь вам достичь ваших
+          цифровых целей.') }}
+        </p>
+        <a href="{{ url_for('contact.index') }}">
+            <button
+                class="btn btn-primary btn-lg"
+                data-i18n="Contact Us Today"
+            >
+                {{ _('Свяжитесь с нами сегодня') }}
+            </button>
+        </a>
+      </div>
     </div>
+  </div>
 </section>
-{% endblock %}
-
-{% block extra_scripts %}
-<script>
-    // This script will be initialized by animations.js and visualizations.js
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialize 3D animation for hero section
-        initHeroAnimation('hero-canvas');
-
-        // Инициализация всплывающих подсказок (tooltips)
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl, {
-                trigger: 'hover',
-                placement: 'top',
-                html: false,
-                animation: true,
-                delay: { show: 200, hide: 100 }
-            });
-        });
-
-        // Анимация появления категорий и их описаний
-        const techCategories = document.querySelectorAll('.tech-category-heading');
-        const techDescriptions = document.querySelectorAll('.tech-category-description');
-
-        techCategories.forEach((category, categoryIndex) => {
-            setTimeout(() => {
-                category.style.opacity = "1";
-
-                // Также показываем соответствующее описание с небольшой задержкой
-                if (techDescriptions[categoryIndex]) {
-                    setTimeout(() => {
-                        techDescriptions[categoryIndex].style.opacity = "1";
-                    }, 100);
-                }
-            }, categoryIndex * 150);
-        });
-
-        // Анимация появления иконок технологий
-        document.querySelectorAll('.tech-item').forEach((item, index) => {
-            // Находим родительский контейнер категории
-            const parentPanel = item.closest('.tech-category-panel');
-            const categoryIndex = Array.from(document.querySelectorAll('.tech-category-panel')).indexOf(parentPanel);
-
-            // Добавляем базовую задержку для категории + задержку для элемента
-            const categoryDelay = 200 * (categoryIndex + 1);
-            const itemDelay = 50 * (index % 6); // 6 элементов в ряду
-
-            // Скрываем элемент изначально
-            item.style.opacity = "0";
-            item.style.transform = "translateY(20px)";
-
-            // Добавляем задержку для поочередного появления
-            setTimeout(() => {
-                item.style.opacity = "1";
-                item.style.transform = "translateY(0)";
-            }, categoryDelay + itemDelay);
-        });
-
-        // Анимация для блока перенаправления
-        const solutionRedirectCard = document.querySelector('.solution-redirect-card');
-        setTimeout(() => {
-            if (solutionRedirectCard) {
-                solutionRedirectCard.classList.add('fade-in-up');
-            }
-        }, 300);
-    });
-</script>
+{% endblock %} {% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/scripts/home.js') }}"></script>
 {% endblock %}

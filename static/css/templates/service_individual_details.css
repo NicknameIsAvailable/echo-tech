@@ -1,0 +1,1212 @@
+.service-details-page {
+    padding-bottom: 60px;
+    position: relative;
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+/* Анимация появления элементов без мерцания */
+@keyframes smoothFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Улучшенные хлебные крошки */
+.custom-breadcrumb {
+    margin-bottom: 20px;
+    background-color: rgba(var(--background-secondary-rgb), 0.5);
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.breadcrumb-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Улучшенный заголовок */
+.service-detail-header {
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 40px;
+}
+
+.service-detail-header h1 {
+    color: var(--text-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.2rem;
+}
+
+.service-detail-header h1::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), transparent);
+    border-radius: 2px;
+}
+
+.service-detail-header .lead {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 900px;
+}
+
+.service-icon-large {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.2), rgba(var(--primary-rgb), 0.1));
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    margin: 0 auto;
+    box-shadow: 0 10px 25px rgba(var(--primary-rgb), 0.15);
+    transition: all 0.5s ease;
+    transform-style: preserve-3d;
+}
+
+.service-icon-large:hover {
+    transform: translateY(-8px) rotateY(10deg);
+    box-shadow: 0 15px 35px rgba(var(--primary-rgb), 0.25);
+}
+
+/* Улучшенные разделы */
+.section-header {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    color: var(--text-primary);
+    font-size: 1.75rem;
+    font-weight: 600;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 0.5rem;
+    padding-bottom: 10px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), transparent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.section-title:hover::after {
+    width: 100%;
+}
+
+/* Технологический стек - новый дизайн */
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 25px;
+    perspective: 1000px;
+}
+
+.tech-category-card {
+    background: linear-gradient(145deg, 
+        rgba(var(--background-secondary-rgb, 30, 40, 50), 0.7), 
+        rgba(var(--background-tertiary-rgb, 40, 50, 70), 0.5));
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(var(--primary-rgb), 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+    animation: techCardAppear 0.6s backwards;
+}
+
+.tech-category-card:hover {
+    transform: translateY(-10px) rotateX(3deg) rotateY(3deg);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 20px rgba(var(--primary-rgb), 0.2);
+    border-color: rgba(var(--primary-rgb), 0.3);
+}
+
+.tech-category-header {
+    background: linear-gradient(135deg, 
+        rgba(var(--primary-rgb), 0.15), 
+        rgba(var(--primary-rgb), 0.05));
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(var(--primary-rgb), 0.1);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.tech-category-header::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    top: 0;
+    left: -100%;
+    transform: skewX(-15deg);
+    transition: all 0.7s ease;
+}
+
+.tech-category-card:hover .tech-category-header::before {
+    left: 100%;
+}
+
+.tech-category-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-right: 15px;
+    text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.3);
+    transition: all 0.3s ease;
+}
+
+.tech-category-card:hover .tech-category-icon {
+    transform: scale(1.2) rotate(5deg);
+    text-shadow: 0 0 15px rgba(var(--primary-rgb), 0.5);
+}
+
+.tech-category-title {
+    color: var(--heading-color, #fff);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.tech-items {
+    padding: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+}
+
+.tech-item-card {
+    background: rgba(var(--background-tertiary-rgb, 40, 50, 70), 0.4);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(var(--primary-rgb), 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.tech-item-card::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle at center, rgba(var(--primary-rgb), 0.1) 0%, rgba(var(--primary-rgb), 0) 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tech-item-card:hover {
+    transform: translateY(-5px);
+    background: rgba(var(--background-tertiary-rgb, 40, 50, 70), 0.6);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-color: rgba(var(--primary-rgb), 0.2);
+}
+
+.tech-item-card:hover::before {
+    opacity: 1;
+}
+
+.tech-icon-wrap {
+    width: 50px;
+    height: 50px;
+    background: rgba(var(--primary-rgb), 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0 rgba(var(--primary-rgb), 0.5);
+}
+
+.tech-item-card:hover .tech-icon-wrap {
+    background: rgba(var(--primary-rgb), 0.2);
+    transform: scale(1.1) rotate(10deg);
+    animation: pulse 1.5s infinite;
+}
+
+.tech-item-card span {
+    color: var(--text-primary, #e9ecef);
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.tech-item-card:hover span {
+    color: var(--primary-light, #8ca4ff);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.5);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(var(--primary-rgb), 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0);
+    }
+}
+
+@keyframes techCardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.tech-stack-category:nth-child(1) { animation-delay: 0.1s; }
+.tech-stack-category:nth-child(2) { animation-delay: 0.2s; }
+.tech-stack-category:nth-child(3) { animation-delay: 0.3s; }
+.tech-stack-category:nth-child(4) { animation-delay: 0.4s; }
+.tech-stack-category:nth-child(5) { animation-delay: 0.5s; }
+.tech-stack-category:nth-child(6) { animation-delay: 0.6s; }
+
+/* Стили для светлой темы */
+[data-theme="light"] .tech-category-card {
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.9), 
+        rgba(240, 242, 246, 0.8));
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .tech-category-header {
+    background: linear-gradient(135deg, 
+        rgba(var(--primary-rgb), 0.1), 
+        rgba(var(--primary-rgb), 0.03));
+}
+
+[data-theme="light"] .tech-item-card {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .tech-item-card:hover {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .tech-category-card:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1), 0 0 15px rgba(var(--primary-rgb), 0.15);
+}
+
+/* Улучшенные преимущества */
+.advantages-description {
+    background-color: rgba(var(--background-secondary-rgb), 0.5);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-left: 4px solid var(--primary-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.advantages-description:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transform: translateY(-3px);
+}
+
+.advantages-description p {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.advantage-box-detailed {
+    background-color: rgba(var(--background-secondary-rgb), 0.5);
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    transition: all 0.4s ease;
+    border-left: 5px solid #0d6efd !important; /* явно указываем синий цвет */
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 1;
+}
+
+.advantage-box-detailed::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(45deg, rgba(var(--primary-rgb), 0.03), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.advantage-box-detailed:hover {
+    background-color: rgba(var(--background-tertiary-rgb), 0.5);
+    transform: translateY(-8px);
+    border-left-color: var(--primary-color);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.advantage-box-detailed:hover::before {
+    opacity: 1;
+}
+
+.advantage-icon {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(var(--primary-rgb), 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    flex-shrink: 0;
+    font-size: 1.4rem;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 10px rgba(var(--primary-rgb), 0.1);
+}
+
+.advantage-box-detailed:hover .advantage-icon {
+    transform: scale(1.15) rotateY(180deg);
+    background-color: rgba(var(--primary-rgb), 0.2);
+    box-shadow: 0 6px 15px rgba(var(--primary-rgb), 0.2);
+}
+
+.advantage-content {
+    flex: 1;
+}
+
+.advantage-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+    position: relative;
+    display: inline-block;
+}
+
+.advantage-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+}
+
+/* Улучшенные карточки услуг */
+.service-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 30px;
+}
+
+.service-card {
+    position: relative;
+    border-radius: 18px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s ease;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    height: 100%;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.05) 0%, transparent 100%);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.service-card:hover::before {
+    opacity: 1;
+}
+
+.service-card-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.3), rgba(var(--primary-rgb), 0.1));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin: 30px auto 20px;
+    box-shadow: 0 8px 20px rgba(var(--primary-rgb), 0.15);
+    transition: all 0.4s ease;
+}
+
+.service-card:hover .service-card-icon {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 12px 25px rgba(var(--primary-rgb), 0.25);
+}
+
+.service-card-content {
+    padding: 0 30px 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.service-card-description {
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.service-benefits {
+    margin-bottom: 25px;
+    flex: 1;
+}
+
+.service-benefit {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+    transition: all 0.3s ease;
+    transform: translateX(0);
+}
+
+.service-card:hover .service-benefit {
+    transform: translateX(5px);
+}
+
+.service-benefit i {
+    color: var(--success-color);
+    margin-right: 12px;
+    font-size: 1rem;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.service-results {
+    background-color: rgba(var(--primary-rgb), 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: auto;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .service-results {
+    background-color: rgba(var(--primary-rgb), 0.15);
+    transform: translateY(-5px);
+}
+
+.service-results h4 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+}
+
+.service-results h4::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--primary-color);
+    border-radius: 1px;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .advantages-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    .service-cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+    .tech-stack-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .advantages-grid {
+        grid-template-columns: 1fr;
+    }
+    .tech-stack-container {
+        grid-template-columns: 1fr;
+    }
+    .service-detail-header h1 {
+        font-size: 2rem;
+    }
+    .section-title {
+        font-size: 1.3rem;
+    }
+    .service-icon-large {
+        margin-top: 20px;
+    }
+    .tech-stack-item-name {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .tech-stack-category-title {
+        font-size: 1rem;
+    }
+    .tech-stack-item-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+}
+
+/* Стили для обновленного технологического стека */
+.tech-stack-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.tech-stack-category {
+    background-color: var(--background-secondary);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.tech-stack-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.tech-stack-category-header {
+    background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.15), rgba(var(--primary-rgb), 0.05));
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.tech-stack-category-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(var(--primary-rgb), 0.2);
+    border-radius: 50%;
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+.tech-stack-category-title {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.tech-stack-items {
+    padding: 20px;
+}
+
+.tech-stack-item {
+    background-color: var(--background-primary);
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.tech-stack-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.tech-stack-item-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.2), rgba(var(--primary-rgb), 0.1));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    transition: all 0.3s ease;
+}
+
+.tech-stack-item:hover .tech-stack-item-icon {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 8px 15px rgba(var(--primary-rgb), 0.2);
+}
+
+.tech-stack-item-name {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 1.05rem;
+    margin-top: 10px;
+}
+
+/* Анимация появления технологий */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tech-stack-category {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.tech-stack-category:nth-child(1) { animation-delay: 0.1s; }
+.tech-stack-category:nth-child(2) { animation-delay: 0.2s; }
+.tech-stack-category:nth-child(3) { animation-delay: 0.3s; }
+.tech-stack-category:nth-child(4) { animation-delay: 0.4s; }
+.tech-stack-category:nth-child(5) { animation-delay: 0.5s; }
+.tech-stack-category:nth-child(6) { animation-delay: 0.6s; }
+
+.tech-stack-item {
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+    animation-delay: calc(0.1s * var(--animation-order, 0));
+}
+
+/* Боковая панель */
+.sticky-sidebar {
+    position: sticky;
+    top: 120px;
+}
+
+/* Улучшенные карточки в боковой панели */
+.contact-card,
+.other-services-card {
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(var(--primary-rgb), 0.1);
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(145deg, 
+        rgba(var(--background-secondary-rgb), 0.7), 
+        rgba(var(--background-tertiary-rgb), 0.5));
+}
+
+.contact-card::before,
+.other-services-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        rgba(var(--primary-rgb), 0.08) 0%, 
+        transparent 80%);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.contact-card:hover,
+.other-services-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), 0 0 15px rgba(var(--primary-rgb), 0.1);
+    border-color: rgba(var(--primary-rgb), 0.2);
+}
+
+.contact-card:hover::before,
+.other-services-card:hover::before {
+    opacity: 1;
+}
+
+/* Контактная карточка */
+.contact-card-body {
+    padding: 30px;
+    position: relative;
+}
+
+.contact-card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+    position: relative;
+    display: inline-block;
+}
+
+.contact-card-title::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), transparent);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.contact-card:hover .contact-card-title::after {
+    width: 100%;
+}
+
+.contact-card-text {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.btn-contact {
+    width: 100%;
+    padding: 12px 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    border: none;
+    position: relative;
+    overflow: hidden !important;
+    transition: all 0.3s ease;
+    transform: translateY(0);
+    z-index: 1;
+}
+
+.btn-contact::after {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 100%;
+    top: 0;
+    left: -200%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent);
+    transform: skewX(-25deg);
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.9;
+    mix-blend-mode: overlay;
+}
+
+/* Специальные стили для темной темы */
+[data-theme="dark"] .btn-contact {
+    overflow: hidden !important;
+    isolation: isolate;
+}
+
+[data-theme="dark"] .btn-contact::after {
+    mix-blend-mode: overlay;
+    max-width: 150%;
+    width: 150%;
+}
+
+/* Общие стили эффекта наведения */
+.btn-contact:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.4);
+}
+
+.btn-contact:hover::after {
+    left: 120%;
+    opacity: 1;
+}
+
+/* Карточка других услуг */
+.other-services-card-body {
+    padding: 30px;
+}
+
+.other-services-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+    position: relative;
+    display: inline-block;
+}
+
+.other-services-title::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), transparent);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.other-services-card:hover .other-services-title::after {
+    width: 100%;
+}
+
+.other-services-links {
+    margin-bottom: 25px;
+}
+
+.other-service-link {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 12px;
+    background: linear-gradient(145deg,
+        rgba(var(--background-tertiary-rgb), 0.3),
+        rgba(var(--background-tertiary-rgb), 0.1));
+    margin-bottom: 15px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(var(--primary-rgb), 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.other-service-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        rgba(var(--primary-rgb), 0.05),
+        transparent);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.other-service-link:hover {
+    transform: translateX(8px);
+    background: linear-gradient(145deg,
+        rgba(var(--primary-rgb), 0.15),
+        rgba(var(--primary-rgb), 0.05));
+    color: var(--primary-color);
+    border-color: rgba(var(--primary-rgb), 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.other-service-link:hover::before {
+    opacity: 1;
+}
+
+.other-service-link i {
+    margin-right: 15px;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(var(--primary-rgb), 0.1);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.other-service-link:hover i {
+    transform: scale(1.1) rotate(5deg);
+    background-color: rgba(var(--primary-rgb), 0.2);
+}
+
+.other-service-link span {
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-all-services {
+    width: 100%;
+    padding: 12px 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    z-index: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-all-services:hover {
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(var(--primary-rgb), 0.2);
+    background-color: var(--primary-color);
+}
+
+.btn-all-services::before {
+    display: none;
+}
+     
+/* Адаптивность для боковой панели */
+@media (max-width: 992px) {
+    .sticky-sidebar {
+        position: relative;
+        top: 0;
+        margin-top: 40px;
+    }
+    
+    .advantages-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    
+    .service-cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+    
+    .tech-stack-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .advantages-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .tech-stack-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .service-detail-header h1 {
+        font-size: 2rem;
+    }
+    
+    .section-title {
+        font-size: 1.3rem;
+    }
+    
+    .service-icon-large {
+        margin-top: 20px;
+    }
+    
+    .tech-stack-item-name {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .tech-stack-category-title {
+        font-size: 1rem;
+    }
+    
+    .tech-stack-item-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+}
+
+.info-content {
+    background-color: var(--background-secondary);
+    border-radius: 15px;
+    padding: 25px;
+    line-height: 1.7;
+    font-size: 1.05rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.info-content:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+/* Стили для элементов результатов внедрения */
+.results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.result-box {
+    background-color: var(--background-secondary);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.result-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.08) 0%, transparent 80%);
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.result-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.result-box:hover::before {
+    opacity: 1;
+}
+
+.result-box i {
+    margin-right: 18px;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    background-color: rgba(var(--primary-rgb), 0.1);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.result-box:hover i {
+    background-color: rgba(var(--primary-rgb), 0.2);
+    transform: scale(1.1) rotate(10deg);
+}
+
+.result-box span {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+    font-weight: 500;
+}
+
+/* Результаты внедрения */
+.results-section {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+/* Удаляем синюю вертикальную линию слева */
+.results-section::before {
+    display: none;
+}
+
+/* Дополнительная информация */
+.additional-info-section {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+/* Удаляем синюю вертикальную линию слева */
+.additional-info-section::before {
+    display: none;
+}
